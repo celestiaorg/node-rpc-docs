@@ -41,6 +41,11 @@
       U+2215, U+FEFF, U+FFFD;
   }
 
+  @font-face {
+    font-family: 'ruberoid';
+    src: url(/fonts/ruberoidsemi_bold.woff) format('woff');
+  }
+
   .cursor-newtab {
     cursor: url('/images/new-tab.png') 10 10, pointer;
   }

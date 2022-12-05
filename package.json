@@ -18,11 +18,14 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.4",
+    "@heroicons/react": "^2.0.13",
     "clsx": "^1.2.1",
     "next": "^13.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
+    "react-syntax-highlighter": "^15.5.0",
     "tailwind-merge": "^1.8.0"
   },
   "devDependencies": {
