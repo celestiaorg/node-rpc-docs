@@ -8,9 +8,11 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { spec } from '@/lib/spec';
 
 const clients = [
-  { name: 'Golang', href: '#', current: false },
-  { name: 'Rust', href: '#', current: false },
-  { name: 'Typescript', href: '#', current: false },
+  {
+    name: 'Golang',
+    href: 'https://github.com/celestiaorg/celestia-node/blob/main/api/rpc/client/client.go',
+    current: false,
+  },
 ];
 
 function classNames(...classes: any[]) {
@@ -187,7 +189,7 @@ export default function Example() {
                   ([pkg, methods]) => (
                     <a
                       key={pkg}
-                      href={pkg}
+                      href={'#' + pkg}
                       // className='group ml-4 flex items-center rounded-md px-2 text-base text-gray-700'
                       className='group ml-2 flex items-center rounded-md px-2 text-sm font-medium capitalize text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                     >
@@ -289,7 +291,7 @@ export default function Example() {
                   <div className='py-4'>
                     {Object.entries(getMethodsByPackage(spec)).map(
                       ([pkg, methods]) => (
-                        <div key={pkg} className='pb-6'>
+                        <div key={pkg} className='pb-6' id={pkg}>
                           <h3 className='font-[ruberoid] text-2xl font-bold uppercase'>
                             {pkg}
                           </h3>
