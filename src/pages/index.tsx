@@ -26,11 +26,16 @@ type Param = {
 type Method = {
   name: string;
   description: string;
+  auth: string;
   params: Param[];
   result: Param;
 };
 
 type MethodByPkg = { [key: string]: Method[] };
+
+function extractAuth(methodDescription: string): string {
+  return methodDescription.split('Auth level: ')[1];
+}
 
 function getMethodsByPackage(spec: any): MethodByPkg {
   const methodsByPackage: MethodByPkg = {};
@@ -44,6 +49,7 @@ function getMethodsByPackage(spec: any): MethodByPkg {
           name: name,
           description: method.summary,
           params: method.params,
+          auth: extractAuth(method.description),
           result: method.result,
         },
       ];
@@ -52,6 +58,7 @@ function getMethodsByPackage(spec: any): MethodByPkg {
         name: name,
         description: method.summary,
         params: method.params,
+        auth: extractAuth(method.description),
         result: method.result,
       });
     }
@@ -174,7 +181,7 @@ export default function Example() {
             <div className='mt-5 flex flex-grow flex-col'>
               <nav className='flex-1 space-y-1 px-2 pb-4'>
                 <a className='group flex items-center rounded-md px-2 text-base font-medium text-gray-900'>
-                  Celestia Node API V1
+                  Celestia Node API
                 </a>
                 {Object.entries(getMethodsByPackage(spec)).map(
                   ([pkg, methods]) => (
@@ -253,7 +260,7 @@ export default function Example() {
                   <div className='flex'>
                     <img src='/images/icon-1.png' className='h-16' />
                     <h1 className='my-auto ml-2 font-[ruberoid] text-3xl font-semibold text-gray-900'>
-                      {spec.info.title}
+                      {spec.info.title} Playground
                     </h1>
                     <span className='my-auto ml-4 inline-flex h-8 items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
                       {spec.info.version}
@@ -418,6 +425,9 @@ const RPCMethod = (
             {method.result.description}
           </span>
         )}
+        <span className='ml-2 inline-flex items-center rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800'>
+          perms: {method.auth}
+        </span>
       </p>
       <p className='text-sm font-light text-gray-700'>{method.description}</p>
       <div className='mt-6 overflow-hidden rounded-lg bg-white text-sm shadow'>
