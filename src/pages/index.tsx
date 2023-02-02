@@ -1,15 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import {
-  Bars3BottomLeftIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
-  UsersIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline';
+import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { Fragment, useState } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -20,15 +11,6 @@ const clients = [
   { name: 'Golang', href: '#', current: false },
   { name: 'Rust', href: '#', current: false },
   { name: 'Typescript', href: '#', current: false },
-];
-
-const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Documents', href: '#', icon: InboxIcon, current: false },
-  { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
 ];
 
 function classNames(...classes: any[]) {
@@ -167,29 +149,6 @@ export default function Example() {
                           </a>
                         )
                       )}
-                      {/* {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? 'bg-gray-100 text-gray-900'
-                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                            'group flex items-center rounded-md py-2 px-2 text-base font-medium'
-                          )}
-                        >
-                          <item.icon
-                            className={classNames(
-                              item.current
-                                ? 'text-gray-500'
-                                : 'text-gray-400 group-hover:text-gray-500',
-                              'mr-4 h-6 w-6 flex-shrink-0'
-                            )}
-                            aria-hidden='true'
-                          />
-                          {item.name}
-                        </a>
-                      ))} */}
                     </nav>
                   </div>
                 </Dialog.Panel>
@@ -461,11 +420,6 @@ const RPCMethod = (
         )}
       </p>
       <p className='text-sm font-light text-gray-700'>{method.description}</p>
-      {/*<span*/}
-      {/*    className="inline-flex items-center rounded bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-800"*/}
-      {/*>*/}
-      {/*    {"> Try it out"}*/}
-      {/*</span>*/}
       <div className='mt-6 overflow-hidden rounded-lg bg-white text-sm shadow'>
         <div
           className='flex px-4 py-5 hover:cursor-pointer hover:bg-gray-50 sm:px-6'
