@@ -287,6 +287,390 @@ export const spec = {
       },
     },
     {
+      name: 'header.GetByHash',
+      description: 'Auth level: public',
+      summary:
+        "GetByHash returns the header of the given hash from the node's header store.\n",
+      paramStructure: 'by-position',
+      params: [
+        {
+          name: 'hash',
+          description: 'libhead.Hash',
+          summary: '',
+          schema: {
+            examples: ['07'],
+            items: [
+              {
+                type: ['integer'],
+              },
+            ],
+            type: ['array'],
+          },
+          required: true,
+          deprecated: false,
+        },
+      ],
+      result: {
+        name: '*header.ExtendedHeader',
+        description: '*header.ExtendedHeader',
+        summary: '',
+        schema: {
+          examples: [
+            {
+              header: {
+                version: {
+                  block: '11',
+                },
+                chain_id: 'arabica-6',
+                height: '67374',
+                time: '2023-02-25T12:10:28.067566292Z',
+                last_block_id: {
+                  hash: '47A2C7758760988500B2F043D3903BBBF1C8B383CA33CF7056AA45E22055663E',
+                  parts: {
+                    total: 1,
+                    hash: '33B012F244E27672169DD3D62CDBC92DA9486E410A5530F41FE6A890D8E2EE42',
+                  },
+                },
+                last_commit_hash:
+                  '888D47F5E9473501C99F2B6136B6B9FFBC9D1CD2F54002BCD5DF002FFEF0A83D',
+                data_hash:
+                  '257760461993F8F197B421EC7435F3C36C3734923E3DA9A42DC73B05F07B3D08',
+                validators_hash:
+                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                next_validators_hash:
+                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                consensus_hash:
+                  '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
+                app_hash:
+                  '1FC70854A185737C7FD720FCCE9167876EE4B9ABE23DB1EBB8C552D3E3978435',
+                last_results_hash:
+                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                evidence_hash:
+                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                proposer_address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+              },
+              validator_set: {
+                validators: [
+                  {
+                    address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                    pub_key: {
+                      type: 'tendermint/PubKeyEd25519',
+                      value: 'aoB4xU9//HAqOP9ciyp0+PTdZxt/UGKgZOabU6JxW8o=',
+                    },
+                    voting_power: '5000000000',
+                    proposer_priority: '0',
+                  },
+                ],
+                proposer: {
+                  address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                  pub_key: {
+                    type: 'tendermint/PubKeyEd25519',
+                    value: 'aoB4xU9//HAqOP9ciyp0+PTdZxt/UGKgZOabU6JxW8o=',
+                  },
+                  voting_power: '5000000000',
+                  proposer_priority: '0',
+                },
+              },
+              commit: {
+                height: 67374,
+                round: 0,
+                block_id: {
+                  hash: 'A7F6B1CF33313121539206754A73FDC22ADA48C4AA8C4BB4F707ED2E089E59D3',
+                  parts: {
+                    total: 1,
+                    hash: '6634FE1E1DDDCB9914ACE81F146013986F5FDA03A8F1C16DC5ECA0D9B0E08FBC',
+                  },
+                },
+                signatures: [
+                  {
+                    block_id_flag: 2,
+                    validator_address:
+                      '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                    timestamp: '2023-02-25T12:10:38.130121476Z',
+                    signature:
+                      'HyR/uRIUNc5GNqQteZyrVjJM47SI9sRAgrLsNqJDls3AzbvHUfN4zzWyw0afyEvNm98Bm2GIoJoZC5D8oQvdBA==',
+                  },
+                ],
+              },
+              dah: {
+                row_roots: [
+                  '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                  '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
+                ],
+                column_roots: [
+                  '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                  '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
+                ],
+              },
+            },
+          ],
+          additionalProperties: false,
+          properties: {
+            commit: {
+              additionalProperties: false,
+              properties: {
+                block_id: {
+                  additionalProperties: false,
+                  properties: {
+                    hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    parts: {
+                      additionalProperties: false,
+                      properties: {
+                        hash: {
+                          items: {
+                            type: 'integer',
+                          },
+                          type: 'array',
+                        },
+                        total: {
+                          type: 'integer',
+                        },
+                      },
+                      type: 'object',
+                    },
+                  },
+                  type: 'object',
+                },
+                height: {
+                  type: 'integer',
+                },
+                round: {
+                  type: 'integer',
+                },
+                signatures: {
+                  items: {
+                    additionalProperties: false,
+                    properties: {
+                      block_id_flag: {
+                        type: 'integer',
+                      },
+                      signature: {
+                        media: {
+                          binaryEncoding: 'base64',
+                        },
+                        type: 'string',
+                      },
+                      timestamp: {
+                        format: 'date-time',
+                        type: 'string',
+                      },
+                      validator_address: {
+                        items: {
+                          type: 'integer',
+                        },
+                        type: 'array',
+                      },
+                    },
+                    type: 'object',
+                  },
+                  type: 'array',
+                },
+              },
+              type: 'object',
+            },
+            dah: {
+              additionalProperties: false,
+              properties: {
+                column_roots: {
+                  items: {
+                    media: {
+                      binaryEncoding: 'base64',
+                    },
+                    type: 'string',
+                  },
+                  type: 'array',
+                },
+                row_roots: {
+                  items: {
+                    media: {
+                      binaryEncoding: 'base64',
+                    },
+                    type: 'string',
+                  },
+                  type: 'array',
+                },
+              },
+              type: 'object',
+            },
+            header: {
+              additionalProperties: false,
+              properties: {
+                app_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                chain_id: {
+                  type: 'string',
+                },
+                consensus_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                data_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                evidence_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                height: {
+                  type: 'integer',
+                },
+                last_block_id: {
+                  additionalProperties: false,
+                  properties: {
+                    hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    parts: {
+                      additionalProperties: false,
+                      properties: {
+                        hash: {
+                          items: {
+                            type: 'integer',
+                          },
+                          type: 'array',
+                        },
+                        total: {
+                          type: 'integer',
+                        },
+                      },
+                      type: 'object',
+                    },
+                  },
+                  type: 'object',
+                },
+                last_commit_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                last_results_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                next_validators_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                proposer_address: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                time: {
+                  format: 'date-time',
+                  type: 'string',
+                },
+                validators_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                version: {
+                  additionalProperties: false,
+                  properties: {
+                    app: {
+                      type: 'integer',
+                    },
+                    block: {
+                      type: 'integer',
+                    },
+                  },
+                  type: 'object',
+                },
+              },
+              type: 'object',
+            },
+            validator_set: {
+              additionalProperties: false,
+              properties: {
+                proposer: {
+                  additionalProperties: false,
+                  properties: {
+                    address: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    proposer_priority: {
+                      type: 'integer',
+                    },
+                    pub_key: {
+                      additionalProperties: true,
+                    },
+                    voting_power: {
+                      type: 'integer',
+                    },
+                  },
+                  type: 'object',
+                },
+                validators: {
+                  items: {
+                    additionalProperties: false,
+                    properties: {
+                      address: {
+                        items: {
+                          type: 'integer',
+                        },
+                        type: 'array',
+                      },
+                      proposer_priority: {
+                        type: 'integer',
+                      },
+                      pub_key: {
+                        additionalProperties: true,
+                      },
+                      voting_power: {
+                        type: 'integer',
+                      },
+                    },
+                    type: 'object',
+                  },
+                  type: 'array',
+                },
+              },
+              type: 'object',
+            },
+          },
+          type: ['object'],
+        },
+        required: true,
+        deprecated: false,
+      },
+      deprecated: false,
+      externalDocs: {
+        description:
+          "Source of the default service's implementation of this method.",
+        url: 'https://github.com/celestiaorg/celestia-node/blob/main/nodebuilder/header/header.go#L62',
+      },
+    },
+    {
       name: 'header.GetByHeight',
       description: 'Auth level: public',
       summary:
@@ -312,6 +696,38 @@ export const spec = {
         schema: {
           examples: [
             {
+              header: {
+                version: {
+                  block: '11',
+                },
+                chain_id: 'arabica-6',
+                height: '67374',
+                time: '2023-02-25T12:10:28.067566292Z',
+                last_block_id: {
+                  hash: '47A2C7758760988500B2F043D3903BBBF1C8B383CA33CF7056AA45E22055663E',
+                  parts: {
+                    total: 1,
+                    hash: '33B012F244E27672169DD3D62CDBC92DA9486E410A5530F41FE6A890D8E2EE42',
+                  },
+                },
+                last_commit_hash:
+                  '888D47F5E9473501C99F2B6136B6B9FFBC9D1CD2F54002BCD5DF002FFEF0A83D',
+                data_hash:
+                  '257760461993F8F197B421EC7435F3C36C3734923E3DA9A42DC73B05F07B3D08',
+                validators_hash:
+                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                next_validators_hash:
+                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                consensus_hash:
+                  '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
+                app_hash:
+                  '1FC70854A185737C7FD720FCCE9167876EE4B9ABE23DB1EBB8C552D3E3978435',
+                last_results_hash:
+                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                evidence_hash:
+                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                proposer_address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+              },
               validator_set: {
                 validators: [
                   {
@@ -334,46 +750,14 @@ export const spec = {
                   proposer_priority: '0',
                 },
               },
-              header: {
-                version: {
-                  block: 11,
-                },
-                chain_id: 'arabica-2',
-                height: 42,
-                time: '2022-11-15T17:04:04.364455555Z',
-                last_block_id: {
-                  hash: 'D35285797CB08451E8E85B97B0259A3C98E42BFCAEA5465152EE68DBD5760935',
-                  parts: {
-                    total: 1,
-                    hash: 'EF5E90A836E5676B98177FB38B0C0BB7D957F71BBA6109B1D79C65344BC6C7FB',
-                  },
-                },
-                last_commit_hash:
-                  'DB5BB6A1518FD618D5B6607E9507E60E52BB9B532E5718D6D74F1F510FE5D10F',
-                data_hash:
-                  '6F52DAC16545E45725BE6EA32AED55266E45034800EEE1D87C9428F4844EA47A',
-                validators_hash:
-                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
-                next_validators_hash:
-                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
-                consensus_hash:
-                  '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
-                app_hash:
-                  '9E52BD09B71043C25FBC7C8D928490E051811A10E978C66E3519A41352DD0699',
-                last_results_hash:
-                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
-                evidence_hash:
-                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
-                proposer_address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
-              },
               commit: {
-                height: 42,
+                height: 67374,
                 round: 0,
                 block_id: {
-                  hash: 'F22BAEF4D99A835D9F2CA92C58E8AA48C589284B7916FF073A1D778C73EA4CC1',
+                  hash: 'A7F6B1CF33313121539206754A73FDC22ADA48C4AA8C4BB4F707ED2E089E59D3',
                   parts: {
                     total: 1,
-                    hash: '9961CC7B6B9BE558D0FED40675232F4B37BEE75419C815240804C1A1801CF626',
+                    hash: '6634FE1E1DDDCB9914ACE81F146013986F5FDA03A8F1C16DC5ECA0D9B0E08FBC',
                   },
                 },
                 signatures: [
@@ -381,20 +765,20 @@ export const spec = {
                     block_id_flag: 2,
                     validator_address:
                       '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
-                    timestamp: '2022-11-15T17:04:29.384867372Z',
+                    timestamp: '2023-02-25T12:10:38.130121476Z',
                     signature:
-                      '0+INXvvzUExQToNpmQhhvFySbQYFqoYTpgFACP+3lkSWGh48ukkMMqj2UnnAzqQhabuKeXx/5f8hiwEzeMM6Dg==',
+                      'HyR/uRIUNc5GNqQteZyrVjJM47SI9sRAgrLsNqJDls3AzbvHUfN4zzWyw0afyEvNm98Bm2GIoJoZC5D8oQvdBA==',
                   },
                 ],
               },
               dah: {
                 row_roots: [
-                  '//////////7//////////rr7xfWEpBugDbgBYmKPvIOGpNDJUjrMyS17ZyAnUvK7',
-                  '/////////////////////zEUYTRl2BUUeFrpCh4OmiYKeTgtgYfn/tCeVNNVTMv4',
+                  '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                  '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
                 ],
                 column_roots: [
-                  '//////////7//////////rr7xfWEpBugDbgBYmKPvIOGpNDJUjrMyS17ZyAnUvK7',
-                  '/////////////////////zEUYTRl2BUUeFrpCh4OmiYKeTgtgYfn/tCeVNNVTMv4',
+                  '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                  '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
                 ],
               },
             },
@@ -662,13 +1046,752 @@ export const spec = {
       externalDocs: {
         description:
           "Source of the default service's implementation of this method.",
-        url: 'https://github.com/celestiaorg/celestia-node/blob/main/nodebuilder/header/header.go#L33',
+        url: 'https://github.com/celestiaorg/celestia-node/blob/main/nodebuilder/header/header.go#L74',
       },
     },
     {
-      name: 'header.Head',
+      name: 'header.GetVerifiedRangeByHeight',
       description: 'Auth level: public',
-      summary: 'Head returns the ExtendedHeader of the chain head.\n',
+      summary:
+        "GetVerifiedRangeByHeight returns the given range [from:to) of ExtendedHeaders\nfrom the node's header store and verifies that the returned headers are\nadjacent to each other.\n",
+      paramStructure: 'by-position',
+      params: [
+        {
+          name: 'from',
+          description: '*header.ExtendedHeader',
+          summary: '',
+          schema: {
+            examples: [
+              {
+                header: {
+                  version: {
+                    block: '11',
+                  },
+                  chain_id: 'arabica-6',
+                  height: '67374',
+                  time: '2023-02-25T12:10:28.067566292Z',
+                  last_block_id: {
+                    hash: '47A2C7758760988500B2F043D3903BBBF1C8B383CA33CF7056AA45E22055663E',
+                    parts: {
+                      total: 1,
+                      hash: '33B012F244E27672169DD3D62CDBC92DA9486E410A5530F41FE6A890D8E2EE42',
+                    },
+                  },
+                  last_commit_hash:
+                    '888D47F5E9473501C99F2B6136B6B9FFBC9D1CD2F54002BCD5DF002FFEF0A83D',
+                  data_hash:
+                    '257760461993F8F197B421EC7435F3C36C3734923E3DA9A42DC73B05F07B3D08',
+                  validators_hash:
+                    '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                  next_validators_hash:
+                    '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                  consensus_hash:
+                    '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
+                  app_hash:
+                    '1FC70854A185737C7FD720FCCE9167876EE4B9ABE23DB1EBB8C552D3E3978435',
+                  last_results_hash:
+                    'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                  evidence_hash:
+                    'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                  proposer_address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                },
+                validator_set: {
+                  validators: [
+                    {
+                      address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                      pub_key: {
+                        type: 'tendermint/PubKeyEd25519',
+                        value: 'aoB4xU9//HAqOP9ciyp0+PTdZxt/UGKgZOabU6JxW8o=',
+                      },
+                      voting_power: '5000000000',
+                      proposer_priority: '0',
+                    },
+                  ],
+                  proposer: {
+                    address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                    pub_key: {
+                      type: 'tendermint/PubKeyEd25519',
+                      value: 'aoB4xU9//HAqOP9ciyp0+PTdZxt/UGKgZOabU6JxW8o=',
+                    },
+                    voting_power: '5000000000',
+                    proposer_priority: '0',
+                  },
+                },
+                commit: {
+                  height: 67374,
+                  round: 0,
+                  block_id: {
+                    hash: 'A7F6B1CF33313121539206754A73FDC22ADA48C4AA8C4BB4F707ED2E089E59D3',
+                    parts: {
+                      total: 1,
+                      hash: '6634FE1E1DDDCB9914ACE81F146013986F5FDA03A8F1C16DC5ECA0D9B0E08FBC',
+                    },
+                  },
+                  signatures: [
+                    {
+                      block_id_flag: 2,
+                      validator_address:
+                        '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                      timestamp: '2023-02-25T12:10:38.130121476Z',
+                      signature:
+                        'HyR/uRIUNc5GNqQteZyrVjJM47SI9sRAgrLsNqJDls3AzbvHUfN4zzWyw0afyEvNm98Bm2GIoJoZC5D8oQvdBA==',
+                    },
+                  ],
+                },
+                dah: {
+                  row_roots: [
+                    '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                    '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
+                  ],
+                  column_roots: [
+                    '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                    '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
+                  ],
+                },
+              },
+            ],
+            additionalProperties: false,
+            properties: {
+              commit: {
+                additionalProperties: false,
+                properties: {
+                  block_id: {
+                    additionalProperties: false,
+                    properties: {
+                      hash: {
+                        items: {
+                          type: 'integer',
+                        },
+                        type: 'array',
+                      },
+                      parts: {
+                        additionalProperties: false,
+                        properties: {
+                          hash: {
+                            items: {
+                              type: 'integer',
+                            },
+                            type: 'array',
+                          },
+                          total: {
+                            type: 'integer',
+                          },
+                        },
+                        type: 'object',
+                      },
+                    },
+                    type: 'object',
+                  },
+                  height: {
+                    type: 'integer',
+                  },
+                  round: {
+                    type: 'integer',
+                  },
+                  signatures: {
+                    items: {
+                      additionalProperties: false,
+                      properties: {
+                        block_id_flag: {
+                          type: 'integer',
+                        },
+                        signature: {
+                          media: {
+                            binaryEncoding: 'base64',
+                          },
+                          type: 'string',
+                        },
+                        timestamp: {
+                          format: 'date-time',
+                          type: 'string',
+                        },
+                        validator_address: {
+                          items: {
+                            type: 'integer',
+                          },
+                          type: 'array',
+                        },
+                      },
+                      type: 'object',
+                    },
+                    type: 'array',
+                  },
+                },
+                type: 'object',
+              },
+              dah: {
+                additionalProperties: false,
+                properties: {
+                  column_roots: {
+                    items: {
+                      media: {
+                        binaryEncoding: 'base64',
+                      },
+                      type: 'string',
+                    },
+                    type: 'array',
+                  },
+                  row_roots: {
+                    items: {
+                      media: {
+                        binaryEncoding: 'base64',
+                      },
+                      type: 'string',
+                    },
+                    type: 'array',
+                  },
+                },
+                type: 'object',
+              },
+              header: {
+                additionalProperties: false,
+                properties: {
+                  app_hash: {
+                    items: {
+                      type: 'integer',
+                    },
+                    type: 'array',
+                  },
+                  chain_id: {
+                    type: 'string',
+                  },
+                  consensus_hash: {
+                    items: {
+                      type: 'integer',
+                    },
+                    type: 'array',
+                  },
+                  data_hash: {
+                    items: {
+                      type: 'integer',
+                    },
+                    type: 'array',
+                  },
+                  evidence_hash: {
+                    items: {
+                      type: 'integer',
+                    },
+                    type: 'array',
+                  },
+                  height: {
+                    type: 'integer',
+                  },
+                  last_block_id: {
+                    additionalProperties: false,
+                    properties: {
+                      hash: {
+                        items: {
+                          type: 'integer',
+                        },
+                        type: 'array',
+                      },
+                      parts: {
+                        additionalProperties: false,
+                        properties: {
+                          hash: {
+                            items: {
+                              type: 'integer',
+                            },
+                            type: 'array',
+                          },
+                          total: {
+                            type: 'integer',
+                          },
+                        },
+                        type: 'object',
+                      },
+                    },
+                    type: 'object',
+                  },
+                  last_commit_hash: {
+                    items: {
+                      type: 'integer',
+                    },
+                    type: 'array',
+                  },
+                  last_results_hash: {
+                    items: {
+                      type: 'integer',
+                    },
+                    type: 'array',
+                  },
+                  next_validators_hash: {
+                    items: {
+                      type: 'integer',
+                    },
+                    type: 'array',
+                  },
+                  proposer_address: {
+                    items: {
+                      type: 'integer',
+                    },
+                    type: 'array',
+                  },
+                  time: {
+                    format: 'date-time',
+                    type: 'string',
+                  },
+                  validators_hash: {
+                    items: {
+                      type: 'integer',
+                    },
+                    type: 'array',
+                  },
+                  version: {
+                    additionalProperties: false,
+                    properties: {
+                      app: {
+                        type: 'integer',
+                      },
+                      block: {
+                        type: 'integer',
+                      },
+                    },
+                    type: 'object',
+                  },
+                },
+                type: 'object',
+              },
+              validator_set: {
+                additionalProperties: false,
+                properties: {
+                  proposer: {
+                    additionalProperties: false,
+                    properties: {
+                      address: {
+                        items: {
+                          type: 'integer',
+                        },
+                        type: 'array',
+                      },
+                      proposer_priority: {
+                        type: 'integer',
+                      },
+                      pub_key: {
+                        additionalProperties: true,
+                      },
+                      voting_power: {
+                        type: 'integer',
+                      },
+                    },
+                    type: 'object',
+                  },
+                  validators: {
+                    items: {
+                      additionalProperties: false,
+                      properties: {
+                        address: {
+                          items: {
+                            type: 'integer',
+                          },
+                          type: 'array',
+                        },
+                        proposer_priority: {
+                          type: 'integer',
+                        },
+                        pub_key: {
+                          additionalProperties: true,
+                        },
+                        voting_power: {
+                          type: 'integer',
+                        },
+                      },
+                      type: 'object',
+                    },
+                    type: 'array',
+                  },
+                },
+                type: 'object',
+              },
+            },
+            type: ['object'],
+          },
+          required: true,
+          deprecated: false,
+        },
+        {
+          name: 'to',
+          description: 'uint64',
+          summary: '',
+          schema: {
+            examples: [42],
+            type: ['integer'],
+          },
+          required: true,
+          deprecated: false,
+        },
+      ],
+      result: {
+        name: '[]*header.ExtendedHeader',
+        description: '[]*header.ExtendedHeader',
+        summary: '',
+        schema: {
+          examples: [
+            [
+              {
+                header: {
+                  version: {
+                    block: '11',
+                  },
+                  chain_id: 'arabica-6',
+                  height: '67374',
+                  time: '2023-02-25T12:10:28.067566292Z',
+                  last_block_id: {
+                    hash: '47A2C7758760988500B2F043D3903BBBF1C8B383CA33CF7056AA45E22055663E',
+                    parts: {
+                      total: 1,
+                      hash: '33B012F244E27672169DD3D62CDBC92DA9486E410A5530F41FE6A890D8E2EE42',
+                    },
+                  },
+                  last_commit_hash:
+                    '888D47F5E9473501C99F2B6136B6B9FFBC9D1CD2F54002BCD5DF002FFEF0A83D',
+                  data_hash:
+                    '257760461993F8F197B421EC7435F3C36C3734923E3DA9A42DC73B05F07B3D08',
+                  validators_hash:
+                    '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                  next_validators_hash:
+                    '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                  consensus_hash:
+                    '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
+                  app_hash:
+                    '1FC70854A185737C7FD720FCCE9167876EE4B9ABE23DB1EBB8C552D3E3978435',
+                  last_results_hash:
+                    'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                  evidence_hash:
+                    'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                  proposer_address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                },
+                validator_set: {
+                  validators: [
+                    {
+                      address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                      pub_key: {
+                        type: 'tendermint/PubKeyEd25519',
+                        value: 'aoB4xU9//HAqOP9ciyp0+PTdZxt/UGKgZOabU6JxW8o=',
+                      },
+                      voting_power: '5000000000',
+                      proposer_priority: '0',
+                    },
+                  ],
+                  proposer: {
+                    address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                    pub_key: {
+                      type: 'tendermint/PubKeyEd25519',
+                      value: 'aoB4xU9//HAqOP9ciyp0+PTdZxt/UGKgZOabU6JxW8o=',
+                    },
+                    voting_power: '5000000000',
+                    proposer_priority: '0',
+                  },
+                },
+                commit: {
+                  height: 67374,
+                  round: 0,
+                  block_id: {
+                    hash: 'A7F6B1CF33313121539206754A73FDC22ADA48C4AA8C4BB4F707ED2E089E59D3',
+                    parts: {
+                      total: 1,
+                      hash: '6634FE1E1DDDCB9914ACE81F146013986F5FDA03A8F1C16DC5ECA0D9B0E08FBC',
+                    },
+                  },
+                  signatures: [
+                    {
+                      block_id_flag: 2,
+                      validator_address:
+                        '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                      timestamp: '2023-02-25T12:10:38.130121476Z',
+                      signature:
+                        'HyR/uRIUNc5GNqQteZyrVjJM47SI9sRAgrLsNqJDls3AzbvHUfN4zzWyw0afyEvNm98Bm2GIoJoZC5D8oQvdBA==',
+                    },
+                  ],
+                },
+                dah: {
+                  row_roots: [
+                    '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                    '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
+                  ],
+                  column_roots: [
+                    '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                    '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
+                  ],
+                },
+              },
+            ],
+          ],
+          items: [
+            {
+              additionalProperties: false,
+              properties: {
+                commit: {
+                  additionalProperties: false,
+                  properties: {
+                    block_id: {
+                      additionalProperties: false,
+                      properties: {
+                        hash: {
+                          items: {
+                            type: 'integer',
+                          },
+                          type: 'array',
+                        },
+                        parts: {
+                          additionalProperties: false,
+                          properties: {
+                            hash: {
+                              items: {
+                                type: 'integer',
+                              },
+                              type: 'array',
+                            },
+                            total: {
+                              type: 'integer',
+                            },
+                          },
+                          type: 'object',
+                        },
+                      },
+                      type: 'object',
+                    },
+                    height: {
+                      type: 'integer',
+                    },
+                    round: {
+                      type: 'integer',
+                    },
+                    signatures: {
+                      items: {
+                        additionalProperties: false,
+                        properties: {
+                          block_id_flag: {
+                            type: 'integer',
+                          },
+                          signature: {
+                            media: {
+                              binaryEncoding: 'base64',
+                            },
+                            type: 'string',
+                          },
+                          timestamp: {
+                            format: 'date-time',
+                            type: 'string',
+                          },
+                          validator_address: {
+                            items: {
+                              type: 'integer',
+                            },
+                            type: 'array',
+                          },
+                        },
+                        type: 'object',
+                      },
+                      type: 'array',
+                    },
+                  },
+                  type: 'object',
+                },
+                dah: {
+                  additionalProperties: false,
+                  properties: {
+                    column_roots: {
+                      items: {
+                        media: {
+                          binaryEncoding: 'base64',
+                        },
+                        type: 'string',
+                      },
+                      type: 'array',
+                    },
+                    row_roots: {
+                      items: {
+                        media: {
+                          binaryEncoding: 'base64',
+                        },
+                        type: 'string',
+                      },
+                      type: 'array',
+                    },
+                  },
+                  type: 'object',
+                },
+                header: {
+                  additionalProperties: false,
+                  properties: {
+                    app_hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    chain_id: {
+                      type: 'string',
+                    },
+                    consensus_hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    data_hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    evidence_hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    height: {
+                      type: 'integer',
+                    },
+                    last_block_id: {
+                      additionalProperties: false,
+                      properties: {
+                        hash: {
+                          items: {
+                            type: 'integer',
+                          },
+                          type: 'array',
+                        },
+                        parts: {
+                          additionalProperties: false,
+                          properties: {
+                            hash: {
+                              items: {
+                                type: 'integer',
+                              },
+                              type: 'array',
+                            },
+                            total: {
+                              type: 'integer',
+                            },
+                          },
+                          type: 'object',
+                        },
+                      },
+                      type: 'object',
+                    },
+                    last_commit_hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    last_results_hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    next_validators_hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    proposer_address: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    time: {
+                      format: 'date-time',
+                      type: 'string',
+                    },
+                    validators_hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    version: {
+                      additionalProperties: false,
+                      properties: {
+                        app: {
+                          type: 'integer',
+                        },
+                        block: {
+                          type: 'integer',
+                        },
+                      },
+                      type: 'object',
+                    },
+                  },
+                  type: 'object',
+                },
+                validator_set: {
+                  additionalProperties: false,
+                  properties: {
+                    proposer: {
+                      additionalProperties: false,
+                      properties: {
+                        address: {
+                          items: {
+                            type: 'integer',
+                          },
+                          type: 'array',
+                        },
+                        proposer_priority: {
+                          type: 'integer',
+                        },
+                        pub_key: {
+                          additionalProperties: true,
+                        },
+                        voting_power: {
+                          type: 'integer',
+                        },
+                      },
+                      type: 'object',
+                    },
+                    validators: {
+                      items: {
+                        additionalProperties: false,
+                        properties: {
+                          address: {
+                            items: {
+                              type: 'integer',
+                            },
+                            type: 'array',
+                          },
+                          proposer_priority: {
+                            type: 'integer',
+                          },
+                          pub_key: {
+                            additionalProperties: true,
+                          },
+                          voting_power: {
+                            type: 'integer',
+                          },
+                        },
+                        type: 'object',
+                      },
+                      type: 'array',
+                    },
+                  },
+                  type: 'object',
+                },
+              },
+              type: ['object'],
+            },
+          ],
+          type: ['array'],
+        },
+        required: true,
+        deprecated: false,
+      },
+      deprecated: false,
+      externalDocs: {
+        description:
+          "Source of the default service's implementation of this method.",
+        url: 'https://github.com/celestiaorg/celestia-node/blob/main/nodebuilder/header/header.go#L66',
+      },
+    },
+    {
+      name: 'header.LocalHead',
+      description: 'Auth level: read',
+      summary: 'LocalHead returns the ExtendedHeader of the chain head.\n',
       paramStructure: 'by-position',
       params: [],
       result: {
@@ -678,6 +1801,38 @@ export const spec = {
         schema: {
           examples: [
             {
+              header: {
+                version: {
+                  block: '11',
+                },
+                chain_id: 'arabica-6',
+                height: '67374',
+                time: '2023-02-25T12:10:28.067566292Z',
+                last_block_id: {
+                  hash: '47A2C7758760988500B2F043D3903BBBF1C8B383CA33CF7056AA45E22055663E',
+                  parts: {
+                    total: 1,
+                    hash: '33B012F244E27672169DD3D62CDBC92DA9486E410A5530F41FE6A890D8E2EE42',
+                  },
+                },
+                last_commit_hash:
+                  '888D47F5E9473501C99F2B6136B6B9FFBC9D1CD2F54002BCD5DF002FFEF0A83D',
+                data_hash:
+                  '257760461993F8F197B421EC7435F3C36C3734923E3DA9A42DC73B05F07B3D08',
+                validators_hash:
+                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                next_validators_hash:
+                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                consensus_hash:
+                  '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
+                app_hash:
+                  '1FC70854A185737C7FD720FCCE9167876EE4B9ABE23DB1EBB8C552D3E3978435',
+                last_results_hash:
+                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                evidence_hash:
+                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                proposer_address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+              },
               validator_set: {
                 validators: [
                   {
@@ -700,46 +1855,14 @@ export const spec = {
                   proposer_priority: '0',
                 },
               },
-              header: {
-                version: {
-                  block: 11,
-                },
-                chain_id: 'arabica-2',
-                height: 42,
-                time: '2022-11-15T17:04:04.364455555Z',
-                last_block_id: {
-                  hash: 'D35285797CB08451E8E85B97B0259A3C98E42BFCAEA5465152EE68DBD5760935',
-                  parts: {
-                    total: 1,
-                    hash: 'EF5E90A836E5676B98177FB38B0C0BB7D957F71BBA6109B1D79C65344BC6C7FB',
-                  },
-                },
-                last_commit_hash:
-                  'DB5BB6A1518FD618D5B6607E9507E60E52BB9B532E5718D6D74F1F510FE5D10F',
-                data_hash:
-                  '6F52DAC16545E45725BE6EA32AED55266E45034800EEE1D87C9428F4844EA47A',
-                validators_hash:
-                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
-                next_validators_hash:
-                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
-                consensus_hash:
-                  '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
-                app_hash:
-                  '9E52BD09B71043C25FBC7C8D928490E051811A10E978C66E3519A41352DD0699',
-                last_results_hash:
-                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
-                evidence_hash:
-                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
-                proposer_address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
-              },
               commit: {
-                height: 42,
+                height: 67374,
                 round: 0,
                 block_id: {
-                  hash: 'F22BAEF4D99A835D9F2CA92C58E8AA48C589284B7916FF073A1D778C73EA4CC1',
+                  hash: 'A7F6B1CF33313121539206754A73FDC22ADA48C4AA8C4BB4F707ED2E089E59D3',
                   parts: {
                     total: 1,
-                    hash: '9961CC7B6B9BE558D0FED40675232F4B37BEE75419C815240804C1A1801CF626',
+                    hash: '6634FE1E1DDDCB9914ACE81F146013986F5FDA03A8F1C16DC5ECA0D9B0E08FBC',
                   },
                 },
                 signatures: [
@@ -747,20 +1870,20 @@ export const spec = {
                     block_id_flag: 2,
                     validator_address:
                       '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
-                    timestamp: '2022-11-15T17:04:29.384867372Z',
+                    timestamp: '2023-02-25T12:10:38.130121476Z',
                     signature:
-                      '0+INXvvzUExQToNpmQhhvFySbQYFqoYTpgFACP+3lkSWGh48ukkMMqj2UnnAzqQhabuKeXx/5f8hiwEzeMM6Dg==',
+                      'HyR/uRIUNc5GNqQteZyrVjJM47SI9sRAgrLsNqJDls3AzbvHUfN4zzWyw0afyEvNm98Bm2GIoJoZC5D8oQvdBA==',
                   },
                 ],
               },
               dah: {
                 row_roots: [
-                  '//////////7//////////rr7xfWEpBugDbgBYmKPvIOGpNDJUjrMyS17ZyAnUvK7',
-                  '/////////////////////zEUYTRl2BUUeFrpCh4OmiYKeTgtgYfn/tCeVNNVTMv4',
+                  '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                  '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
                 ],
                 column_roots: [
-                  '//////////7//////////rr7xfWEpBugDbgBYmKPvIOGpNDJUjrMyS17ZyAnUvK7',
-                  '/////////////////////zEUYTRl2BUUeFrpCh4OmiYKeTgtgYfn/tCeVNNVTMv4',
+                  '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                  '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
                 ],
               },
             },
@@ -1028,22 +2151,365 @@ export const spec = {
       externalDocs: {
         description:
           "Source of the default service's implementation of this method.",
-        url: 'https://github.com/celestiaorg/celestia-node/blob/main/nodebuilder/header/header.go#L37',
+        url: 'https://github.com/celestiaorg/celestia-node/blob/main/nodebuilder/header/header.go#L78',
       },
     },
     {
-      name: 'header.IsSyncing',
+      name: 'header.NetworkHead',
       description: 'Auth level: public',
-      summary: 'IsSyncing returns the status of sync\n',
+      summary:
+        "NetworkHead provides the Syncer's view of the current network head.\n",
       paramStructure: 'by-position',
       params: [],
       result: {
-        name: 'bool',
-        description: 'bool',
+        name: '*header.ExtendedHeader',
+        description: '*header.ExtendedHeader',
         summary: '',
         schema: {
-          examples: [true],
-          type: ['boolean'],
+          examples: [
+            {
+              header: {
+                version: {
+                  block: '11',
+                },
+                chain_id: 'arabica-6',
+                height: '67374',
+                time: '2023-02-25T12:10:28.067566292Z',
+                last_block_id: {
+                  hash: '47A2C7758760988500B2F043D3903BBBF1C8B383CA33CF7056AA45E22055663E',
+                  parts: {
+                    total: 1,
+                    hash: '33B012F244E27672169DD3D62CDBC92DA9486E410A5530F41FE6A890D8E2EE42',
+                  },
+                },
+                last_commit_hash:
+                  '888D47F5E9473501C99F2B6136B6B9FFBC9D1CD2F54002BCD5DF002FFEF0A83D',
+                data_hash:
+                  '257760461993F8F197B421EC7435F3C36C3734923E3DA9A42DC73B05F07B3D08',
+                validators_hash:
+                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                next_validators_hash:
+                  '883A0C92B8D976312B249C1397E73CF2981A9EB715717CBEE3800B8380C22C1D',
+                consensus_hash:
+                  '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
+                app_hash:
+                  '1FC70854A185737C7FD720FCCE9167876EE4B9ABE23DB1EBB8C552D3E3978435',
+                last_results_hash:
+                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                evidence_hash:
+                  'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
+                proposer_address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+              },
+              validator_set: {
+                validators: [
+                  {
+                    address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                    pub_key: {
+                      type: 'tendermint/PubKeyEd25519',
+                      value: 'aoB4xU9//HAqOP9ciyp0+PTdZxt/UGKgZOabU6JxW8o=',
+                    },
+                    voting_power: '5000000000',
+                    proposer_priority: '0',
+                  },
+                ],
+                proposer: {
+                  address: '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                  pub_key: {
+                    type: 'tendermint/PubKeyEd25519',
+                    value: 'aoB4xU9//HAqOP9ciyp0+PTdZxt/UGKgZOabU6JxW8o=',
+                  },
+                  voting_power: '5000000000',
+                  proposer_priority: '0',
+                },
+              },
+              commit: {
+                height: 67374,
+                round: 0,
+                block_id: {
+                  hash: 'A7F6B1CF33313121539206754A73FDC22ADA48C4AA8C4BB4F707ED2E089E59D3',
+                  parts: {
+                    total: 1,
+                    hash: '6634FE1E1DDDCB9914ACE81F146013986F5FDA03A8F1C16DC5ECA0D9B0E08FBC',
+                  },
+                },
+                signatures: [
+                  {
+                    block_id_flag: 2,
+                    validator_address:
+                      '57DC09D28388DBF977CFC30EF50BE8B644CCC1FA',
+                    timestamp: '2023-02-25T12:10:38.130121476Z',
+                    signature:
+                      'HyR/uRIUNc5GNqQteZyrVjJM47SI9sRAgrLsNqJDls3AzbvHUfN4zzWyw0afyEvNm98Bm2GIoJoZC5D8oQvdBA==',
+                  },
+                ],
+              },
+              dah: {
+                row_roots: [
+                  '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                  '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
+                ],
+                column_roots: [
+                  '//////////7//////////ql+/VFmJ8PWE9BcjrTDLrY/hzVeGdzFCpfEhiXDXZmt',
+                  '/////////////////////zHeGnUtPJn8QyPpePSYl4qRVrcUvG2fwptyoA85Myik',
+                ],
+              },
+            },
+          ],
+          additionalProperties: false,
+          properties: {
+            commit: {
+              additionalProperties: false,
+              properties: {
+                block_id: {
+                  additionalProperties: false,
+                  properties: {
+                    hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    parts: {
+                      additionalProperties: false,
+                      properties: {
+                        hash: {
+                          items: {
+                            type: 'integer',
+                          },
+                          type: 'array',
+                        },
+                        total: {
+                          type: 'integer',
+                        },
+                      },
+                      type: 'object',
+                    },
+                  },
+                  type: 'object',
+                },
+                height: {
+                  type: 'integer',
+                },
+                round: {
+                  type: 'integer',
+                },
+                signatures: {
+                  items: {
+                    additionalProperties: false,
+                    properties: {
+                      block_id_flag: {
+                        type: 'integer',
+                      },
+                      signature: {
+                        media: {
+                          binaryEncoding: 'base64',
+                        },
+                        type: 'string',
+                      },
+                      timestamp: {
+                        format: 'date-time',
+                        type: 'string',
+                      },
+                      validator_address: {
+                        items: {
+                          type: 'integer',
+                        },
+                        type: 'array',
+                      },
+                    },
+                    type: 'object',
+                  },
+                  type: 'array',
+                },
+              },
+              type: 'object',
+            },
+            dah: {
+              additionalProperties: false,
+              properties: {
+                column_roots: {
+                  items: {
+                    media: {
+                      binaryEncoding: 'base64',
+                    },
+                    type: 'string',
+                  },
+                  type: 'array',
+                },
+                row_roots: {
+                  items: {
+                    media: {
+                      binaryEncoding: 'base64',
+                    },
+                    type: 'string',
+                  },
+                  type: 'array',
+                },
+              },
+              type: 'object',
+            },
+            header: {
+              additionalProperties: false,
+              properties: {
+                app_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                chain_id: {
+                  type: 'string',
+                },
+                consensus_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                data_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                evidence_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                height: {
+                  type: 'integer',
+                },
+                last_block_id: {
+                  additionalProperties: false,
+                  properties: {
+                    hash: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    parts: {
+                      additionalProperties: false,
+                      properties: {
+                        hash: {
+                          items: {
+                            type: 'integer',
+                          },
+                          type: 'array',
+                        },
+                        total: {
+                          type: 'integer',
+                        },
+                      },
+                      type: 'object',
+                    },
+                  },
+                  type: 'object',
+                },
+                last_commit_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                last_results_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                next_validators_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                proposer_address: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                time: {
+                  format: 'date-time',
+                  type: 'string',
+                },
+                validators_hash: {
+                  items: {
+                    type: 'integer',
+                  },
+                  type: 'array',
+                },
+                version: {
+                  additionalProperties: false,
+                  properties: {
+                    app: {
+                      type: 'integer',
+                    },
+                    block: {
+                      type: 'integer',
+                    },
+                  },
+                  type: 'object',
+                },
+              },
+              type: 'object',
+            },
+            validator_set: {
+              additionalProperties: false,
+              properties: {
+                proposer: {
+                  additionalProperties: false,
+                  properties: {
+                    address: {
+                      items: {
+                        type: 'integer',
+                      },
+                      type: 'array',
+                    },
+                    proposer_priority: {
+                      type: 'integer',
+                    },
+                    pub_key: {
+                      additionalProperties: true,
+                    },
+                    voting_power: {
+                      type: 'integer',
+                    },
+                  },
+                  type: 'object',
+                },
+                validators: {
+                  items: {
+                    additionalProperties: false,
+                    properties: {
+                      address: {
+                        items: {
+                          type: 'integer',
+                        },
+                        type: 'array',
+                      },
+                      proposer_priority: {
+                        type: 'integer',
+                      },
+                      pub_key: {
+                        additionalProperties: true,
+                      },
+                      voting_power: {
+                        type: 'integer',
+                      },
+                    },
+                    type: 'object',
+                  },
+                  type: 'array',
+                },
+              },
+              type: 'object',
+            },
+          },
+          type: ['object'],
         },
         required: true,
         deprecated: false,
@@ -1052,7 +2518,104 @@ export const spec = {
       externalDocs: {
         description:
           "Source of the default service's implementation of this method.",
-        url: 'https://github.com/celestiaorg/celestia-node/blob/main/nodebuilder/header/header.go#L41',
+        url: 'https://github.com/celestiaorg/celestia-node/blob/main/nodebuilder/header/header.go#L90',
+      },
+    },
+    {
+      name: 'header.SyncState',
+      description: 'Auth level: read',
+      summary: 'SyncState returns the current state of the header Syncer.\n',
+      paramStructure: 'by-position',
+      params: [],
+      result: {
+        name: 'sync.State',
+        description: 'sync.State',
+        summary: '',
+        schema: {
+          examples: [
+            {
+              ID: 42,
+              Height: 42,
+              FromHeight: 42,
+              ToHeight: 42,
+              FromHash: '07',
+              ToHash: '07',
+              Start: '0001-01-01T00:00:00Z',
+              End: '0001-01-01T00:00:00Z',
+              Error: null,
+            },
+          ],
+          additionalProperties: false,
+          properties: {
+            End: {
+              format: 'date-time',
+              type: 'string',
+            },
+            Error: {
+              additionalProperties: true,
+            },
+            FromHash: {
+              items: {
+                type: 'integer',
+              },
+              type: 'array',
+            },
+            FromHeight: {
+              type: 'integer',
+            },
+            Height: {
+              type: 'integer',
+            },
+            ID: {
+              type: 'integer',
+            },
+            Start: {
+              format: 'date-time',
+              type: 'string',
+            },
+            ToHash: {
+              items: {
+                type: 'integer',
+              },
+              type: 'array',
+            },
+            ToHeight: {
+              type: 'integer',
+            },
+          },
+          type: ['object'],
+        },
+        required: true,
+        deprecated: false,
+      },
+      deprecated: false,
+      externalDocs: {
+        description:
+          "Source of the default service's implementation of this method.",
+        url: 'https://github.com/celestiaorg/celestia-node/blob/main/nodebuilder/header/header.go#L82',
+      },
+    },
+    {
+      name: 'header.SyncWait',
+      description: 'Auth level: read',
+      summary:
+        'SyncWait blocks until the header Syncer is synced to network head.\n',
+      paramStructure: 'by-position',
+      params: [],
+      result: {
+        name: 'Null',
+        description: 'Null',
+        schema: {
+          type: ['null'],
+        },
+        required: true,
+        deprecated: false,
+      },
+      deprecated: false,
+      externalDocs: {
+        description:
+          "Source of the default service's implementation of this method.",
+        url: 'https://github.com/celestiaorg/celestia-node/blob/main/nodebuilder/header/header.go#L86',
       },
     },
     {
