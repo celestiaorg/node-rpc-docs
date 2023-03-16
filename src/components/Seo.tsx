@@ -3,12 +3,12 @@ import { useRouter } from 'next/router';
 
 // !STARTERCONF Change these default meta
 const defaultMeta = {
-  title: 'Next.js + Tailwind CSS + TypeScript Starter',
-  siteName: 'Next.js + Tailwind CSS + TypeScript Starter',
+  title: 'Celestia Node API Playground',
+  siteName: 'Celestia Node API Playground',
   description:
-    'A starter for Next.js, Tailwind CSS, and TypeScript with Absolute Import, Seo, Link component, pre-configured with Husky',
+    'The Celestia Node API is the collection of RPC methods that can be used to interact with the services provided by Celestia Data Availability Nodes.',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
-  url: 'https://tsnext-tw.thcl.dev',
+  url: 'https://node-rpc-docs.vercel.app/',
   type: 'website',
   robots: 'follow, index',
   /**
@@ -59,7 +59,7 @@ export default function Seo(props: SeoProps) {
       {/* Twitter */}
       <meta name='twitter:card' content='summary_large_image' />
       {/* // !STARTERCONF Remove or change to your handle */}
-      {/* <meta name='twitter:site' content='@th_clarence' /> */}
+      <meta name='twitter:site' content='@CelestiaOrg' />
       <meta name='twitter:title' content={meta.title} />
       <meta name='twitter:description' content={meta.description} />
       <meta name='twitter:image' content={meta.image} />

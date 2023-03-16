@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "short_name": "",
+  "name": "Celestia Node API Playground",
+  "short_name": "Celestia Node API",
   "icons": [
     {
       "src": "/favicon/android-chrome-192x192.png",
