@@ -156,7 +156,7 @@ export default function Example() {
                         ([pkg, methods]) => (
                           <a
                             key={pkg}
-                            href={pkg}
+                            href={`/node-rpc-docs/#${pkg}`}
                             className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
                           >
                             {pkg == 'p2p' ? 'P2P' : pkg}
@@ -238,7 +238,7 @@ export default function Example() {
 
         <div className='md:pl-64'>
           <div className='mx-auto flex max-w-4xl flex-col md:px-8 xl:px-0'>
-            <div className='sticky top-0 z-10 flex h-16 flex-shrink-0 border-b border-gray-200 bg-white'>
+            <div className='sticky top-0 z-10 flex h-16 flex-shrink-0 border-b border-gray-200 bg-white md:hidden'>
               <button
                 type='button'
                 className='border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden'
@@ -247,30 +247,9 @@ export default function Example() {
                 <span className='sr-only'>Open sidebar</span>
                 <Bars3BottomLeftIcon className='h-6 w-6' aria-hidden='true' />
               </button>
-              {/* <div className='flex flex-1 justify-between px-4 md:px-0'>
-                <div className='flex flex-1'>
-                  <form className='flex w-full md:ml-0' action='#' method='GET'>
-                    <label htmlFor='search-field' className='sr-only'>
-                      Search
-                    </label>
-                    <div className='relative w-full text-gray-400 focus-within:text-gray-600'>
-                      <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center'>
-                        <MagnifyingGlassIcon
-                          className='h-5 w-5'
-                          aria-hidden='true'
-                        />
-                      </div>
-                      <input
-                        id='search-field'
-                        className='block h-full w-full border-transparent py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 focus:border-transparent focus:placeholder-gray-400 focus:outline-none focus:ring-0 sm:text-sm'
-                        placeholder='Search'
-                        type='search'
-                        name='search'
-                      />
-                    </div>
-                  </form>
-                </div>
-              </div> */}
+              <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:hidden'>
+                {spec.info.title} Playground
+              </h1>
             </div>
 
             <main className='flex-1'>
@@ -278,9 +257,12 @@ export default function Example() {
                 <div className='px-4 sm:px-6 md:px-0'>
                   <div className='lg:flex'>
                     <div className='flex'>
-                      <img src='/node-rpc-docs/images/icon-1.png' className='h-16'
-                        alt='Celestia block' />
-                      <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl'>
+                      <img
+                        src='/node-rpc-docs/images/icon-1.png'
+                        className='h-16'
+                        alt='Celestia block'
+                      />
+                      <h1 className='my-auto ml-2 hidden font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:block'>
                         {spec.info.title} Playground
                       </h1>
                       <span className='my-auto ml-4 inline-flex h-8 items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
@@ -516,7 +498,7 @@ const RPCMethod = (
                   jsonrpc: '2.0',
                   result:
                     method.result.description == 'Null' ||
-                      !method.result.schema.examples
+                    !method.result.schema.examples
                       ? []
                       : [method.result.schema.examples[0]],
                 },
