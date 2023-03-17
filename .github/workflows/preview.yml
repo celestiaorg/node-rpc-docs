@@ -21,11 +21,13 @@ jobs:
       - name: Install
         run: yarn install --frozen-lockfile
       - name: Build
-        run: BASE_URL='/pr-preview/pr-${{ github.event.number }}/' yarn build
+        run: yarn build
+      - name: Export static website
+        run: yarn next export
       - name: Add CNAME file
-        run: echo jcstein.github.io/node-rpc-docs > ./build/CNAME
+        run: echo jcstein.github.io/node-rpc-docs-1 > ./out/CNAME
 
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
-          source-dir: ./build/
+          source-dir: ./out
