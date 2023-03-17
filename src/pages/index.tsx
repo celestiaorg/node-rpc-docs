@@ -1,3 +1,6 @@
+/* eslint-disable unused-imports/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @next/next/no-img-element */
 import { Dialog, Transition } from '@headlessui/react';
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
@@ -142,7 +145,7 @@ export default function Example() {
                   <div className='flex flex-shrink-0 items-center px-4'>
                     <img
                       className='h-8 w-auto'
-                      src='/images/celestia-logo-purple.png'
+                      src='/node-rpc-docs/images/celestia-logo-purple.png'
                       alt='Celestia Logo'
                     />
                   </div>
@@ -190,7 +193,7 @@ export default function Example() {
             <div className='flex flex-shrink-0 items-center px-2'>
               <img
                 className='w-full px-4'
-                src='/images/celestia-logo-purple.png'
+                src='/node-rpc-docs/images/celestia-logo-purple.png'
                 alt='Celestia Logo'
               />
             </div>
@@ -275,7 +278,8 @@ export default function Example() {
                 <div className='px-4 sm:px-6 md:px-0'>
                   <div className='lg:flex'>
                     <div className='flex'>
-                      <img src='/images/icon-1.png' className='h-16' />
+                      <img src='/node-rpc-docs/images/icon-1.png' className='h-16'
+                        alt='Celestia block' />
                       <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl'>
                         {spec.info.title} Playground
                       </h1>
@@ -286,14 +290,16 @@ export default function Example() {
                     <div className='ml-auto flex'>
                       <a href='https://discord.com/invite/YsnTPcSfWQ'>
                         <img
-                          src='/images/discord.svg'
+                          src='/node-rpc-docs/images/discord.svg'
                           className='my-auto h-12'
+                          alt='Discord Logo'
                         />
                       </a>
                       <a href='https://github.com/celestiaorg/celestia-node'>
                         <img
-                          src='/images/github.svg'
+                          src='/node-rpc-docs/images/github.svg'
                           className='my-auto h-12'
+                          alt='Github Logo'
                         />
                       </a>
                     </div>
@@ -510,7 +516,7 @@ const RPCMethod = (
                   jsonrpc: '2.0',
                   result:
                     method.result.description == 'Null' ||
-                    !method.result.schema.examples
+                      !method.result.schema.examples
                       ? []
                       : [method.result.schema.examples[0]],
                 },
