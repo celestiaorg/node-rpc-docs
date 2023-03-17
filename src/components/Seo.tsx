@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 // !STARTERCONF Change these default meta
 const defaultMeta = {
-  title: 'Celestia Node API Playground',
+  title: 'Celestia Node API potato',
   siteName: 'Celestia Node API Playground',
   description:
     'The Celestia Node API is the collection of RPC methods that can be used to interact with the services provided by Celestia Data Availability Nodes.',
