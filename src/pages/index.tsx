@@ -238,7 +238,7 @@ export default function Example() {
 
         <div className='md:pl-64'>
           <div className='mx-auto flex max-w-4xl flex-col md:px-8 xl:px-0'>
-            <div className='sticky top-0 z-10 flex h-16 flex-shrink-0 border-b border-gray-200 bg-white'>
+            <div className='sticky top-0 z-10 flex h-16 flex-shrink-0 border-b border-gray-200 bg-white md:hidden'>
               <button
                 type='button'
                 className='border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden'
@@ -247,6 +247,9 @@ export default function Example() {
                 <span className='sr-only'>Open sidebar</span>
                 <Bars3BottomLeftIcon className='h-6 w-6' aria-hidden='true' />
               </button>
+              <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl xl:hidden'>
+                {spec.info.title} playground
+              </h1>
               {/* <div className='flex flex-1 justify-between px-4 md:px-0'>
                 <div className='flex flex-1'>
                   <form className='flex w-full md:ml-0' action='#' method='GET'>
@@ -283,8 +286,8 @@ export default function Example() {
                         className='h-16'
                         alt='Celestia block'
                       />
-                      <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl'>
-                        {spec.info.title} Playground
+                      <h1 className='my-auto ml-2 hidden font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl xl:block'>
+                        {spec.info.title} playground
                       </h1>
                       <span className='my-auto ml-4 inline-flex h-8 items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
                         {spec.info.version}
