@@ -47,7 +47,7 @@
   }
 
   .cursor-newtab {
-    cursor: url('/images/new-tab.png') 10 10, pointer;
+    cursor: url('/node-rpc-docs/images/new-tab.png') 10 10, pointer;
   }
 
   /* #region  /**=========== Typography =========== */
