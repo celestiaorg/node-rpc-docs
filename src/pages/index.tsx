@@ -7,6 +7,8 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 
 import { spec } from '@/lib/spec';
 
+import Seo from '@/components/Seo';
+
 const clients = [
   {
     name: 'Golang',
@@ -84,6 +86,7 @@ export default function Example() {
 
   return (
     <>
+      <Seo />
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
