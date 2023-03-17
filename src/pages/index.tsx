@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Dialog, Transition } from '@headlessui/react';
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
@@ -275,7 +276,8 @@ export default function Example() {
                 <div className='px-4 sm:px-6 md:px-0'>
                   <div className='lg:flex'>
                     <div className='flex'>
-                      <img src='/node-rpc-docs/images/icon-1.png' className='h-16' />
+                      <img src='/node-rpc-docs/images/icon-1.png' className='h-16'
+                        alt='Celestia block' />
                       <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl'>
                         {spec.info.title} Playground
                       </h1>
@@ -288,12 +290,14 @@ export default function Example() {
                         <img
                           src='/node-rpc-docs/images/discord.svg'
                           className='my-auto h-12'
+                          alt='Discord Logo'
                         />
                       </a>
                       <a href='https://github.com/celestiaorg/celestia-node'>
                         <img
                           src='/node-rpc-docs/images/github.svg'
                           className='my-auto h-12'
+                          alt='Github Logo'
                         />
                       </a>
                     </div>
