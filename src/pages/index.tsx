@@ -460,8 +460,10 @@ const RPCMethod = (
                   id: 1,
                   jsonrpc: '2.0',
                   method: pkg + '.' + method.name,
-                  params: method.params.map(
-                    (param) => param.schema.examples[0]
+                  params: method.params.map((param) =>
+                    param.schema && param.schema.examples
+                      ? param.schema.examples[0]
+                      : undefined
                   ),
                 },
                 null,
@@ -494,7 +496,8 @@ const RPCMethod = (
                   id: 1,
                   jsonrpc: '2.0',
                   result:
-                    method.result.description == 'Null'
+                    method.result.description == 'Null' ||
+                    !method.result.schema.examples
                       ? []
                       : [method.result.schema.examples[0]],
                 },
