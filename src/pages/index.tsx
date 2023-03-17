@@ -1,5 +1,4 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { Fragment, useState } from 'react';
@@ -149,18 +148,30 @@ export default function Example() {
                   </div>
                   <div className='mt-5 h-0 flex-1 overflow-y-auto'>
                     <nav className='space-y-1 px-2'>
-                      <a>v1</a>
+                      <a className='text-md'>Celestia Node API</a>
                       {Object.entries(getMethodsByPackage(spec)).map(
                         ([pkg, methods]) => (
                           <a
                             key={pkg}
                             href={pkg}
-                            className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light text-gray-900'
+                            className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
                           >
-                            {pkg}
+                            {pkg == 'p2p' ? 'P2P' : pkg}
                           </a>
                         )
                       )}
+                      <div className='pt-4'>
+                        <a className='text-md'>Clients</a>
+                      </div>
+                      {clients.map((client) => (
+                        <a
+                          key={client.name}
+                          href={client.href}
+                          className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
+                        >
+                          {client.name}
+                        </a>
+                      ))}
                     </nav>
                   </div>
                 </Dialog.Panel>
@@ -196,7 +207,7 @@ export default function Example() {
                       // className='group ml-4 flex items-center rounded-md px-2 text-base text-gray-700'
                       className='group ml-2 flex items-center rounded-md px-2 text-sm font-medium capitalize text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                     >
-                      {pkg}
+                      {pkg == 'p2p' ? 'P2P' : pkg}
                     </a>
                   )
                 )}
@@ -233,7 +244,7 @@ export default function Example() {
                 <span className='sr-only'>Open sidebar</span>
                 <Bars3BottomLeftIcon className='h-6 w-6' aria-hidden='true' />
               </button>
-              <div className='flex flex-1 justify-between px-4 md:px-0'>
+              {/* <div className='flex flex-1 justify-between px-4 md:px-0'>
                 <div className='flex flex-1'>
                   <form className='flex w-full md:ml-0' action='#' method='GET'>
                     <label htmlFor='search-field' className='sr-only'>
@@ -256,20 +267,22 @@ export default function Example() {
                     </div>
                   </form>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <main className='flex-1'>
               <div className='py-6'>
                 <div className='px-4 sm:px-6 md:px-0'>
-                  <div className='flex'>
-                    <img src='/images/icon-1.png' className='h-16' />
-                    <h1 className='my-auto ml-2 font-[ruberoid] text-3xl font-semibold text-gray-900'>
-                      {spec.info.title} Playground
-                    </h1>
-                    <span className='my-auto ml-4 inline-flex h-8 items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
-                      {spec.info.version}
-                    </span>
+                  <div className='lg:flex'>
+                    <div className='flex'>
+                      <img src='/images/icon-1.png' className='h-16' />
+                      <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl'>
+                        {spec.info.title} Playground
+                      </h1>
+                      <span className='my-auto ml-4 inline-flex h-8 items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
+                        {spec.info.version}
+                      </span>
+                    </div>
                     <div className='ml-auto flex'>
                       <a href='https://discord.com/invite/YsnTPcSfWQ'>
                         <img
