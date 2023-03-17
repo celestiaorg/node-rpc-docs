@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
 
-import '@/styles/globals.css';
+import '@/node-rpc-docs/styles/globals.css';
 
 /**
  * !STARTERCONF info
