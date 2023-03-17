@@ -156,7 +156,7 @@ export default function Example() {
                         ([pkg, methods]) => (
                           <a
                             key={pkg}
-                            href={pkg}
+                            href={`/node-rpc-docs/#${pkg}`}
                             className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
                           >
                             {pkg == 'p2p' ? 'P2P' : pkg}
@@ -278,8 +278,11 @@ export default function Example() {
                 <div className='px-4 sm:px-6 md:px-0'>
                   <div className='lg:flex'>
                     <div className='flex'>
-                      <img src='/node-rpc-docs/images/icon-1.png' className='h-16'
-                        alt='Celestia block' />
+                      <img
+                        src='/node-rpc-docs/images/icon-1.png'
+                        className='h-16'
+                        alt='Celestia block'
+                      />
                       <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl'>
                         {spec.info.title} Playground
                       </h1>
@@ -516,7 +519,7 @@ const RPCMethod = (
                   jsonrpc: '2.0',
                   result:
                     method.result.description == 'Null' ||
-                      !method.result.schema.examples
+                    !method.result.schema.examples
                       ? []
                       : [method.result.schema.examples[0]],
                 },
