@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/node-rpc-docs/fonts/inter-var-latin.woff2",
+      "source": "/node-rpc-docs-1/fonts/inter-var-latin.woff2",
       "headers": [
         {
           "key": "Cache-Control",

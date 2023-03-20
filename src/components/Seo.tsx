@@ -8,7 +8,7 @@ const defaultMeta = {
   description:
     'The Celestia Node API is the collection of RPC methods that can be used to interact with the services provided by Celestia Data Availability Nodes.',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
-  url: 'https://celestiaorg.github.io/node-rpc-docs',
+  url: 'https://jcstein.github.io/node-rpc-docs-1',
   type: 'website',
   robots: 'follow, index',
   /**
@@ -84,7 +84,7 @@ export default function Seo(props: SeoProps) {
         <link key={linkProps.href} {...linkProps} />
       ))}
       <meta name='msapplication-TileColor' content='#ffffff' />
-      <meta name='msapplication-config' content='/node-rpc-docs/favicon/browserconfig.xml' />
+      <meta name='msapplication-config' content='/node-rpc-docs-1/favicon/browserconfig.xml' />
       <meta name='theme-color' content='#ffffff' />
     </Head>
   );
@@ -97,25 +97,25 @@ const favicons: Array<React.ComponentPropsWithoutRef<'link'>> = [
   {
     rel: 'apple-touch-icon',
     sizes: '180x180',
-    href: '/node-rpc-docs/favicon/apple-touch-icon.png',
+    href: '/node-rpc-docs-1/favicon/apple-touch-icon.png',
   },
   {
     rel: 'icon',
     type: 'image/png',
     sizes: '32x32',
-    href: '/node-rpc-docs/favicon/favicon-32x32.png',
+    href: '/node-rpc-docs-1/favicon/favicon-32x32.png',
   },
   {
     rel: 'icon',
     type: 'image/png',
     sizes: '16x16',
-    href: '/node-rpc-docs/favicon/favicon-16x16.png',
+    href: '/node-rpc-docs-1/favicon/favicon-16x16.png',
   },
-  { rel: 'manifest', href: '/node-rpc-docs/favicon/site.webmanifest' },
+  { rel: 'manifest', href: '/node-rpc-docs-1/favicon/site.webmanifest' },
   {
     rel: 'mask-icon',
-    href: '/node-rpc-docs/favicon/safari-pinned-tab.svg',
+    href: '/node-rpc-docs-1/favicon/safari-pinned-tab.svg',
     color: '#00e887',
   },
-  { rel: 'shortcut icon', href: '/node-rpc-docs/favicon/favicon.ico' },
+  { rel: 'shortcut icon', href: '/node-rpc-docs-1/favicon/favicon.ico' },
 ];

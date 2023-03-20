@@ -3,12 +3,12 @@
   "short_name": "Celestia Node API",
   "icons": [
     {
-      "src": "/node-rpc-docs/favicon/android-chrome-192x192.png",
+      "src": "/node-rpc-docs-1/favicon/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/node-rpc-docs/favicon/android-chrome-512x512.png",
+      "src": "/node-rpc-docs-1/favicon/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
