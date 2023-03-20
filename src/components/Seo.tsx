@@ -8,14 +8,15 @@ const defaultMeta = {
   description:
     'The Celestia Node API is the collection of RPC methods that can be used to interact with the services provided by Celestia Data Availability Nodes.',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
-  url: 'https://celestiaorg.github.io/node-rpc-docs',
+  url: 'https://node-rpc-docs.celestia.org',
   type: 'website',
   robots: 'follow, index',
   /**
    * No need to be filled, will be populated with openGraph function
    * If you wish to use a normal image, just specify the path below
    */
-  image: 'https://raw.githubusercontent.com/celestiaorg/docs/main/static/img/celestia-doc.png',
+  image:
+    'https://raw.githubusercontent.com/celestiaorg/docs/main/static/img/celestia-doc.png',
 };
 
 type SeoProps = {
@@ -84,7 +85,7 @@ export default function Seo(props: SeoProps) {
         <link key={linkProps.href} {...linkProps} />
       ))}
       <meta name='msapplication-TileColor' content='#ffffff' />
-      <meta name='msapplication-config' content='/node-rpc-docs/favicon/browserconfig.xml' />
+      <meta name='msapplication-config' content='/favicon/browserconfig.xml' />
       <meta name='theme-color' content='#ffffff' />
     </Head>
   );
@@ -97,25 +98,25 @@ const favicons: Array<React.ComponentPropsWithoutRef<'link'>> = [
   {
     rel: 'apple-touch-icon',
     sizes: '180x180',
-    href: '/node-rpc-docs/favicon/apple-touch-icon.png',
+    href: '/favicon/apple-touch-icon.png',
   },
   {
     rel: 'icon',
     type: 'image/png',
     sizes: '32x32',
-    href: '/node-rpc-docs/favicon/favicon-32x32.png',
+    href: '/favicon/favicon-32x32.png',
   },
   {
     rel: 'icon',
     type: 'image/png',
     sizes: '16x16',
-    href: '/node-rpc-docs/favicon/favicon-16x16.png',
+    href: '/favicon/favicon-16x16.png',
   },
-  { rel: 'manifest', href: '/node-rpc-docs/favicon/site.webmanifest' },
+  { rel: 'manifest', href: '/favicon/site.webmanifest' },
   {
     rel: 'mask-icon',
-    href: '/node-rpc-docs/favicon/safari-pinned-tab.svg',
+    href: '/favicon/safari-pinned-tab.svg',
     color: '#00e887',
   },
-  { rel: 'shortcut icon', href: '/node-rpc-docs/favicon/favicon.ico' },
+  { rel: 'shortcut icon', href: '/favicon/favicon.ico' },
 ];

@@ -145,7 +145,7 @@ export default function Example() {
                   <div className='flex flex-shrink-0 items-center px-4'>
                     <img
                       className='h-8 w-auto'
-                      src='/node-rpc-docs/images/celestia-logo-purple.png'
+                      src='/images/celestia-logo-purple.png'
                       alt='Celestia Logo'
                     />
                   </div>
@@ -156,7 +156,7 @@ export default function Example() {
                         ([pkg, methods]) => (
                           <a
                             key={pkg}
-                            href={`/node-rpc-docs/#${pkg}`}
+                            href={`/#${pkg}`}
                             className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
                           >
                             {pkg == 'p2p' ? 'P2P' : pkg}
@@ -193,7 +193,7 @@ export default function Example() {
             <div className='flex flex-shrink-0 items-center px-2'>
               <img
                 className='w-full px-4'
-                src='/node-rpc-docs/images/celestia-logo-purple.png'
+                src='/images/celestia-logo-purple.png'
                 alt='Celestia Logo'
               />
             </div>
@@ -258,7 +258,7 @@ export default function Example() {
                   <div className='lg:flex'>
                     <div className='flex'>
                       <img
-                        src='/node-rpc-docs/images/icon-1.png'
+                        src='/images/icon-1.png'
                         className='h-16'
                         alt='Celestia block'
                       />
@@ -272,14 +272,14 @@ export default function Example() {
                     <div className='ml-auto flex'>
                       <a href='https://discord.com/invite/YsnTPcSfWQ'>
                         <img
-                          src='/node-rpc-docs/images/discord.svg'
+                          src='/images/discord.svg'
                           className='my-auto h-12'
                           alt='Discord Logo'
                         />
                       </a>
                       <a href='https://github.com/celestiaorg/celestia-node'>
                         <img
-                          src='/node-rpc-docs/images/github.svg'
+                          src='/images/github.svg'
                           className='my-auto h-12'
                           alt='Github Logo'
                         />
