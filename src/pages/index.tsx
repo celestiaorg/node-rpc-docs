@@ -248,7 +248,7 @@ export default function Example() {
                 <Bars3BottomLeftIcon className='h-6 w-6' aria-hidden='true' />
               </button>
               <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:hidden'>
-                {spec.info.title} Playground
+                {spec.info.title}
               </h1>
             </div>
 
@@ -263,7 +263,7 @@ export default function Example() {
                         alt='Celestia block'
                       />
                       <h1 className='my-auto ml-2 hidden font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:block'>
-                        {spec.info.title} Playground
+                        {spec.info.title}
                       </h1>
                       <span className='my-auto ml-4 inline-flex h-8 items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
                         {spec.info.version}
