@@ -90,7 +90,7 @@ export default function Example() {
         const response = await axios.get(url);
         setSpec(response.data);
       } catch (error) {
-        console.error('Error fetching JSON data:', error);
+        // console.error('Error fetching JSON data:', error);
       }
     };
 
