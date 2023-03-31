@@ -4,10 +4,9 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
-import { Fragment, useState } from 'react';
+import axios from 'axios';
+import { Fragment, useEffect, useState } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-
-import { spec } from '@/lib/spec';
 
 import Seo from '@/components/Seo';
 
@@ -18,6 +17,9 @@ const clients = [
     current: false,
   },
 ];
+
+const jsonURL =
+  'https://raw.githubusercontent.com/celestiaorg/celestia-node/openrpc-spec/openrpc.json';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
@@ -73,13 +75,27 @@ function getMethodsByPackage(spec: any): MethodByPkg {
 }
 
 export default function Example() {
+  const [spec, setSpec] = useState<any>();
   const [open, setOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentParam, setCurrentParam] = useState<Param>({
     name: '',
     description: '',
     schema: {},
   });
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchJsonData = async (url: string) => {
+      try {
+        const response = await axios.get(url);
+        setSpec(response.data);
+      } catch (error) {
+        // console.error('Error fetching JSON data:', error);
+      }
+    };
+
+    fetchJsonData(jsonURL);
+  });
 
   const activateSidebar = (param: any) => {
     setOpen(true);
@@ -152,17 +168,18 @@ export default function Example() {
                   <div className='mt-5 h-0 flex-1 overflow-y-auto'>
                     <nav className='space-y-1 px-2'>
                       <a className='text-md'>Celestia Node API</a>
-                      {Object.entries(getMethodsByPackage(spec)).map(
-                        ([pkg, methods]) => (
-                          <a
-                            key={pkg}
-                            href={`/#${pkg}`}
-                            className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
-                          >
-                            {pkg == 'p2p' ? 'P2P' : pkg}
-                          </a>
-                        )
-                      )}
+                      {spec &&
+                        Object.entries(getMethodsByPackage(spec)).map(
+                          ([pkg, methods]) => (
+                            <a
+                              key={pkg}
+                              href={`/#${pkg}`}
+                              className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
+                            >
+                              {pkg == 'p2p' ? 'P2P' : pkg}
+                            </a>
+                          )
+                        )}
                       <div className='pt-4'>
                         <a className='text-md'>Clients</a>
                       </div>
@@ -202,18 +219,19 @@ export default function Example() {
                 <a className='group flex items-center rounded-md px-2 text-base font-medium text-gray-900'>
                   Celestia Node API
                 </a>
-                {Object.entries(getMethodsByPackage(spec)).map(
-                  ([pkg, methods]) => (
-                    <a
-                      key={pkg}
-                      href={'#' + pkg}
-                      // className='group ml-4 flex items-center rounded-md px-2 text-base text-gray-700'
-                      className='group ml-2 flex items-center rounded-md px-2 text-sm font-medium capitalize text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                    >
-                      {pkg == 'p2p' ? 'P2P' : pkg}
-                    </a>
-                  )
-                )}
+                {spec &&
+                  Object.entries(getMethodsByPackage(spec)).map(
+                    ([pkg, methods]) => (
+                      <a
+                        key={pkg}
+                        href={'#' + pkg}
+                        // className='group ml-4 flex items-center rounded-md px-2 text-base text-gray-700'
+                        className='group ml-2 flex items-center rounded-md px-2 text-sm font-medium capitalize text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      >
+                        {pkg == 'p2p' ? 'P2P' : pkg}
+                      </a>
+                    )
+                  )}
                 <a className='group flex items-center rounded-md px-2 pt-4 text-base font-medium text-gray-900'>
                   Clients
                 </a>
@@ -248,7 +266,7 @@ export default function Example() {
                 <Bars3BottomLeftIcon className='h-6 w-6' aria-hidden='true' />
               </button>
               <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:hidden'>
-                {spec.info.title}
+                {spec && spec.info.title}
               </h1>
             </div>
 
@@ -263,10 +281,10 @@ export default function Example() {
                         alt='Celestia block'
                       />
                       <h1 className='my-auto ml-2 hidden font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:block'>
-                        {spec.info.title}
+                        {spec && spec.info.title}
                       </h1>
                       <span className='my-auto ml-4 inline-flex h-8 items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
-                        {spec.info.version}
+                        {spec && spec.info.version}
                       </span>
                     </div>
                     <div className='ml-auto flex'>
@@ -287,24 +305,30 @@ export default function Example() {
                     </div>
                   </div>
                   <h2 className='mt-2 text-base font-normal text-gray-700'>
-                    {spec.info.description}
+                    {spec && spec.info.description}
                   </h2>
                 </div>
                 <div className='px-4 sm:px-6 md:px-0'>
                   {/* Replace with your content */}
                   <div className='py-4'>
-                    {Object.entries(getMethodsByPackage(spec)).map(
-                      ([pkg, methods]) => (
-                        <div key={pkg} className='pb-6' id={pkg}>
-                          <h3 className='font-[ruberoid] text-2xl font-bold uppercase'>
-                            {pkg}
-                          </h3>
-                          {methods.map((method) =>
-                            RPCMethod(pkg, method, activateSidebar)
-                          )}
-                        </div>
-                      )
-                    )}
+                    {spec &&
+                      Object.entries(getMethodsByPackage(spec)).map(
+                        ([pkg, methods]) => (
+                          <div key={pkg} className='pb-6' id={pkg}>
+                            <h3 className='font-[ruberoid] text-2xl font-bold uppercase'>
+                              {pkg}
+                            </h3>
+                            {methods.map((method) => (
+                              <RPCMethod
+                                key={`${pkg}.${method.name}`}
+                                pkg={pkg}
+                                method={method}
+                                activateSidebar={activateSidebar}
+                              />
+                            ))}
+                          </div>
+                        )
+                      )}
                   </div>
                   {/* /End replace */}
                 </div>
@@ -398,11 +422,15 @@ export default function Example() {
   );
 }
 
-const RPCMethod = (
-  pkg: string,
-  method: Method,
-  activateSidebar: (param: Param) => void
-) => {
+const RPCMethod = ({
+  pkg,
+  method,
+  activateSidebar,
+}: {
+  pkg: string;
+  method: Method;
+  activateSidebar: (param: Param) => void;
+}) => {
   const [showRequest, setShowRequest] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
 
