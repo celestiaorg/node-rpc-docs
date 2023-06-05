@@ -19,7 +19,7 @@ const clients = [
 ];
 
 const jsonURL =
-  'https://raw.githubusercontent.com/celestiaorg/celestia-node/openrpc-spec/openrpc.json';
+  'https://raw.githubusercontent.com/vgonkivs/celestia-node/update_with_blob/openrpc.json';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
