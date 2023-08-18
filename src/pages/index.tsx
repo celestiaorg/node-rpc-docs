@@ -95,7 +95,7 @@ export default function Example() {
     };
 
     fetchJsonData(jsonURL);
-  });
+  }, []);
 
   const activateSidebar = (param: any) => {
     setOpen(true);
