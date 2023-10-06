@@ -17,6 +17,11 @@ const clients = [
     href: 'https://github.com/celestiaorg/celestia-node/blob/main/api/rpc/client/client.go',
     current: false,
   },
+  {
+    name: 'Rust',
+    href: 'https://github.com/eigerco/celestia-node-rs',
+    current: false,
+  },
 ];
 
 function classNames(...classes: any[]) {
@@ -269,6 +274,8 @@ export default function Example() {
                   <a
                     key={client.name}
                     href={client.href}
+                    target='_blank'
+                    rel='noopener noreferrer'
                     className={classNames(
                       client.current
                         ? 'bg-gray-100 text-gray-900'
