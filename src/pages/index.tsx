@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
@@ -283,6 +284,13 @@ export default function Example() {
             </div>
           </div>
           <div className='absolute bottom-0 left-0 mb-4 ml-4 flex space-x-4'>
+            <a href='/'>
+              <img
+                src='/images/icon-1.png'
+                className='hidden h-10 sm:block lg:hidden'
+                alt='Celestia block'
+              />
+            </a>
             <a href='https://discord.com/invite/YsnTPcSfWQ'>
               <img
                 src='/images/discord.svg'
@@ -311,11 +319,21 @@ export default function Example() {
                 <span className='sr-only'>Open sidebar</span>
                 <Bars3BottomLeftIcon className='h-6 w-6' aria-hidden='true' />
               </button>
-              <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:hidden'>
+              <h1 className='my-auto ml-4 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:hidden'>
                 {spec && spec.info.title}
               </h1>
               <div className='ml-auto flex items-center space-x-4'>
-                <a href='https://discord.com/invite/YsnTPcSfWQ'>
+                <a href='/' className='hidden 400:block'>
+                  <img
+                    src='/images/icon-1.png'
+                    className='h-8'
+                    alt='Celestia block'
+                  />
+                </a>
+                <a
+                  href='https://discord.com/invite/YsnTPcSfWQ'
+                  className='hidden 400:block'
+                >
                   <img
                     src='/images/discord.svg'
                     className='h-8'
@@ -337,17 +355,19 @@ export default function Example() {
                 <div className='px-4 sm:px-6 md:px-0'>
                   <div className='flex justify-between'>
                     <div className='flex'>
-                      <img
-                        src='/images/icon-1.png'
-                        className='hidden h-16 lg:block'
-                        alt='Celestia block'
-                      />
-                      <h1 className='my-auto ml-2 hidden font-[ruberoid] text-xl font-semibold text-gray-900 md:block md:text-3xl'>
+                      <a href='/'>
+                        <img
+                          src='/images/icon-1.png'
+                          className='hidden h-16 lg:block'
+                          alt='Celestia block'
+                        />
+                      </a>
+                      <h1 className='my-auto hidden font-[ruberoid] text-xl font-semibold text-gray-900 md:block md:text-2xl lg:ml-2 lg:text-3xl'>
                         {spec && spec.info.title}
                       </h1>
                     </div>
-                    <div className='my-auto ml-20 inline-flex flex-col items-center rounded-lg bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800 sm:flex sm:flex-row sm:items-center'>
-                      <span className='mb-2 sm:mb-0'>Select API version:</span>
+                    <div className='my-auto ml-20 inline-flex flex-row items-center rounded-lg bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800'>
+                      <span className='mr-2'>Select API version:</span>
                       <div>
                         <select
                           value={selectedVersion}
