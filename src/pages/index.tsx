@@ -190,7 +190,7 @@ export default function Example() {
                   <div className='flex flex-shrink-0 items-center px-4'>
                     <img
                       className='h-8 w-auto'
-                      src='/images/celestia-logo-purple.png'
+                      src='/images/celestia-docs.svg'
                       alt='Celestia Logo'
                     />
                   </div>
@@ -240,7 +240,7 @@ export default function Example() {
             <div className='flex flex-shrink-0 items-center px-2'>
               <img
                 className='w-full px-4'
-                src='/images/celestia-logo-purple.png'
+                src='/images/celestia-docs.svg'
                 alt='Celestia Logo'
               />
             </div>
@@ -339,10 +339,10 @@ export default function Example() {
                     <div className='flex'>
                       <img
                         src='/images/icon-1.png'
-                        className='h-16'
+                        className='hidden h-16 lg:block'
                         alt='Celestia block'
                       />
-                      <h1 className='my-auto ml-2 hidden font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:block'>
+                      <h1 className='my-auto ml-2 hidden font-[ruberoid] text-xl font-semibold text-gray-900 md:block md:text-3xl'>
                         {spec && spec.info.title}
                       </h1>
                     </div>
