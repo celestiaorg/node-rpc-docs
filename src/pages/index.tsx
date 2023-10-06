@@ -214,6 +214,7 @@ export default function Example() {
                               className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
                               onMouseEnter={() => setShowHash(pkg)}
                               onMouseLeave={() => setShowHash('')}
+                              onClick={() => setSidebarOpen(false)}
                             >
                               {pkg == 'p2p' ? 'P2P' : pkg}
                               {showHash === pkg && (
