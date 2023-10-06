@@ -18,10 +18,15 @@ To build for production:
 yarn build
 ```
 
-To deploy to surge:
+To stage for deployment:
 
 ```bash
 yarn next export
+```
+
+To deploy to surge:
+
+```bash
 surge ./out
 ```
 
