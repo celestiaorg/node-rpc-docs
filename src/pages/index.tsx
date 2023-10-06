@@ -256,7 +256,6 @@ export default function Example() {
                       <a
                         key={pkg}
                         href={'#' + pkg}
-                        // className='group ml-4 flex items-center rounded-md px-2 text-base text-gray-700'
                         className='group ml-2 flex items-center rounded-md px-2 text-sm font-medium capitalize text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                       >
                         {pkg == 'p2p' ? 'P2P' : pkg}
@@ -388,7 +387,6 @@ export default function Example() {
                   </h2>
                 </div>
                 <div className='px-4 sm:px-6 md:px-0'>
-                  {/* Replace with your content */}
                   <div className='py-4'>
                     {spec &&
                       Object.entries(getMethodsByPackage(spec)).map(
@@ -409,7 +407,6 @@ export default function Example() {
                         )
                       )}
                   </div>
-                  {/* /End replace */}
                 </div>
               </div>
             </main>
