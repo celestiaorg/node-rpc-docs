@@ -232,7 +232,8 @@ export default function Example() {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className='hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col'>
+        <div className='relative hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col'>
+          {' '}
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className='flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5'>
             <div className='flex flex-shrink-0 items-center px-2'>
@@ -280,6 +281,22 @@ export default function Example() {
               </nav>
             </div>
           </div>
+          <div className='absolute bottom-0 left-0 mb-4 ml-4 flex space-x-4'>
+            <a href='https://discord.com/invite/YsnTPcSfWQ'>
+              <img
+                src='/images/discord.svg'
+                className='h-10'
+                alt='Discord Logo'
+              />
+            </a>
+            <a href='https://github.com/celestiaorg/celestia-node'>
+              <img
+                src='/images/github.svg'
+                className='h-10'
+                alt='Github Logo'
+              />
+            </a>
+          </div>
         </div>
 
         <div className='md:pl-64'>
@@ -296,12 +313,28 @@ export default function Example() {
               <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:hidden'>
                 {spec && spec.info.title}
               </h1>
+              <div className='ml-auto flex items-center space-x-4'>
+                <a href='https://discord.com/invite/YsnTPcSfWQ'>
+                  <img
+                    src='/images/discord.svg'
+                    className='h-8'
+                    alt='Discord Logo'
+                  />
+                </a>
+                <a href='https://github.com/celestiaorg/celestia-node'>
+                  <img
+                    src='/images/github.svg'
+                    className='h-8'
+                    alt='Github Logo'
+                  />
+                </a>
+              </div>
             </div>
 
             <main className='flex-1'>
               <div className='py-6'>
                 <div className='px-4 sm:px-6 md:px-0'>
-                  <div className='lg:flex'>
+                  <div className='flex justify-between'>
                     <div className='flex'>
                       <img
                         src='/images/icon-1.png'
@@ -311,8 +344,10 @@ export default function Example() {
                       <h1 className='my-auto ml-2 hidden font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:block'>
                         {spec && spec.info.title}
                       </h1>
-                      <label className='my-auto ml-4 inline-flex items-center rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800'>
-                        Select API version:
+                    </div>
+                    <div className='my-auto ml-20 inline-flex flex-col items-center rounded-lg bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800 sm:flex sm:flex-row sm:items-center'>
+                      <span className='mb-2 sm:mb-0'>Select API version:</span>
+                      <div>
                         <select
                           value={selectedVersion}
                           onChange={handleVersionChange}
@@ -324,26 +359,10 @@ export default function Example() {
                             </option>
                           ))}
                         </select>
-                      </label>
-                    </div>
-                    <div className='ml-auto flex'>
-                      <a href='https://discord.com/invite/YsnTPcSfWQ'>
-                        <img
-                          src='/images/discord.svg'
-                          className='my-auto h-12'
-                          alt='Discord Logo'
-                        />
-                      </a>
-                      <a href='https://github.com/celestiaorg/celestia-node'>
-                        <img
-                          src='/images/github.svg'
-                          className='my-auto h-12'
-                          alt='Github Logo'
-                        />
-                      </a>
+                      </div>
                     </div>
                   </div>
-                  <h2 className='mt-2 text-base font-normal text-gray-700'>
+                  <h2 className='mt-2 pt-4 text-base font-normal text-gray-700'>
                     {spec && spec.info.description}
                   </h2>
                 </div>
