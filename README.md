@@ -1,8 +1,42 @@
+# celestia-node RPC API documentation
+
+To download dependencies:
+
+```bash
+yarn install
+```
+
+To run the local development environment:
+
+```bash
+yarn dev
+```
+
+To build for production:
+
+```bash
+yarn build
+```
+
+To stage for deployment:
+
+```bash
+yarn next export
+```
+
+To deploy to surge:
+
+```bash
+surge ./out
+```
+
+<details>
+  <summary>🔋 ts-nextjs-tailwind-starter by <a href="https://github.com/theodorusclarence">@theodorusclarence</a></summary>
+
 <div align="center">
   <h1>🔋 ts-nextjs-tailwind-starter</h1>
   <p>Next.js + Tailwind CSS + TypeScript starter packed with useful development features.</p>
   <p>Made by <a href="https://theodorusclarence.com">Theodorus Clarence</a></p>
-  
   
   [![CodeFactor](https://www.codefactor.io/repository/github/theodorusclarence/ts-nextjs-tailwind-starter/badge/main)](https://www.codefactor.io/repository/github/theodorusclarence/ts-nextjs-tailwind-starter/overview/main)
   [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=theodorusclarence_ts-nextjs-tailwind-starter&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=theodorusclarence_ts-nextjs-tailwind-starter)
@@ -44,7 +78,7 @@ You can also check all of the **details and demos** on my blog post:
 
 ## Getting Started
 
-### 1. Clone this template using one of the three ways:
+### 1. Clone this template using one of the three ways
 
 1. Use this repository as template
 
@@ -119,6 +153,8 @@ This starter is now equipped with an [expansion pack](https://github.com/theodor
 
 You can easily add expansion such as React Hook Form + Components, Storybook, and more just using a single command line.
 
-https://user-images.githubusercontent.com/55318172/146631994-e1cac137-1664-4cfe-950b-a96decc1eaa6.mp4
+<https://user-images.githubusercontent.com/55318172/146631994-e1cac137-1664-4cfe-950b-a96decc1eaa6.mp4>
 
 Check out the [expansion pack repository](https://github.com/theodorusclarence/expansion-pack) for the commands
+
+</details>

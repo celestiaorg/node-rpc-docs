@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
@@ -6,6 +7,7 @@ import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
 import Seo from '@/components/Seo';
@@ -16,10 +18,12 @@ const clients = [
     href: 'https://github.com/celestiaorg/celestia-node/blob/main/api/rpc/client/client.go',
     current: false,
   },
+  {
+    name: 'Rust',
+    href: 'https://github.com/eigerco/celestia-node-rs',
+    current: false,
+  },
 ];
-
-const jsonURL =
-  'https://raw.githubusercontent.com/celestiaorg/celestia-node/openrpc-spec/openrpc.json';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
@@ -74,7 +78,20 @@ function getMethodsByPackage(spec: any): MethodByPkg {
   return methodsByPackage;
 }
 
+const versions = [
+  'v0.11.0-rc8',
+  'rc8-0cf4a49',
+  'v0.11.0-rc11',
+  'v0.11.0-rc12',
+  'v0.11.0-rc13',
+  'v0.11.0-rc14',
+].reverse();
+
 export default function Example() {
+  const handleVersionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedVersion(event.target.value);
+    window.history.pushState({}, '', `?version=${event.target.value}`);
+  };
   const [spec, setSpec] = useState<any>();
   const [open, setOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -83,18 +100,38 @@ export default function Example() {
     description: '',
     schema: {},
   });
+  const [selectedVersion, setSelectedVersion] = useState(versions[0]);
+  const [showHash, setShowHash] = useState('');
 
   useEffect(() => {
-    const fetchJsonData = async (url: string) => {
+    const fetchJsonData = async (version: string) => {
       try {
-        const response = await axios.get(url);
+        const response = await axios.get(`/specs/openrpc-${version}.json`);
         setSpec(response.data);
+        window.history.replaceState({}, '', `?version=${version}`);
       } catch (error) {
-        // console.error('Error fetching JSON data:', error);
+        // eslint-disable-next-line no-console
+        console.error('Error fetching JSON data:', error);
       }
     };
 
-    fetchJsonData(jsonURL);
+    const urlParams = new URLSearchParams(window.location.search);
+    const versionParam = urlParams.get('version');
+    if (versionParam && versions.includes(versionParam)) {
+      setSelectedVersion(versionParam);
+    } else {
+      setSelectedVersion(versions[0]);
+    }
+
+    fetchJsonData(selectedVersion);
+  }, [selectedVersion]);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const versionParam = urlParams.get('version');
+    if (versionParam && versions.includes(versionParam)) {
+      setSelectedVersion(versionParam);
+    }
   }, []);
 
   const activateSidebar = (param: any) => {
@@ -161,7 +198,7 @@ export default function Example() {
                   <div className='flex flex-shrink-0 items-center px-4'>
                     <img
                       className='h-8 w-auto'
-                      src='/images/celestia-logo-purple.png'
+                      src='/images/celestia-docs.svg'
                       alt='Celestia Logo'
                     />
                   </div>
@@ -173,10 +210,22 @@ export default function Example() {
                           ([pkg, methods]) => (
                             <a
                               key={pkg}
-                              href={`/#${pkg}`}
+                              href={`/?version=${selectedVersion}#${pkg}`}
                               className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
+                              onMouseEnter={() => setShowHash(pkg)}
+                              onMouseLeave={() => setShowHash('')}
+                              onClick={() => setSidebarOpen(false)}
                             >
                               {pkg == 'p2p' ? 'P2P' : pkg}
+                              {showHash === pkg && (
+                                <CopyToClipboard
+                                  text={`${window.location.origin}/?version=${selectedVersion}#${pkg}`}
+                                >
+                                  <span className='ml-2 cursor-pointer hover:text-blue-500'>
+                                    #
+                                  </span>
+                                </CopyToClipboard>
+                              )}
                             </a>
                           )
                         )}
@@ -187,6 +236,8 @@ export default function Example() {
                         <a
                           key={client.name}
                           href={client.href}
+                          target='_blank'
+                          rel='noopener noreferrer'
                           className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
                         >
                           {client.name}
@@ -204,13 +255,14 @@ export default function Example() {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className='hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col'>
+        <div className='relative hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col'>
+          {' '}
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className='flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5'>
             <div className='flex flex-shrink-0 items-center px-2'>
               <img
                 className='w-full px-4'
-                src='/images/celestia-logo-purple.png'
+                src='/images/celestia-docs.svg'
                 alt='Celestia Logo'
               />
             </div>
@@ -225,7 +277,6 @@ export default function Example() {
                       <a
                         key={pkg}
                         href={'#' + pkg}
-                        // className='group ml-4 flex items-center rounded-md px-2 text-base text-gray-700'
                         className='group ml-2 flex items-center rounded-md px-2 text-sm font-medium capitalize text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                       >
                         {pkg == 'p2p' ? 'P2P' : pkg}
@@ -239,6 +290,8 @@ export default function Example() {
                   <a
                     key={client.name}
                     href={client.href}
+                    target='_blank'
+                    rel='noopener noreferrer'
                     className={classNames(
                       client.current
                         ? 'bg-gray-100 text-gray-900'
@@ -251,6 +304,29 @@ export default function Example() {
                 ))}
               </nav>
             </div>
+          </div>
+          <div className='absolute bottom-0 left-0 mb-4 ml-4 flex space-x-4'>
+            <a href='/'>
+              <img
+                src='/images/icon-1.png'
+                className='hidden h-10 sm:block lg:hidden'
+                alt='Celestia block'
+              />
+            </a>
+            <a href='https://discord.com/invite/YsnTPcSfWQ'>
+              <img
+                src='/images/discord.svg'
+                className='h-10'
+                alt='Discord Logo'
+              />
+            </a>
+            <a href='https://github.com/celestiaorg/celestia-node'>
+              <img
+                src='/images/github.svg'
+                className='h-10'
+                alt='Github Logo'
+              />
+            </a>
           </div>
         </div>
 
@@ -265,59 +341,112 @@ export default function Example() {
                 <span className='sr-only'>Open sidebar</span>
                 <Bars3BottomLeftIcon className='h-6 w-6' aria-hidden='true' />
               </button>
-              <h1 className='my-auto ml-2 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:hidden'>
+              <h1 className='my-auto ml-4 font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:hidden'>
                 {spec && spec.info.title}
               </h1>
+              <div className='ml-auto flex items-center space-x-4'>
+                <a href='/' className='hidden 400:block'>
+                  <img
+                    src='/images/icon-1.png'
+                    className='h-8'
+                    alt='Celestia block'
+                  />
+                </a>
+                <a
+                  href='https://discord.com/invite/YsnTPcSfWQ'
+                  className='hidden 400:block'
+                >
+                  <img
+                    src='/images/discord.svg'
+                    className='h-8'
+                    alt='Discord Logo'
+                  />
+                </a>
+                <a href='https://github.com/celestiaorg/celestia-node'>
+                  <img
+                    src='/images/github.svg'
+                    className='h-8'
+                    alt='Github Logo'
+                  />
+                </a>
+              </div>
             </div>
 
             <main className='flex-1'>
               <div className='py-6'>
                 <div className='px-4 sm:px-6 md:px-0'>
-                  <div className='lg:flex'>
+                  <div className='flex justify-between'>
                     <div className='flex'>
-                      <img
-                        src='/images/icon-1.png'
-                        className='h-16'
-                        alt='Celestia block'
-                      />
-                      <h1 className='my-auto ml-2 hidden font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:block'>
+                      <a href='/'>
+                        <img
+                          src='/images/icon-1.png'
+                          className='hidden h-16 lg:block'
+                          alt='Celestia block'
+                        />
+                      </a>
+                      <h1 className='my-auto hidden font-[ruberoid] text-xl font-semibold text-gray-900 md:block md:text-2xl lg:ml-2 lg:text-3xl'>
                         {spec && spec.info.title}
                       </h1>
-                      <span className='my-auto ml-4 inline-flex h-8 items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
-                        {spec && spec.info.version}
-                      </span>
                     </div>
-                    <div className='ml-auto flex'>
-                      <a href='https://discord.com/invite/YsnTPcSfWQ'>
-                        <img
-                          src='/images/discord.svg'
-                          className='my-auto h-12'
-                          alt='Discord Logo'
-                        />
-                      </a>
-                      <a href='https://github.com/celestiaorg/celestia-node'>
-                        <img
-                          src='/images/github.svg'
-                          className='my-auto h-12'
-                          alt='Github Logo'
-                        />
-                      </a>
+                    <div className='my-auto ml-20 inline-flex flex-row items-center rounded-lg bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800'>
+                      <span className='mr-2'>Select API version:</span>
+                      <div>
+                        <select
+                          value={selectedVersion}
+                          onChange={handleVersionChange}
+                          className='ml-2 h-8 rounded-md border border-gray-300 bg-white py-0 pl-3 pr-7 text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+                        >
+                          {versions.map((version) => (
+                            <option key={version} value={version}>
+                              {version}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
                   </div>
-                  <h2 className='mt-2 text-base font-normal text-gray-700'>
-                    {spec && spec.info.description}
+                  <h2 className='mt-2 pt-4 text-base font-normal text-gray-700'>
+                    {spec && `${spec.info.description} `}
+                    {spec && (
+                      <a
+                        href={`https://github.com/celestiaorg/celestia-node/releases/${spec.info.version}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='text-blue-500 hover:text-blue-700 hover:underline'
+                      >
+                        {`(${spec.info.version})`}
+                      </a>
+                    )}
                   </h2>
                 </div>
                 <div className='px-4 sm:px-6 md:px-0'>
-                  {/* Replace with your content */}
                   <div className='py-4'>
                     {spec &&
                       Object.entries(getMethodsByPackage(spec)).map(
                         ([pkg, methods]) => (
                           <div key={pkg} className='pb-6' id={pkg}>
-                            <h3 className='font-[ruberoid] text-2xl font-bold uppercase'>
-                              {pkg}
-                            </h3>
+                            <a
+                              key={pkg}
+                              href={`/?version=${selectedVersion}#${pkg}`}
+                              onMouseEnter={() => setShowHash(pkg)}
+                              onMouseLeave={() => setShowHash('')}
+                            >
+                              <h3
+                                id={pkg}
+                                className='font-[ruberoid] text-2xl font-bold uppercase'
+                              >
+                                {pkg}
+                                {showHash === pkg && (
+                                  <CopyToClipboard
+                                    text={`${window.location.origin}/?version=${selectedVersion}#${pkg}`}
+                                  >
+                                    <span className='ml-2 cursor-pointer hover:text-blue-500'>
+                                      #
+                                    </span>
+                                  </CopyToClipboard>
+                                )}
+                              </h3>
+                            </a>
                             {methods.map((method) => (
                               <RPCMethod
                                 key={`${pkg}.${method.name}`}
@@ -330,7 +459,6 @@ export default function Example() {
                         )
                       )}
                   </div>
-                  {/* /End replace */}
                 </div>
               </div>
             </main>
