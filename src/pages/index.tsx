@@ -7,6 +7,7 @@ import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
 import Seo from '@/components/Seo';
@@ -100,6 +101,7 @@ export default function Example() {
     schema: {},
   });
   const [selectedVersion, setSelectedVersion] = useState(versions[0]);
+  const [showHash, setShowHash] = useState('');
 
   useEffect(() => {
     const fetchJsonData = async (version: string) => {
@@ -208,10 +210,21 @@ export default function Example() {
                           ([pkg, methods]) => (
                             <a
                               key={pkg}
-                              href={'#' + pkg}
+                              href={`/?version=${selectedVersion}#${pkg}`}
                               className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
+                              onMouseEnter={() => setShowHash(pkg)}
+                              onMouseLeave={() => setShowHash('')}
                             >
                               {pkg == 'p2p' ? 'P2P' : pkg}
+                              {showHash === pkg && (
+                                <CopyToClipboard
+                                  text={`${window.location.origin}/?version=${selectedVersion}#${pkg}`}
+                                >
+                                  <span className='ml-2 cursor-pointer hover:text-blue-500'>
+                                    #
+                                  </span>
+                                </CopyToClipboard>
+                              )}
                             </a>
                           )
                         )}
@@ -411,9 +424,28 @@ export default function Example() {
                       Object.entries(getMethodsByPackage(spec)).map(
                         ([pkg, methods]) => (
                           <div key={pkg} className='pb-6' id={pkg}>
-                            <h3 className='font-[ruberoid] text-2xl font-bold uppercase'>
-                              {pkg}
-                            </h3>
+                            <a
+                              key={pkg}
+                              href={`/?version=${selectedVersion}#${pkg}`}
+                              onMouseEnter={() => setShowHash(pkg)}
+                              onMouseLeave={() => setShowHash('')}
+                            >
+                              <h3
+                                id={pkg}
+                                className='font-[ruberoid] text-2xl font-bold uppercase'
+                              >
+                                {pkg}
+                                {showHash === pkg && (
+                                  <CopyToClipboard
+                                    text={`${window.location.origin}/?version=${selectedVersion}#${pkg}`}
+                                  >
+                                    <span className='ml-2 cursor-pointer hover:text-blue-500'>
+                                      #
+                                    </span>
+                                  </CopyToClipboard>
+                                )}
+                              </h3>
+                            </a>
                             {methods.map((method) => (
                               <RPCMethod
                                 key={`${pkg}.${method.name}`}
