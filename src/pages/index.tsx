@@ -80,6 +80,10 @@ const versions = [
 ];
 
 export default function Example() {
+  const handleVersionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedVersion(event.target.value);
+    window.history.pushState({}, '', `?version=${event.target.value}`);
+  };
   const [spec, setSpec] = useState<any>();
   const [open, setOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -105,6 +109,14 @@ export default function Example() {
 
     fetchJsonData();
   }, [selectedVersion]);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const versionParam = urlParams.get('version');
+    if (versionParam && versions.includes(versionParam)) {
+      setSelectedVersion(versionParam);
+    }
+  }, []);
 
   const activateSidebar = (param: any) => {
     setOpen(true);
@@ -296,7 +308,7 @@ export default function Example() {
                         Select API version:
                         <select
                           value={selectedVersion}
-                          onChange={(e) => setSelectedVersion(e.target.value)}
+                          onChange={handleVersionChange}
                         >
                           {versions.map((version) => (
                             <option key={version} value={version}>
