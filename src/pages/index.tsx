@@ -507,12 +507,33 @@ export default function Example() {
                                 </h3>
                               </a>
                               {filteredMethods.map((method) => (
-                                <RPCMethod
+                                <div
                                   key={`${pkg}.${method.name}`}
-                                  pkg={pkg}
-                                  method={method}
-                                  activateSidebar={activateSidebar}
-                                />
+                                  id={`${pkg}.${method.name}`}
+                                >
+                                  <a
+                                    href={`#${pkg}.${method.name}`}
+                                    onMouseEnter={() =>
+                                      setShowHash(`${pkg}.${method.name}`)
+                                    }
+                                    onMouseLeave={() => setShowHash('')}
+                                  >
+                                    {showHash === `${pkg}.${method.name}` && (
+                                      <CopyToClipboard
+                                        text={`${window.location.origin}/#${pkg}.${method.name}`}
+                                      >
+                                        <span className='mr-2 cursor-pointer text-gray-500 hover:text-blue-500'>
+                                          #
+                                        </span>
+                                      </CopyToClipboard>
+                                    )}
+                                    <RPCMethod
+                                      pkg={pkg}
+                                      method={method}
+                                      activateSidebar={activateSidebar}
+                                    />
+                                  </a>
+                                </div>
                               ))}
                             </div>
                           );
