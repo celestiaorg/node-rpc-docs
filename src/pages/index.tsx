@@ -383,7 +383,17 @@ export default function Example() {
                     </div>
                   </div>
                   <h2 className='mt-2 pt-4 text-base font-normal text-gray-700'>
-                    {spec && spec.info.description}
+                    {spec && `${spec.info.description} `}
+                    {spec && (
+                      <a
+                        href={`https://github.com/celestiaorg/celestia-node/releases/${spec.info.version}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='text-blue-500 hover:text-blue-700 hover:underline'
+                      >
+                        {`(${spec.info.version})`}
+                      </a>
+                    )}
                   </h2>
                 </div>
                 <div className='px-4 sm:px-6 md:px-0'>
