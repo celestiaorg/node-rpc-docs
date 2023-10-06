@@ -18,9 +18,6 @@ const clients = [
   },
 ];
 
-const jsonURL =
-  'https://raw.githubusercontent.com/celestiaorg/celestia-node/openrpc-spec/openrpc.json';
-
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
 }
@@ -74,6 +71,14 @@ function getMethodsByPackage(spec: any): MethodByPkg {
   return methodsByPackage;
 }
 
+const versions = [
+  'v0.11.0-rc8',
+  'v0.11.0-rc8-arabica-improvements',
+  'v0.11.0-rc11',
+  'v0.11.0-rc12',
+  'v0.11.0-rc13',
+];
+
 export default function Example() {
   const [spec, setSpec] = useState<any>();
   const [open, setOpen] = useState(false);
@@ -83,19 +88,23 @@ export default function Example() {
     description: '',
     schema: {},
   });
+  const [selectedVersion, setSelectedVersion] = useState(versions[0]);
 
   useEffect(() => {
-    const fetchJsonData = async (url: string) => {
+    const fetchJsonData = async () => {
       try {
-        const response = await axios.get(url);
+        const response = await axios.get(
+          `/specs/openrpc-${selectedVersion}.json`
+        );
         setSpec(response.data);
       } catch (error) {
-        // console.error('Error fetching JSON data:', error);
+        // eslint-disable-next-line no-console
+        console.error('Error fetching JSON data:', error);
       }
     };
 
-    fetchJsonData(jsonURL);
-  }, []);
+    fetchJsonData();
+  }, [selectedVersion]);
 
   const activateSidebar = (param: any) => {
     setOpen(true);
@@ -283,9 +292,19 @@ export default function Example() {
                       <h1 className='my-auto ml-2 hidden font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:block'>
                         {spec && spec.info.title}
                       </h1>
-                      <span className='my-auto ml-4 inline-flex h-8 items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
-                        {spec && spec.info.version}
-                      </span>
+                      <label className='my-auto ml-4 inline-flex h-8 items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
+                        Select API version:
+                        <select
+                          value={selectedVersion}
+                          onChange={(e) => setSelectedVersion(e.target.value)}
+                        >
+                          {versions.map((version) => (
+                            <option key={version} value={version}>
+                              {version}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
                     </div>
                     <div className='ml-auto flex'>
                       <a href='https://discord.com/invite/YsnTPcSfWQ'>
