@@ -405,7 +405,7 @@ export default function Example() {
                       </div>
                     </div>
                   </div>
-                  <h2 className='mt-2 pt-4 text-base font-normal text-gray-700'>
+                  <h2 className='mt-2 pt-4 pb-4 text-base font-normal text-gray-700'>
                     {spec && `${spec.info.description} `}
                     {spec && (
                       <a
