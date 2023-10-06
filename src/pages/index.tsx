@@ -77,7 +77,7 @@ const versions = [
   'v0.11.0-rc11',
   'v0.11.0-rc12',
   'v0.11.0-rc13',
-];
+].reverse();
 
 export default function Example() {
   const handleVersionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -95,19 +95,26 @@ export default function Example() {
   const [selectedVersion, setSelectedVersion] = useState(versions[0]);
 
   useEffect(() => {
-    const fetchJsonData = async () => {
+    const fetchJsonData = async (version: string) => {
       try {
-        const response = await axios.get(
-          `/specs/openrpc-${selectedVersion}.json`
-        );
+        const response = await axios.get(`/specs/openrpc-${version}.json`);
         setSpec(response.data);
+        window.history.replaceState({}, '', `?version=${version}`);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error('Error fetching JSON data:', error);
       }
     };
 
-    fetchJsonData();
+    const urlParams = new URLSearchParams(window.location.search);
+    const versionParam = urlParams.get('version');
+    if (versionParam && versions.includes(versionParam)) {
+      setSelectedVersion(versionParam);
+    } else {
+      setSelectedVersion(versions[0]);
+    }
+
+    fetchJsonData(selectedVersion);
   }, [selectedVersion]);
 
   useEffect(() => {
