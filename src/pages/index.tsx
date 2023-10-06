@@ -8,6 +8,7 @@ import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { FiClipboard } from 'react-icons/fi';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
 import Seo from '@/components/Seo';
@@ -221,8 +222,8 @@ export default function Example() {
                                 <CopyToClipboard
                                   text={`${window.location.origin}/?version=${selectedVersion}#${pkg}`}
                                 >
-                                  <span className='ml-2 cursor-pointer hover:text-blue-500'>
-                                    #
+                                  <span className='ml-2 cursor-pointer text-gray-500 hover:text-blue-500'>
+                                    <FiClipboard />
                                   </span>
                                 </CopyToClipboard>
                               )}
@@ -440,7 +441,7 @@ export default function Example() {
                                   <CopyToClipboard
                                     text={`${window.location.origin}/?version=${selectedVersion}#${pkg}`}
                                   >
-                                    <span className='ml-2 cursor-pointer hover:text-blue-500'>
+                                    <span className='ml-2 cursor-pointer text-gray-500 hover:text-blue-500'>
                                       #
                                     </span>
                                   </CopyToClipboard>
