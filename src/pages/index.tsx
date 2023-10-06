@@ -222,6 +222,8 @@ export default function Example() {
                         <a
                           key={client.name}
                           href={client.href}
+                          target='_blank'
+                          rel='noopener noreferrer'
                           className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
                         >
                           {client.name}
