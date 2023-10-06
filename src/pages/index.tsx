@@ -73,7 +73,7 @@ function getMethodsByPackage(spec: any): MethodByPkg {
 
 const versions = [
   'v0.11.0-rc8',
-  'v0.11.0-rc8-arabica-improvements',
+  'rc8-0cf4a49',
   'v0.11.0-rc11',
   'v0.11.0-rc12',
   'v0.11.0-rc13',
@@ -304,11 +304,12 @@ export default function Example() {
                       <h1 className='my-auto ml-2 hidden font-[ruberoid] text-xl font-semibold text-gray-900 sm:text-3xl md:block'>
                         {spec && spec.info.title}
                       </h1>
-                      <label className='my-auto ml-4 inline-flex h-8 items-center rounded-full bg-purple-100 px-3 py-0.5 text-sm font-medium text-purple-800'>
+                      <label className='my-auto ml-4 inline-flex items-center rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800'>
                         Select API version:
                         <select
                           value={selectedVersion}
                           onChange={handleVersionChange}
+                          className='ml-2 h-8 rounded-md border border-gray-300 bg-white py-0 pl-3 pr-7 text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
                         >
                           {versions.map((version) => (
                             <option key={version} value={version}>
