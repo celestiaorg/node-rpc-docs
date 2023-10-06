@@ -103,6 +103,7 @@ export default function Example() {
   });
   const [selectedVersion, setSelectedVersion] = useState(versions[0]);
   const [showHash, setShowHash] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchJsonData = async (version: string) => {
@@ -196,23 +197,25 @@ export default function Example() {
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className='flex flex-shrink-0 items-center px-4'>
-                    <img
-                      className='h-8 w-auto'
-                      src='/images/celestia-docs.svg'
-                      alt='Celestia Logo'
-                    />
+                  <div className='logo-container border-b border-gray-200 pb-4 md:border-none md:pb-0'>
+                    <div className='flex flex-shrink-0 items-center px-4'>
+                      <img
+                        className='h-8 w-auto'
+                        src='/images/celestia-docs.svg'
+                        alt='Celestia Logo'
+                      />
+                    </div>
                   </div>
                   <div className='mt-5 h-0 flex-1 overflow-y-auto'>
                     <nav className='space-y-1 px-2'>
-                      <a className='text-md'>Celestia Node API</a>
+                      <a className='text-md mx-2'>Celestia Node API</a>
                       {spec &&
                         Object.entries(getMethodsByPackage(spec)).map(
                           ([pkg, methods]) => (
                             <a
                               key={pkg}
                               href={`/?version=${selectedVersion}#${pkg}`}
-                              className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
+                              className='group mx-4 flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
                               onMouseEnter={() => setShowHash(pkg)}
                               onMouseLeave={() => setShowHash('')}
                               onClick={() => setSidebarOpen(false)}
@@ -231,7 +234,7 @@ export default function Example() {
                           )
                         )}
                       <div className='pt-4'>
-                        <a className='text-md'>Clients</a>
+                        <a className='text-md mx-2'>Clients</a>
                       </div>
                       {clients.map((client) => (
                         <a
@@ -239,7 +242,7 @@ export default function Example() {
                           href={client.href}
                           target='_blank'
                           rel='noopener noreferrer'
-                          className='group flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
+                          className='group mx-4 flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
                         >
                           {client.name}
                         </a>
@@ -259,31 +262,65 @@ export default function Example() {
         <div className='relative hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col'>
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className='flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5'>
-            <div className='flex flex-shrink-0 items-center px-2'>
-              <img
-                className='w-full px-4'
-                src='/images/celestia-docs.svg'
-                alt='Celestia Logo'
-              />
+            <div className='logo-container border-b border-gray-200 pb-4 shadow md:pb-0'>
+              <div className='px-4'>
+                <div className='flex flex-shrink-0 items-center px-2'>
+                  <img
+                    className='w-full px-4'
+                    src='/images/celestia-docs.svg'
+                    alt='Celestia Logo'
+                  />
+                </div>
+                <input
+                  type='text'
+                  placeholder='Search modules & methods...'
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className='mt-4 mb-4 w-full rounded border border-gray-300 py-1 text-sm shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500'
+                />
+              </div>
             </div>
             <div className='mt-5 flex flex-grow flex-col'>
               <nav className='flex-1 space-y-1 px-2 pb-4'>
-                <a className='group flex items-center rounded-md px-2 text-base font-medium text-gray-900'>
+                <a className='group ml-2 flex items-center rounded-md px-2 text-base font-medium text-gray-900'>
                   Celestia Node API
                 </a>
                 {spec &&
-                  Object.entries(getMethodsByPackage(spec)).map(
-                    ([pkg, methods]) => (
+                  Object.entries(getMethodsByPackage(spec))
+                    .filter(
+                      ([pkg, methods]) =>
+                        pkg.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        methods.some((method) =>
+                          method.name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase())
+                        )
+                    )
+                    .map(([pkg, methods]) => (
                       <a
                         key={pkg}
                         href={'#' + pkg}
-                        className='group ml-2 flex items-center rounded-md px-2 text-sm font-medium capitalize text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                        className='group ml-4 flex items-center rounded-md px-2 text-sm font-medium capitalize text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                       >
                         {pkg == 'p2p' ? 'P2P' : pkg}
                       </a>
-                    )
+                    ))}
+                {searchTerm &&
+                  spec &&
+                  Object.entries(getMethodsByPackage(spec)).filter(
+                    ([pkg, methods]) =>
+                      pkg.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      methods.some((method) =>
+                        method.name
+                          .toLowerCase()
+                          .includes(searchTerm.toLowerCase())
+                      )
+                  ).length === 0 && (
+                    <p className='ml-4 text-sm text-gray-600'>
+                      👀 no modules or methods found
+                    </p>
                   )}
-                <a className='group flex items-center rounded-md px-2 pt-4 text-base font-medium text-gray-900'>
+                <a className='group ml-2 flex items-center rounded-md px-2 pt-4 text-base font-medium text-gray-900'>
                   Clients
                 </a>
                 {clients.map((client) => (
@@ -296,7 +333,7 @@ export default function Example() {
                       client.current
                         ? 'bg-gray-100 text-gray-900'
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                      'group ml-2 flex items-center rounded-md px-2 text-sm font-medium'
+                      'group ml-4 flex items-center rounded-md px-2 text-sm font-medium'
                     )}
                   >
                     {client.name}
@@ -422,42 +459,64 @@ export default function Example() {
                 <div className='px-4 sm:px-6 md:px-0'>
                   <div className='py-4'>
                     {spec &&
-                      Object.entries(getMethodsByPackage(spec)).map(
-                        ([pkg, methods]) => (
-                          <div key={pkg} className='pb-6' id={pkg}>
-                            <a
-                              key={pkg}
-                              href={`/?version=${selectedVersion}#${pkg}`}
-                              onMouseEnter={() => setShowHash(pkg)}
-                              onMouseLeave={() => setShowHash('')}
-                            >
-                              <h3
-                                id={pkg}
-                                className='font-[ruberoid] text-2xl font-bold uppercase'
-                              >
-                                {pkg}
-                                {showHash === pkg && (
-                                  <CopyToClipboard
-                                    text={`${window.location.origin}/?version=${selectedVersion}#${pkg}`}
-                                  >
-                                    <span className='ml-2 cursor-pointer text-gray-500 hover:text-blue-500'>
-                                      #
-                                    </span>
-                                  </CopyToClipboard>
-                                )}
-                              </h3>
-                            </a>
-                            {methods.map((method) => (
-                              <RPCMethod
-                                key={`${pkg}.${method.name}`}
-                                pkg={pkg}
-                                method={method}
-                                activateSidebar={activateSidebar}
-                              />
-                            ))}
-                          </div>
+                      Object.entries(getMethodsByPackage(spec))
+                        .filter(
+                          ([pkg, methods]) =>
+                            pkg
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            methods.some((method) =>
+                              method.name
+                                .toLowerCase()
+                                .includes(searchTerm.toLowerCase())
+                            )
                         )
-                      )}
+                        .map(([pkg, methods]) => {
+                          const filteredMethods = pkg
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase())
+                            ? methods
+                            : methods.filter((method) =>
+                                method.name
+                                  .toLowerCase()
+                                  .includes(searchTerm.toLowerCase())
+                              );
+
+                          return (
+                            <div key={pkg} className='pb-6' id={pkg}>
+                              <a
+                                key={pkg}
+                                href={`/?version=${selectedVersion}#${pkg}`}
+                                onMouseEnter={() => setShowHash(pkg)}
+                                onMouseLeave={() => setShowHash('')}
+                              >
+                                <h3
+                                  id={pkg}
+                                  className='font-[ruberoid] text-2xl font-bold uppercase'
+                                >
+                                  {pkg}
+                                  {showHash === pkg && (
+                                    <CopyToClipboard
+                                      text={`${window.location.origin}/?version=${selectedVersion}#${pkg}`}
+                                    >
+                                      <span className='ml-2 cursor-pointer text-gray-500 hover:text-blue-500'>
+                                        #
+                                      </span>
+                                    </CopyToClipboard>
+                                  )}
+                                </h3>
+                              </a>
+                              {filteredMethods.map((method) => (
+                                <RPCMethod
+                                  key={`${pkg}.${method.name}`}
+                                  pkg={pkg}
+                                  method={method}
+                                  activateSidebar={activateSidebar}
+                                />
+                              ))}
+                            </div>
+                          );
+                        })}
                   </div>
                 </div>
               </div>
