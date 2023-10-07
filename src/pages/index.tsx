@@ -7,6 +7,7 @@ import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FiClipboard } from 'react-icons/fi';
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -110,7 +111,8 @@ export default function Example() {
       try {
         const response = await axios.get(`/specs/openrpc-${version}.json`);
         setSpec(response.data);
-        window.history.replaceState({}, '', `?version=${version}`);
+        const hash = window.location.hash;
+        window.history.replaceState({}, '', `?version=${version}${hash}`);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error('Error fetching JSON data:', error);
@@ -135,6 +137,23 @@ export default function Example() {
       setSelectedVersion(versionParam);
     }
   }, []);
+
+  useEffect(() => {
+    if (spec) {
+      setTimeout(() => {
+        const hash = window.location.hash.substring(1);
+        const element = document.getElementById(hash);
+
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest',
+          });
+        }
+      }, 1000);
+    }
+  }, [spec]);
 
   const activateSidebar = (param: any) => {
     setOpen(true);
@@ -507,12 +526,17 @@ export default function Example() {
                                 </h3>
                               </a>
                               {filteredMethods.map((method) => (
-                                <RPCMethod
+                                <div
                                   key={`${pkg}.${method.name}`}
-                                  pkg={pkg}
-                                  method={method}
-                                  activateSidebar={activateSidebar}
-                                />
+                                  id={`${pkg}.${method.name}`}
+                                >
+                                  <RPCMethod
+                                    pkg={pkg}
+                                    method={method}
+                                    activateSidebar={activateSidebar}
+                                    selectedVersion={selectedVersion}
+                                  />
+                                </div>
                               ))}
                             </div>
                           );
@@ -613,43 +637,84 @@ const RPCMethod = ({
   pkg,
   method,
   activateSidebar,
+  selectedVersion,
 }: {
   pkg: string;
   method: Method;
   activateSidebar: (param: Param) => void;
+  selectedVersion: string;
 }) => {
   const [showRequest, setShowRequest] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
+  const methodRef = useRef<HTMLDivElement>(null); // create a ref
+
+  // const handleCopyClick = () => {
+  //   methodRef.current?.scrollIntoView({
+  //     behavior: 'auto',
+  //     block: 'start',
+  //     inline: 'nearest',
+  //   });
+  //   const newUrl = `${window.location.origin}/?version=${selectedVersion}#${pkg}.${method.name}`;
+  //   window.history.pushState({}, '', newUrl);
+  //   const offset = window.innerWidth >= 768 ? -5 : -70;
+  //   window.scrollBy(0, offset);
+  // };
+
+  const handleCopyClick = () => {
+    const hash = window.location.hash.substring(1);
+    const element = document.getElementById(hash);
+    element?.scrollIntoView();
+  };
 
   return (
-    <div key={method.name} className='py-2'>
-      <p className='text-md'>
-        {method.name}(
-        {method.params.map((param, i, { length }) => (
-          <span key={param.name} className='text-sm text-gray-700'>
-            <span>{param.name}</span>{' '}
-            <span
-              className='text-blue-500 hover:cursor-pointer hover:font-bold'
-              onClick={() => activateSidebar(param)}
-            >
-              {param.description}
-              {length - 1 != i && ', '}
+    <div
+      key={`${pkg}.${method.name}`}
+      id={`${pkg}.${method.name}`}
+      className='py-2'
+      ref={methodRef}
+    >
+      <div className='flex items-center justify-between'>
+        <p className='text-md'>
+          {method.name}(
+          {method.params.map((param, i, { length }) => (
+            <span key={param.name} className='text-sm text-gray-700'>
+              <span>{param.name}</span>{' '}
+              <span
+                className='text-blue-500 hover:cursor-pointer hover:font-bold'
+                onClick={() => activateSidebar(param)}
+              >
+                {param.description}
+                {length - 1 != i && ', '}
+              </span>
             </span>
+          ))}
+          n )
+          {method.result.description != 'Null' && (
+            <span
+              className='ml-2 text-sm text-blue-500 hover:cursor-pointer hover:font-bold'
+              onClick={() => activateSidebar(method.result)}
+            >
+              {method.result.description}
+            </span>
+          )}
+          <span className='ml-2 inline-flex items-center rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800'>
+            perms: {method.auth}
           </span>
-        ))}
-        )
-        {method.result.description != 'Null' && (
+        </p>
+        <CopyToClipboard
+          text={`${window.location.origin}/?version=${selectedVersion}#${pkg}.${method.name}`}
+          onCopy={handleCopyClick}
+        >
           <span
-            className='ml-2 text-sm text-blue-500 hover:cursor-pointer hover:font-bold'
-            onClick={() => activateSidebar(method.result)}
+            className='cursor-pointer text-gray-500 hover:text-blue-500'
+            onClick={() => {
+              window.location.hash = `${pkg}.${method.name}`;
+            }}
           >
-            {method.result.description}
+            #
           </span>
-        )}
-        <span className='ml-2 inline-flex items-center rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800'>
-          perms: {method.auth}
-        </span>
-      </p>
+        </CopyToClipboard>
+      </div>
       <p className='text-sm font-light text-gray-700'>{method.description}</p>
       <div className='mt-6 overflow-hidden rounded-lg bg-white text-sm shadow'>
         <div
