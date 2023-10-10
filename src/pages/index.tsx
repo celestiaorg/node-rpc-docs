@@ -689,7 +689,7 @@ const RPCMethod = ({
               </span>
             </span>
           ))}
-          n )
+          )
           {method.result.description != 'Null' && (
             <span
               className='ml-2 text-sm text-blue-500 hover:cursor-pointer hover:font-bold'
