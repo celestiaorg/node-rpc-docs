@@ -1,14 +1,22 @@
 import { AppProps } from 'next/app';
+import PlausibleProvider from 'next-plausible';
 
 import '@/styles/globals.css';
 
-/**
- * !STARTERCONF info
- * ? `Layout` component is called in every page using `np` snippets. If you have consistent layout across all page, you can add it here too
- */
-
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <PlausibleProvider
+      domain='node-rpc-docs.celestia.org'
+      customDomain='https://plausible.celestia.org'
+      selfHosted={true}
+      scriptProps={{
+        async: true,
+        defer: true,
+      }}
+    >
+      <Component {...pageProps} />
+    </PlausibleProvider>
+  );
 }
 
 export default MyApp;
