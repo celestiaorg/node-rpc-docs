@@ -1382,9 +1382,9 @@
       }
     },
     {
-      "name": "header.GetVerifiedRangeByHeight",
+      "name": "header.GetRangeByHeight",
       "description": "Auth level: read",
-      "summary": "GetVerifiedRangeByHeight returns the given range (from:to) of ExtendedHeaders\nfrom the node's header store and verifies that the returned headers are\nadjacent to each other.\n",
+      "summary": "GetRangeByHeight returns the given range (from:to) of ExtendedHeaders\nfrom the node's header store and verifies that the returned headers are\nadjacent to each other.\n",
       "paramStructure": "by-position",
       "params": [
         {
