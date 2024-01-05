@@ -25,6 +25,11 @@ const clients = [
     href: 'https://github.com/eigerco/celestia-node-rs',
     current: false,
   },
+    {
+    name: 'Python',
+    href: 'https://github.com/grumpyp/celestia-node-client-py',
+    current: false,
+  },
 ];
 
 function classNames(...classes: any[]) {
