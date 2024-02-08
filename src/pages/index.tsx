@@ -25,7 +25,7 @@ const clients = [
     href: 'https://github.com/eigerco/celestia-node-rs',
     current: false,
   },
-    {
+  {
     name: 'Python',
     href: 'https://github.com/grumpyp/celestia-node-client-py',
     current: false,
@@ -98,6 +98,7 @@ const versions = [
   `v0.12.2`,
   `v0.12.3`,
   `v0.12.4`,
+  `v0.13.0`,
 ].reverse();
 
 export default function Example() {
@@ -507,10 +508,10 @@ export default function Example() {
                             .includes(searchTerm.toLowerCase())
                             ? methods
                             : methods.filter((method) =>
-                                method.name
-                                  .toLowerCase()
-                                  .includes(searchTerm.toLowerCase())
-                              );
+                              method.name
+                                .toLowerCase()
+                                .includes(searchTerm.toLowerCase())
+                            );
 
                           return (
                             <div key={pkg} className='pb-6' id={pkg}>
@@ -789,7 +790,7 @@ const RPCMethod = ({
                   jsonrpc: '2.0',
                   result:
                     method.result.description == 'Null' ||
-                    !method.result.schema.examples
+                      !method.result.schema.examples
                       ? []
                       : [method.result.schema.examples[0]],
                 },
