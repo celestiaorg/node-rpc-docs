@@ -445,7 +445,7 @@
           "summary": "",
           "schema": {
             "examples": [
-              null
+              0.002
             ],
             "type": [
               "number"
