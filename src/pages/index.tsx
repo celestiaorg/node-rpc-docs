@@ -102,6 +102,7 @@ const versions = [
   `v0.13.1`,
   `v0.13.2`,
   `v0.13.3`,
+  `v0.13.4`,
 ].reverse();
 
 export default function Example() {
