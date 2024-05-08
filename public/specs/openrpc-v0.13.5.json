@@ -3,7 +3,7 @@
     "info": {
         "title": "Celestia Node API",
         "description": "The Celestia Node API is the collection of RPC methods that can be used to interact with the services provided by Celestia Data Availability Nodes.",
-        "version": "v0.11.0"
+        "version": "v0.13.5"
     },
     "externalDocs": {
         "description": "Celestia Node GitHub",
