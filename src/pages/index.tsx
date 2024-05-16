@@ -17,17 +17,22 @@ import Seo from '@/components/Seo';
 const clients = [
   {
     name: 'Golang',
-    href: 'https://github.com/celestiaorg/celestia-node/blob/main/api/rpc/client/client.go',
+    href: 'https://github.com/celestiaorg/celestia-openrpc',
     current: false,
   },
   {
-    name: 'Rust',
+    name: 'Rust (Community)',
     href: 'https://github.com/eigerco/celestia-node-rs',
     current: false,
   },
   {
-    name: 'Python',
+    name: 'Python (Community)',
     href: 'https://github.com/grumpyp/celestia-node-client-py',
+    current: false,
+  },
+  {
+    name: 'Typescript (Community)',
+    href: 'https://github.com/ashishbhintade/cntsc',
     current: false,
   },
 ];
@@ -513,10 +518,10 @@ export default function Example() {
                             .includes(searchTerm.toLowerCase())
                             ? methods
                             : methods.filter((method) =>
-                              method.name
-                                .toLowerCase()
-                                .includes(searchTerm.toLowerCase())
-                            );
+                                method.name
+                                  .toLowerCase()
+                                  .includes(searchTerm.toLowerCase())
+                              );
 
                           return (
                             <div key={pkg} className='pb-6' id={pkg}>
@@ -795,7 +800,7 @@ const RPCMethod = ({
                   jsonrpc: '2.0',
                   result:
                     method.result.description == 'Null' ||
-                      !method.result.schema.examples
+                    !method.result.schema.examples
                       ? []
                       : [method.result.schema.examples[0]],
                 },
