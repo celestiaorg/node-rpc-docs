@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #666;
+  z-index: 1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 5px;
+}
+
+.Resizer {
+  z-index: 1;
+}
+
+.logo {
+  animation: fadein 5s;
+}
+
+@keyframes fadein {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+.scroll-to-bottom {
+  height: 100%;
+}
+.call {
+  width: 90%;
+  padding: 8px;
+  padding-top: 10px;
+}
+
+.call-box.response {
+  justify-content: flex-end;
+}
+
+.call-box {
+  display: flex;
+}
+
+.call-box.hidden a{
+  display: none;
+}
+
+.call .decorationsOverviewRuler {
+  display: none !important;
+}

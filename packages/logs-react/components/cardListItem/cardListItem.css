@@ -1,0 +1,21 @@
+.call {
+  width: 90%;
+  padding: 8px;
+  padding-top: 10px;
+}
+
+.call-box.response {
+  justify-content: flex-end;
+}
+
+.call-box {
+  display: flex;
+}
+
+.call-box.hidden a{
+  display: none;
+}
+
+.call .decorationsOverviewRuler {
+  display: none !important;
+}

@@ -1,7 +1,9 @@
+import '@/styles/globals.css';
+import '@/styles/logs-react.css';
+import '@/styles/splitpane.css';
+
 import { AppProps } from 'next/app';
 import PlausibleProvider from 'next-plausible';
-
-import '@/styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
