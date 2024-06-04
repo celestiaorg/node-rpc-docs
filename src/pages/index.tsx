@@ -13,6 +13,7 @@ import {
   Bars3BottomLeftIcon,
   XMarkIcon,
   CheckCircleIcon,
+  XCircleIcon,
 } from '@heroicons/react/24/outline';
 import {
   ChevronDownIcon,
@@ -20,6 +21,7 @@ import {
   CommandLineIcon,
 } from '@heroicons/react/24/solid';
 import axios from 'axios';
+import { AxiosError } from 'axios';
 import { Fragment, useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -137,6 +139,11 @@ interface INotification {
   active: boolean;
 }
 
+interface NodeError {
+  code: number;
+  message: string;
+}
+
 export default function Example() {
   const handleVersionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedVersion(event.target.value);
@@ -165,6 +172,9 @@ export default function Example() {
   const [selectedVersion, setSelectedVersion] = useState(versions[0]);
   const [showHash, setShowHash] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+
+  const [hostname, setHostname] = useState('');
+  const [authToken, setAuthToken] = useState('');
 
   useEffect(() => {
     const fetchJsonData = async (version: string) => {
@@ -622,9 +632,9 @@ export default function Example() {
         </div>
       </div>
       {/* EXAMPLE TYPE MODAL */}
-      <Transition.Root show={open} as={Fragment}>
+      <Transition show={open}>
         <Dialog as='div' className='relative z-10' onClose={setOpen}>
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter='ease-out duration-300'
             enterFrom='opacity-0'
@@ -634,12 +644,11 @@ export default function Example() {
             leaveTo='opacity-0'
           >
             <div className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' />
-          </Transition.Child>
+          </TransitionChild>
 
           <div className='fixed inset-0 z-10 overflow-y-auto'>
             <div className='flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0'>
-              <Transition.Child
-                as={Fragment}
+              <TransitionChild
                 enter='ease-out duration-300'
                 enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
                 enterTo='opacity-100 translate-y-0 sm:scale-100'
@@ -647,7 +656,7 @@ export default function Example() {
                 leaveFrom='opacity-100 translate-y-0 sm:scale-100'
                 leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
               >
-                <Dialog.Panel className='relative transform rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6'>
+                <DialogPanel className='relative transform rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6'>
                   <div className='absolute right-0 top-0 hidden pr-4 pt-4 sm:block'>
                     <button
                       type='button'
@@ -660,12 +669,12 @@ export default function Example() {
                   </div>
                   <div className='overflow-x-auto sm:flex sm:items-start'>
                     <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
-                      <Dialog.Title
+                      <DialogTitle
                         as='h3'
                         className='text-lg font-medium leading-6 text-gray-900'
                       >
                         {currentParam.description}
-                      </Dialog.Title>
+                      </DialogTitle>
                       <div className='mt-2'>
                         {currentParam.schema?.examples &&
                           currentParam.schema.examples.length > 0 && (
@@ -697,245 +706,332 @@ export default function Example() {
                       Close
                     </button>
                   </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition.Root>
-      {/* PLAYGROUND MODAL */}
-      <Transition show={playgroundOpen}>
-        <Dialog className='relative z-10' onClose={setPlaygroundOpen}>
-          <TransitionChild
-            enter='ease-out duration-300'
-            enterFrom='opacity-0'
-            enterTo='opacity-100'
-            leave='ease-in duration-200'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
-          >
-            <div className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' />
-          </TransitionChild>
-
-          <div className='fixed inset-0 z-10 w-screen overflow-y-auto'>
-            <div className='flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0'>
-              <TransitionChild
-                enter='ease-out duration-300'
-                enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-                enterTo='opacity-100 translate-y-0 sm:scale-100'
-                leave='ease-in duration-200'
-                leaveFrom='opacity-100 translate-y-0 sm:scale-100'
-                leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-              >
-                <DialogPanel className='relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6'>
-                  <div className='sm:flex-grow'>
-                    <div className='flex'>
-                      <div className='mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-purple-100 sm:mx-0 sm:h-10 sm:w-10'>
-                        <CommandLineIcon
-                          className='h-6 w-6 text-purple-600'
-                          aria-hidden='true'
-                        />
-                      </div>
-                      <DialogTitle
-                        as='h3'
-                        className='ml-3 mt-2 text-base font-semibold text-gray-900'
-                      >
-                        Node Playground
-                      </DialogTitle>
-                    </div>
-                    <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
-                      {/* <p className='text-sm text-gray-500'>
-                          Are you sure you want to deactivate your account? All
-                          of your data will be permanently removed from our
-                          servers forever. This action cannot be undone.
-                        </p> */}
-                      <div className='mt-2 flex-grow flex-row'>
-                        {/* TABS */}
-                        <div className='sm:hidden'>
-                          <label htmlFor='tabs' className='sr-only'>
-                            Select a tab
-                          </label>
-                          {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
-                          <select
-                            id='tabs'
-                            name='tabs'
-                            className='block w-full rounded-md border-gray-300 focus:border-purple-500 focus:ring-purple-500'
-                            value={tabs[currentTab].name}
-                            onChange={(e) => {
-                              switch (e.currentTarget.value) {
-                                case 'Request':
-                                  setCurrentTab(0);
-                                  break;
-                                case 'Response':
-                                  setCurrentTab(1);
-                                  break;
-                                case 'Configure':
-                                  setCurrentTab(2);
-                                  break;
-                                default:
-                                  setCurrentTab(0);
-                                  break;
-                              }
-                            }}
-                          >
-                            {tabs.map((tab) => (
-                              <option key={tab.name}>{tab.name}</option>
-                            ))}
-                          </select>
-                        </div>
-                        <div className='hidden flex-grow sm:block'>
-                          <nav
-                            className='isolate flex divide-x divide-gray-200 rounded-lg shadow'
-                            aria-label='Tabs'
-                          >
-                            {tabs.map((tab, tabIdx) => (
-                              <a
-                                key={tab.name}
-                                href={tab.href}
-                                onClick={(_) => setCurrentTab(tabIdx)}
-                                className={classNames(
-                                  currentTab == tabIdx
-                                    ? 'text-gray-900'
-                                    : 'text-gray-500 hover:text-gray-700',
-                                  tabIdx === 0 ? 'rounded-l-lg' : '',
-                                  tabIdx === tabs.length - 1
-                                    ? 'rounded-r-lg'
-                                    : '',
-                                  'group relative min-w-0 flex-1 overflow-hidden bg-white px-4 py-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10'
-                                )}
-                                aria-current={
-                                  currentTab == tabIdx ? 'page' : undefined
-                                }
-                              >
-                                <span>{tab.name}</span>
-                                <span
-                                  aria-hidden='true'
-                                  className={classNames(
-                                    currentTab == tabIdx
-                                      ? 'bg-purple-500'
-                                      : 'bg-transparent',
-                                    'absolute inset-x-0 bottom-0 h-0.5'
-                                  )}
-                                />
-                              </a>
-                            ))}
-                          </nav>
-                        </div>
-                        {/* PLAYGROUND */}
-                        {currentTab == 0 && (
-                          <Editor
-                            language='json'
-                            options={{
-                              scrollBeyondLastLine: false,
-                              minimap: { enabled: false },
-                              useShadows: false,
-                            }}
-                            className='mt-3 min-h-52'
-                            value={currentRequest}
-                            onChange={(value) =>
-                              value && setCurrentRequest(value)
-                            }
-                          />
-                        )}
-                        {currentTab == 1 && (
-                          <Editor
-                            language='json'
-                            options={{
-                              scrollBeyondLastLine: false,
-                              minimap: { enabled: false },
-                              useShadows: false,
-                              readOnly: true,
-                            }}
-                            className='mt-3 min-h-52'
-                            value={JSON.stringify(currentResponse, null, 2)}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <div className='mt-5 sm:mt-4 sm:flex sm:flex-row-reverse'>
-                    <button
-                      type='button'
-                      className='mt-3 inline-flex w-full justify-center rounded-md bg-purple-100 px-3 py-2 text-sm font-semibold text-purple-900 shadow-sm ring-1 ring-inset ring-purple-300 hover:bg-gray-50 sm:mt-0 sm:w-auto'
-                      onClick={async () => {
-                        const data = await sendRequest(currentRequest);
-                        setCurrentResponse(data);
-                        setCurrentTab(1);
-                        setNotification({
-                          active: true,
-                          success: true,
-                          message: 'Request sent successfully',
-                        });
-                      }}
-                      data-autofocus
-                    >
-                      Send Request
-                    </button>
-                    <button
-                      type='button'
-                      className='mr-3 mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto'
-                      onClick={() => setPlaygroundOpen(false)}
-                      data-autofocus
-                    >
-                      Dismiss
-                    </button>
-                  </div>
                 </DialogPanel>
               </TransitionChild>
             </div>
           </div>
         </Dialog>
       </Transition>
-      {/* NOTIFICATIONS NOT WORKING YET*/}
-      {/* <div
-        aria-live='assertive'
-        className='pointer-events-none fixed inset-0 z-50 flex items-end px-4 py-6 sm:items-start sm:p-6'
-      >
-        <div className='flex w-full flex-col items-center space-y-4 sm:items-end'>
-          <Transition
-            show={notification.active}
-            enter='transform ease-out duration-300 transition'
-            enterFrom='translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2'
-            enterTo='translate-y-0 opacity-100 sm:translate-x-0'
-            leave='transition ease-in duration-100'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
-          >
-            <div className='pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5'>
-              <div className='p-4'>
-                <div className='flex items-start'>
-                  <div className='flex-shrink-0'>
-                    <CheckCircleIcon
-                      className='h-6 w-6 text-green-400'
-                      aria-hidden='true'
-                    />
-                  </div>
-                  <div className='ml-3 w-0 flex-1 pt-0.5'>
-                    <p className='text-sm font-medium text-gray-900'>
-                      {notification.success ? 'Success' : 'Failure'}
-                    </p>
-                    <p className='mt-1 text-sm text-gray-500'>
-                      {notification.message}
-                    </p>
-                  </div>
-                  <div className='ml-4 flex flex-shrink-0'>
-                    <button
-                      type='button'
-                      className='inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
-                      onClick={() => {
-                        setNotification({ ...notification, active: false });
-                      }}
-                    >
-                      <span className='sr-only'>Close</span>
-                      <XMarkIcon className='h-5 w-5' aria-hidden='true' />
-                    </button>
-                  </div>
-                </div>
+      <div className='relative'>
+        {/* PLAYGROUND MODAL */}
+        <Transition show={playgroundOpen}>
+          <Dialog className='relative' onClose={console.log}>
+            <TransitionChild
+              enter='ease-out duration-300'
+              enterFrom='opacity-0'
+              enterTo='opacity-100'
+              leave='ease-in duration-200'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'
+            >
+              <div className='pointer-events-none fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' />
+            </TransitionChild>
+
+            <div className='pointer-events-none fixed inset-0 w-screen overflow-y-auto'>
+              <div className='pointer-events-auto flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0'>
+                <TransitionChild
+                  enter='ease-out duration-300'
+                  enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                  enterTo='opacity-100 translate-y-0 sm:scale-100'
+                  leave='ease-in duration-200'
+                  leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+                  leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                >
+                  <DialogPanel className='relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6'>
+                    <div className='sm:flex-grow'>
+                      <div className='flex'>
+                        <div className='mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-purple-100 sm:mx-0 sm:h-10 sm:w-10'>
+                          <CommandLineIcon
+                            className='h-6 w-6 text-purple-600'
+                            aria-hidden='true'
+                          />
+                        </div>
+                        <DialogTitle
+                          as='h3'
+                          className='ml-3 mt-2 text-base font-semibold text-gray-900'
+                        >
+                          Node Playground
+                        </DialogTitle>
+                      </div>
+                      <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
+                        <div className='mt-2 flex-grow flex-row'>
+                          {/* TABS */}
+                          <div className='sm:hidden'>
+                            <label htmlFor='tabs' className='sr-only'>
+                              Select a tab
+                            </label>
+                            {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
+                            <select
+                              id='tabs'
+                              name='tabs'
+                              className='block w-full rounded-md border-gray-300 focus:border-purple-500 focus:ring-purple-500'
+                              value={tabs[currentTab].name}
+                              onChange={(e) => {
+                                switch (e.currentTarget.value) {
+                                  case 'Request':
+                                    setCurrentTab(0);
+                                    break;
+                                  case 'Response':
+                                    setCurrentTab(1);
+                                    break;
+                                  case 'Configure':
+                                    setCurrentTab(2);
+                                    break;
+                                  default:
+                                    setCurrentTab(0);
+                                    break;
+                                }
+                              }}
+                            >
+                              {tabs.map((tab) => (
+                                <option key={tab.name}>{tab.name}</option>
+                              ))}
+                            </select>
+                          </div>
+                          <div className='hidden flex-grow sm:block'>
+                            <nav
+                              className='isolate flex divide-x divide-gray-200 rounded-lg shadow'
+                              aria-label='Tabs'
+                            >
+                              {tabs.map((tab, tabIdx) => (
+                                <a
+                                  key={tab.name}
+                                  href={tab.href}
+                                  onClick={(_) => setCurrentTab(tabIdx)}
+                                  className={classNames(
+                                    currentTab == tabIdx
+                                      ? 'text-gray-900'
+                                      : 'text-gray-500 hover:text-gray-700',
+                                    tabIdx === 0 ? 'rounded-l-lg' : '',
+                                    tabIdx === tabs.length - 1
+                                      ? 'rounded-r-lg'
+                                      : '',
+                                    'group relative min-w-0 flex-1 overflow-hidden bg-white px-4 py-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10'
+                                  )}
+                                  aria-current={
+                                    currentTab == tabIdx ? 'page' : undefined
+                                  }
+                                >
+                                  <span>{tab.name}</span>
+                                  <span
+                                    aria-hidden='true'
+                                    className={classNames(
+                                      currentTab == tabIdx
+                                        ? 'bg-purple-500'
+                                        : 'bg-transparent',
+                                      'absolute inset-x-0 bottom-0 h-0.5'
+                                    )}
+                                  />
+                                </a>
+                              ))}
+                            </nav>
+                          </div>
+                          {/* PLAYGROUND */}
+                          {currentTab == 0 && (
+                            <Editor
+                              language='json'
+                              options={{
+                                scrollBeyondLastLine: false,
+                                minimap: { enabled: false },
+                                useShadows: false,
+                              }}
+                              className='mt-3 min-h-52'
+                              value={currentRequest}
+                              onChange={(value) =>
+                                value && setCurrentRequest(value)
+                              }
+                            />
+                          )}
+                          {currentTab == 1 && (
+                            <Editor
+                              language='json'
+                              options={{
+                                scrollBeyondLastLine: false,
+                                minimap: { enabled: false },
+                                useShadows: false,
+                                readOnly: true,
+                              }}
+                              className='mt-3 min-h-52'
+                              value={currentResponse}
+                            />
+                          )}
+                          {currentTab == 2 && (
+                            <div>
+                              <label
+                                htmlFor='ip'
+                                className='mt-6 block text-sm font-medium leading-6 text-gray-900'
+                              >
+                                IP Address
+                              </label>
+                              <div className='mt-2 flex rounded-md shadow-sm'>
+                                <span className='inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm'>
+                                  http://
+                                </span>
+                                <input
+                                  type='text'
+                                  name='ip'
+                                  id='ip'
+                                  className='block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                  placeholder='localhost:26658'
+                                  value={hostname}
+                                  onChange={(e) => setHostname(e.target.value)}
+                                />
+                              </div>
+                              <p
+                                className='mt-2 text-sm text-gray-500'
+                                id='protocol-description'
+                              >
+                                ws:// or wss:// is not supported at this time
+                              </p>
+                              <label
+                                htmlFor='authtoken'
+                                className='mt-6 block text-sm font-medium leading-6 text-gray-900'
+                              >
+                                Auth Token
+                              </label>
+                              <div className='mt-2 flex rounded-md shadow-sm'>
+                                <input
+                                  type='text'
+                                  name='authtoken'
+                                  id='authtoken'
+                                  className='block w-full min-w-0 flex-1 rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                                  placeholder=''
+                                  value={authToken}
+                                  onChange={(e) => setAuthToken(e.target.value)}
+                                />
+                              </div>
+                              <p
+                                className='mt-2 text-sm text-gray-500'
+                                id='auth-description'
+                              >
+                                Only set this if you don't have the
+                                --rpc.skip-auth flag set.
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <div className='mt-5 sm:mt-4 sm:flex sm:flex-row-reverse'>
+                      <button
+                        type='button'
+                        className='mt-3 inline-flex w-full justify-center rounded-md bg-purple-100 px-3 py-2 text-sm font-semibold text-purple-900 shadow-sm ring-1 ring-inset ring-purple-300 hover:bg-gray-50 sm:mt-0 sm:w-auto'
+                        onClick={async () => {
+                          try {
+                            const data = await sendRequest(
+                              currentRequest,
+                              hostname,
+                              authToken
+                            );
+                            setCurrentResponse(JSON.stringify(data, null, 2));
+                            setCurrentTab(1);
+                            if ('error' in data) {
+                              setNotification({
+                                active: true,
+                                success: false,
+                                message: (data.error as NodeError).message,
+                              });
+                            } else {
+                              setNotification({
+                                active: true,
+                                success: true,
+                                message: 'Request sent successfully',
+                              });
+                            }
+                          } catch (e) {
+                            setNotification({
+                              active: true,
+                              success: false,
+                              message: (e as AxiosError).message,
+                            });
+                            return;
+                          }
+                        }}
+                        data-autofocus
+                      >
+                        Send Request
+                      </button>
+                      <button
+                        type='button'
+                        className='mr-3 mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto'
+                        onClick={() => setPlaygroundOpen(false)}
+                        data-autofocus
+                      >
+                        Dismiss
+                      </button>
+                    </div>
+                  </DialogPanel>
+                </TransitionChild>
               </div>
             </div>
-          </Transition>
-        </div>
-      </div> */}
+          </Dialog>
+        </Transition>
+        {/* NOTIFICATIONS */}
+        {/* I use playground open because the css is janky otherwise (due to pointer events and z index) */}
+        {playgroundOpen && (
+          <div
+            aria-live='assertive'
+            className='pointer-events-auto fixed inset-0 z-50 flex items-end px-4 py-6 sm:items-start sm:p-6'
+          >
+            <div className='z-50 flex w-full flex-col items-center space-y-4 sm:items-end'>
+              <Transition
+                show={notification.active}
+                enter='transform ease-out duration-300 transition'
+                enterFrom='translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2'
+                enterTo='translate-y-0 opacity-100 sm:translate-x-0 z-50'
+                leave='transition ease-in duration-100'
+                leaveFrom='opacity-100'
+                leaveTo='opacity-0'
+              >
+                <div className='z-50 w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5'>
+                  <div className='z-50 p-4'>
+                    <div className='z-50 flex items-start'>
+                      <div className='z-50 flex-shrink-0'>
+                        {notification.success ? (
+                          <CheckCircleIcon
+                            className='h-6 w-6 text-green-400'
+                            aria-hidden='true'
+                          />
+                        ) : (
+                          <XCircleIcon
+                            className='h-6 w-6 text-red-400'
+                            aria-hidden='true'
+                          />
+                        )}
+                      </div>
+                      <div className='ml-3 w-0 flex-1 pt-0.5'>
+                        <p className='text-sm font-medium text-gray-900'>
+                          {notification.success
+                            ? 'Request Succeeded'
+                            : 'Request Failed With Error:'}
+                        </p>
+                        <p className='mt-1 text-sm text-gray-500'>
+                          {notification.message}
+                        </p>
+                      </div>
+                      <div className='z-50 ml-4 flex flex-shrink-0'>
+                        <button
+                          type='button'
+                          className='z-50 inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                          onClick={() => {
+                            setNotification({ ...notification, active: false });
+                          }}
+                        >
+                          <span className='sr-only'>Close</span>
+                          <XMarkIcon
+                            className='z-50 h-5 w-5'
+                            aria-hidden='true'
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Transition>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 }
@@ -1120,10 +1216,21 @@ const getExampleResponse = (method: Method): string => {
   );
 };
 
-const sendRequest = async (request: string): Promise<string> => {
-  const { data } = await axios.post(
-    'http://localhost:26658',
-    JSON.parse(request)
-  );
+const sendRequest = async (
+  request: string,
+  hostname: string,
+  authtoken: string
+): Promise<object> => {
+  if (hostname == '') {
+    hostname = 'http://localhost:26658';
+  } else {
+    hostname = 'http://' + hostname;
+  }
+
+  if (authtoken != '') {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${authtoken}`;
+  }
+
+  const { data } = await axios.post(hostname, JSON.parse(request));
   return data;
 };
