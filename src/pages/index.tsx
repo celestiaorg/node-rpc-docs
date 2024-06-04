@@ -2,16 +2,30 @@
 /* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
-import { Dialog, Transition } from '@headlessui/react';
-import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import {
+  Dialog,
+  Transition,
+  TransitionChild,
+  DialogPanel,
+  DialogTitle,
+} from '@headlessui/react';
+import {
+  Bars3BottomLeftIcon,
+  XMarkIcon,
+  CheckCircleIcon,
+} from '@heroicons/react/24/outline';
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  CommandLineIcon,
+} from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FiClipboard } from 'react-icons/fi';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-
+import { Editor } from '@monaco-editor/react';
 import Seo from '@/components/Seo';
 
 const clients = [
@@ -35,6 +49,12 @@ const clients = [
     href: 'https://github.com/ashishbhintade/cntsc',
     current: false,
   },
+];
+
+const tabs = [
+  { name: 'Request', href: '#' },
+  { name: 'Response', href: '#' },
+  { name: 'Configuration', href: '#' },
 ];
 
 function classNames(...classes: any[]) {
@@ -111,6 +131,12 @@ const versions = [
   `v0.13.5`,
 ].reverse();
 
+interface INotification {
+  message: string;
+  success: boolean;
+  active: boolean;
+}
+
 export default function Example() {
   const handleVersionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedVersion(event.target.value);
@@ -124,6 +150,18 @@ export default function Example() {
     description: '',
     schema: {},
   });
+
+  const [currentRequest, setCurrentRequest] = useState<string>('');
+  const [currentResponse, setCurrentResponse] = useState<string>('');
+  const [playgroundOpen, setPlaygroundOpen] = useState(false);
+  const [notification, setNotification] = useState<INotification>({
+    message: '',
+    success: true,
+    active: false,
+  });
+
+  // request: 0, response: 1, config: 2
+  const [currentTab, setCurrentTab] = useState(0);
   const [selectedVersion, setSelectedVersion] = useState(versions[0]);
   const [showHash, setShowHash] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -214,7 +252,7 @@ export default function Example() {
                 leaveFrom='translate-x-0'
                 leaveTo='-translate-x-full'
               >
-                <Dialog.Panel className='relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4'>
+                <Dialog.Panel className='relative flex w-full max-w-xs flex-1 flex-col bg-white pb-4 pt-5'>
                   <Transition.Child
                     as={Fragment}
                     enter='ease-in-out duration-300'
@@ -224,7 +262,7 @@ export default function Example() {
                     leaveFrom='opacity-100'
                     leaveTo='opacity-0'
                   >
-                    <div className='absolute top-0 right-0 -mr-12 pt-2'>
+                    <div className='absolute right-0 top-0 -mr-12 pt-2'>
                       <button
                         type='button'
                         className='ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'
@@ -256,7 +294,7 @@ export default function Example() {
                             <a
                               key={pkg}
                               href={`/?version=${selectedVersion}#${pkg}`}
-                              className='group mx-4 flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
+                              className='group mx-4 flex items-center rounded-md bg-gray-100 px-2 py-2 text-base font-light capitalize text-gray-900'
                               onMouseEnter={() => setShowHash(pkg)}
                               onMouseLeave={() => setShowHash('')}
                               onClick={() => setSidebarOpen(false)}
@@ -283,7 +321,7 @@ export default function Example() {
                           href={client.href}
                           target='_blank'
                           rel='noopener noreferrer'
-                          className='group mx-4 flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
+                          className='group mx-4 flex items-center rounded-md bg-gray-100 px-2 py-2 text-base font-light capitalize text-gray-900'
                         >
                           {client.name}
                         </a>
@@ -317,7 +355,7 @@ export default function Example() {
                   placeholder='Search modules & methods...'
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className='mt-4 mb-4 w-full rounded border border-gray-300 py-1 text-sm shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500'
+                  className='mb-4 mt-4 w-full rounded border border-gray-300 py-1 text-sm shadow-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-500'
                 />
               </div>
             </div>
@@ -413,7 +451,7 @@ export default function Example() {
             <div className='sticky top-0 z-10 flex h-16 flex-shrink-0 border-b border-gray-200 bg-white md:hidden'>
               <button
                 type='button'
-                className='border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden'
+                className='border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 md:hidden'
                 onClick={() => setSidebarOpen(true)}
               >
                 <span className='sr-only'>Open sidebar</span>
@@ -472,7 +510,7 @@ export default function Example() {
                         <select
                           value={selectedVersion}
                           onChange={handleVersionChange}
-                          className='ml-2 h-8 rounded-md border border-gray-300 bg-white py-0 pl-3 pr-7 text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+                          className='ml-2 h-8 rounded-md border border-gray-300 bg-white py-0 pl-3 pr-7 text-gray-700 focus:border-purple-500 focus:outline-none focus:ring-purple-500 sm:text-sm'
                         >
                           {versions.map((version) => (
                             <option key={version} value={version}>
@@ -483,7 +521,7 @@ export default function Example() {
                       </div>
                     </div>
                   </div>
-                  <h2 className='mt-2 pt-4 pb-4 text-base font-normal text-gray-700'>
+                  <h2 className='mt-2 pb-4 pt-4 text-base font-normal text-gray-700'>
                     {spec && `${spec.info.description} `}
                     {spec && (
                       <a
@@ -558,6 +596,19 @@ export default function Example() {
                                     activateSidebar={activateSidebar}
                                     selectedVersion={selectedVersion}
                                   />
+                                  <button
+                                    type='button'
+                                    className='mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm'
+                                    onClick={() => {
+                                      pkg &&
+                                        setCurrentRequest(
+                                          getExampleRequest(pkg, method)
+                                        );
+                                      setPlaygroundOpen(true);
+                                    }}
+                                  >
+                                    Try it out
+                                  </button>
                                 </div>
                               ))}
                             </div>
@@ -570,6 +621,7 @@ export default function Example() {
           </div>
         </div>
       </div>
+      {/* EXAMPLE TYPE MODAL */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as='div' className='relative z-10' onClose={setOpen}>
           <Transition.Child
@@ -595,11 +647,11 @@ export default function Example() {
                 leaveFrom='opacity-100 translate-y-0 sm:scale-100'
                 leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
               >
-                <Dialog.Panel className='relative transform rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6'>
-                  <div className='absolute top-0 right-0 hidden pt-4 pr-4 sm:block'>
+                <Dialog.Panel className='relative transform rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6'>
+                  <div className='absolute right-0 top-0 hidden pr-4 pt-4 sm:block'>
                     <button
                       type='button'
-                      className='rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                      className='rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2'
                       onClick={() => setOpen(false)}
                     >
                       <span className='sr-only'>Close</span>
@@ -607,7 +659,7 @@ export default function Example() {
                     </button>
                   </div>
                   <div className='overflow-x-auto sm:flex sm:items-start'>
-                    <div className='mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left'>
+                    <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
                       <Dialog.Title
                         as='h3'
                         className='text-lg font-medium leading-6 text-gray-900'
@@ -639,7 +691,7 @@ export default function Example() {
                   <div className='mt-5 sm:mt-4 sm:flex sm:flex-row-reverse'>
                     <button
                       type='button'
-                      className='mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm'
+                      className='mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm'
                       onClick={() => setOpen(false)}
                     >
                       Close
@@ -651,6 +703,239 @@ export default function Example() {
           </div>
         </Dialog>
       </Transition.Root>
+      {/* PLAYGROUND MODAL */}
+      <Transition show={playgroundOpen}>
+        <Dialog className='relative z-10' onClose={setPlaygroundOpen}>
+          <TransitionChild
+            enter='ease-out duration-300'
+            enterFrom='opacity-0'
+            enterTo='opacity-100'
+            leave='ease-in duration-200'
+            leaveFrom='opacity-100'
+            leaveTo='opacity-0'
+          >
+            <div className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' />
+          </TransitionChild>
+
+          <div className='fixed inset-0 z-10 w-screen overflow-y-auto'>
+            <div className='flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0'>
+              <TransitionChild
+                enter='ease-out duration-300'
+                enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                enterTo='opacity-100 translate-y-0 sm:scale-100'
+                leave='ease-in duration-200'
+                leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+                leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+              >
+                <DialogPanel className='relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6'>
+                  <div className='sm:flex-grow'>
+                    <div className='flex'>
+                      <div className='mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-purple-100 sm:mx-0 sm:h-10 sm:w-10'>
+                        <CommandLineIcon
+                          className='h-6 w-6 text-purple-600'
+                          aria-hidden='true'
+                        />
+                      </div>
+                      <DialogTitle
+                        as='h3'
+                        className='ml-3 mt-2 text-base font-semibold text-gray-900'
+                      >
+                        Node Playground
+                      </DialogTitle>
+                    </div>
+                    <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
+                      {/* <p className='text-sm text-gray-500'>
+                          Are you sure you want to deactivate your account? All
+                          of your data will be permanently removed from our
+                          servers forever. This action cannot be undone.
+                        </p> */}
+                      <div className='mt-2 flex-grow flex-row'>
+                        {/* TABS */}
+                        <div className='sm:hidden'>
+                          <label htmlFor='tabs' className='sr-only'>
+                            Select a tab
+                          </label>
+                          {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
+                          <select
+                            id='tabs'
+                            name='tabs'
+                            className='block w-full rounded-md border-gray-300 focus:border-purple-500 focus:ring-purple-500'
+                            value={tabs[currentTab].name}
+                            onChange={(e) => {
+                              switch (e.currentTarget.value) {
+                                case 'Request':
+                                  setCurrentTab(0);
+                                  break;
+                                case 'Response':
+                                  setCurrentTab(1);
+                                  break;
+                                case 'Configure':
+                                  setCurrentTab(2);
+                                  break;
+                                default:
+                                  setCurrentTab(0);
+                                  break;
+                              }
+                            }}
+                          >
+                            {tabs.map((tab) => (
+                              <option key={tab.name}>{tab.name}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className='hidden flex-grow sm:block'>
+                          <nav
+                            className='isolate flex divide-x divide-gray-200 rounded-lg shadow'
+                            aria-label='Tabs'
+                          >
+                            {tabs.map((tab, tabIdx) => (
+                              <a
+                                key={tab.name}
+                                href={tab.href}
+                                onClick={(_) => setCurrentTab(tabIdx)}
+                                className={classNames(
+                                  currentTab == tabIdx
+                                    ? 'text-gray-900'
+                                    : 'text-gray-500 hover:text-gray-700',
+                                  tabIdx === 0 ? 'rounded-l-lg' : '',
+                                  tabIdx === tabs.length - 1
+                                    ? 'rounded-r-lg'
+                                    : '',
+                                  'group relative min-w-0 flex-1 overflow-hidden bg-white px-4 py-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10'
+                                )}
+                                aria-current={
+                                  currentTab == tabIdx ? 'page' : undefined
+                                }
+                              >
+                                <span>{tab.name}</span>
+                                <span
+                                  aria-hidden='true'
+                                  className={classNames(
+                                    currentTab == tabIdx
+                                      ? 'bg-purple-500'
+                                      : 'bg-transparent',
+                                    'absolute inset-x-0 bottom-0 h-0.5'
+                                  )}
+                                />
+                              </a>
+                            ))}
+                          </nav>
+                        </div>
+                        {/* PLAYGROUND */}
+                        {currentTab == 0 && (
+                          <Editor
+                            language='json'
+                            options={{
+                              scrollBeyondLastLine: false,
+                              minimap: { enabled: false },
+                              useShadows: false,
+                            }}
+                            className='mt-3 min-h-52'
+                            value={currentRequest}
+                            onChange={(value) =>
+                              value && setCurrentRequest(value)
+                            }
+                          />
+                        )}
+                        {currentTab == 1 && (
+                          <Editor
+                            language='json'
+                            options={{
+                              scrollBeyondLastLine: false,
+                              minimap: { enabled: false },
+                              useShadows: false,
+                              readOnly: true,
+                            }}
+                            className='mt-3 min-h-52'
+                            value={JSON.stringify(currentResponse, null, 2)}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className='mt-5 sm:mt-4 sm:flex sm:flex-row-reverse'>
+                    <button
+                      type='button'
+                      className='mt-3 inline-flex w-full justify-center rounded-md bg-purple-100 px-3 py-2 text-sm font-semibold text-purple-900 shadow-sm ring-1 ring-inset ring-purple-300 hover:bg-gray-50 sm:mt-0 sm:w-auto'
+                      onClick={async () => {
+                        const data = await sendRequest(currentRequest);
+                        setCurrentResponse(data);
+                        setCurrentTab(1);
+                        setNotification({
+                          active: true,
+                          success: true,
+                          message: 'Request sent successfully',
+                        });
+                      }}
+                      data-autofocus
+                    >
+                      Send Request
+                    </button>
+                    <button
+                      type='button'
+                      className='mr-3 mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto'
+                      onClick={() => setPlaygroundOpen(false)}
+                      data-autofocus
+                    >
+                      Dismiss
+                    </button>
+                  </div>
+                </DialogPanel>
+              </TransitionChild>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      {/* NOTIFICATIONS NOT WORKING YET*/}
+      {/* <div
+        aria-live='assertive'
+        className='pointer-events-none fixed inset-0 z-50 flex items-end px-4 py-6 sm:items-start sm:p-6'
+      >
+        <div className='flex w-full flex-col items-center space-y-4 sm:items-end'>
+          <Transition
+            show={notification.active}
+            enter='transform ease-out duration-300 transition'
+            enterFrom='translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2'
+            enterTo='translate-y-0 opacity-100 sm:translate-x-0'
+            leave='transition ease-in duration-100'
+            leaveFrom='opacity-100'
+            leaveTo='opacity-0'
+          >
+            <div className='pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5'>
+              <div className='p-4'>
+                <div className='flex items-start'>
+                  <div className='flex-shrink-0'>
+                    <CheckCircleIcon
+                      className='h-6 w-6 text-green-400'
+                      aria-hidden='true'
+                    />
+                  </div>
+                  <div className='ml-3 w-0 flex-1 pt-0.5'>
+                    <p className='text-sm font-medium text-gray-900'>
+                      {notification.success ? 'Success' : 'Failure'}
+                    </p>
+                    <p className='mt-1 text-sm text-gray-500'>
+                      {notification.message}
+                    </p>
+                  </div>
+                  <div className='ml-4 flex flex-shrink-0'>
+                    <button
+                      type='button'
+                      className='inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                      onClick={() => {
+                        setNotification({ ...notification, active: false });
+                      }}
+                    >
+                      <span className='sr-only'>Close</span>
+                      <XMarkIcon className='h-5 w-5' aria-hidden='true' />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Transition>
+        </div>
+      </div> */}
     </>
   );
 }
@@ -669,18 +954,6 @@ const RPCMethod = ({
   const [showRequest, setShowRequest] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
   const methodRef = useRef<HTMLDivElement>(null); // create a ref
-
-  // const handleCopyClick = () => {
-  //   methodRef.current?.scrollIntoView({
-  //     behavior: 'auto',
-  //     block: 'start',
-  //     inline: 'nearest',
-  //   });
-  //   const newUrl = `${window.location.origin}/?version=${selectedVersion}#${pkg}.${method.name}`;
-  //   window.history.pushState({}, '', newUrl);
-  //   const offset = window.innerWidth >= 768 ? -5 : -70;
-  //   window.scrollBy(0, offset);
-  // };
 
   const handleCopyClick = () => {
     const hash = window.location.hash.substring(1);
@@ -813,4 +1086,44 @@ const RPCMethod = ({
       </div>
     </div>
   );
+};
+
+const getExampleRequest = (pkg: string, method: Method): string => {
+  return JSON.stringify(
+    {
+      id: 1,
+      jsonrpc: '2.0',
+      method: pkg + '.' + method.name,
+      params: method.params.map((param) =>
+        param.schema && param.schema.examples
+          ? param.schema.examples[0]
+          : undefined
+      ),
+    },
+    null,
+    2
+  );
+};
+
+const getExampleResponse = (method: Method): string => {
+  return JSON.stringify(
+    {
+      id: 1,
+      jsonrpc: '2.0',
+      result:
+        method.result.description == 'Null' || !method.result.schema.examples
+          ? []
+          : [method.result.schema.examples[0]],
+    },
+    null,
+    2
+  );
+};
+
+const sendRequest = async (request: string): Promise<string> => {
+  const { data } = await axios.post(
+    'http://localhost:26658',
+    JSON.parse(request)
+  );
+  return data;
 };

@@ -18,8 +18,9 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.4",
+    "@headlessui/react": "2.0.4",
     "@heroicons/react": "^2.0.13",
+    "@monaco-editor/react": "^4.6.0",
     "axios": "^1.3.4",
     "clsx": "^1.2.1",
     "next": "^13.0.3",
