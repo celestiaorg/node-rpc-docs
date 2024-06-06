@@ -21,12 +21,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -36,12 +32,8 @@
           "description": "share.Namespace",
           "summary": "",
           "schema": {
-            "examples": [
-              "AAAAAAAAAAAAAAAAAAAAAAAAAAECAwQFBgcICRA="
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["AAAAAAAAAAAAAAAAAAAAAAAAAAECAwQFBgcICRA="],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -51,12 +43,8 @@
           "description": "blob.Commitment",
           "summary": "",
           "schema": {
-            "examples": [
-              "Bw=="
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["Bw=="],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -86,9 +74,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -110,12 +96,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -125,21 +107,13 @@
           "description": "[]share.Namespace",
           "summary": "",
           "schema": {
-            "examples": [
-              [
-                "AAAAAAAAAAAAAAAAAAAAAAAAAAECAwQFBgcICRA="
-              ]
-            ],
+            "examples": [["AAAAAAAAAAAAAAAAAAAAAAAAAAECAwQFBgcICRA="]],
             "items": [
               {
-                "type": [
-                  "string"
-                ]
+                "type": ["string"]
               }
             ],
-            "type": [
-              "array"
-            ]
+            "type": ["array"]
           },
           "required": true,
           "deprecated": false
@@ -185,14 +159,10 @@
                   "type": "string"
                 }
               },
-              "type": [
-                "object"
-              ]
+              "type": ["object"]
             }
           ],
-          "type": [
-            "array"
-          ]
+          "type": ["array"]
         },
         "required": true,
         "deprecated": false
@@ -214,12 +184,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -229,12 +195,8 @@
           "description": "share.Namespace",
           "summary": "",
           "schema": {
-            "examples": [
-              "AAAAAAAAAAAAAAAAAAAAAAAAAAECAwQFBgcICRA="
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["AAAAAAAAAAAAAAAAAAAAAAAAAAECAwQFBgcICRA="],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -244,12 +206,8 @@
           "description": "blob.Commitment",
           "summary": "",
           "schema": {
-            "examples": [
-              "Bw=="
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["Bw=="],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -264,9 +222,7 @@
             [
               {
                 "end": 4,
-                "nodes": [
-                  "dGVzdA=="
-                ],
+                "nodes": ["dGVzdA=="],
                 "is_max_namespace_ignored": true
               }
             ]
@@ -274,14 +230,10 @@
           "items": [
             {
               "additionalProperties": false,
-              "type": [
-                "object"
-              ]
+              "type": ["object"]
             }
           ],
-          "type": [
-            "array"
-          ]
+          "type": ["array"]
         },
         "required": true,
         "deprecated": false
@@ -303,12 +255,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -318,12 +266,8 @@
           "description": "share.Namespace",
           "summary": "",
           "schema": {
-            "examples": [
-              "AAAAAAAAAAAAAAAAAAAAAAAAAAECAwQFBgcICRA="
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["AAAAAAAAAAAAAAAAAAAAAAAAAAECAwQFBgcICRA="],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -337,9 +281,7 @@
               [
                 {
                   "end": 4,
-                  "nodes": [
-                    "dGVzdA=="
-                  ],
+                  "nodes": ["dGVzdA=="],
                   "is_max_namespace_ignored": true
                 }
               ]
@@ -347,14 +289,10 @@
             "items": [
               {
                 "additionalProperties": false,
-                "type": [
-                  "object"
-                ]
+                "type": ["object"]
               }
             ],
-            "type": [
-              "array"
-            ]
+            "type": ["array"]
           },
           "required": true,
           "deprecated": false
@@ -364,12 +302,8 @@
           "description": "blob.Commitment",
           "summary": "",
           "schema": {
-            "examples": [
-              "Bw=="
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["Bw=="],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -380,12 +314,8 @@
         "description": "bool",
         "summary": "",
         "schema": {
-          "examples": [
-            true
-          ],
-          "type": [
-            "boolean"
-          ]
+          "examples": [true],
+          "type": ["boolean"]
         },
         "required": true,
         "deprecated": false
@@ -442,14 +372,10 @@
                     "type": "string"
                   }
                 },
-                "type": [
-                  "object"
-                ]
+                "type": ["object"]
               }
             ],
-            "type": [
-              "array"
-            ]
+            "type": ["array"]
           },
           "required": true,
           "deprecated": false
@@ -459,12 +385,8 @@
           "description": "blob.GasPrice",
           "summary": "",
           "schema": {
-            "examples": [
-              0.002
-            ],
-            "type": [
-              "number"
-            ]
+            "examples": [0.002],
+            "type": ["number"]
           },
           "required": true,
           "deprecated": false
@@ -475,12 +397,8 @@
         "description": "uint64",
         "summary": "",
         "schema": {
-          "examples": [
-            42
-          ],
-          "type": [
-            "integer"
-          ]
+          "examples": [42],
+          "type": ["integer"]
         },
         "required": true,
         "deprecated": false
@@ -603,9 +521,7 @@
               "type": "array"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -626,9 +542,7 @@
         "name": "Null",
         "description": "Null",
         "schema": {
-          "type": [
-            "null"
-          ]
+          "type": ["null"]
         },
         "required": true,
         "deprecated": false
@@ -650,12 +564,8 @@
           "description": "fraud.ProofType",
           "summary": "",
           "schema": {
-            "examples": [
-              "badencodingv0.1"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["badencodingv0.1"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -677,14 +587,10 @@
           "items": [
             {
               "additionalProperties": false,
-              "type": [
-                "object"
-              ]
+              "type": ["object"]
             }
           ],
-          "type": [
-            "array"
-          ]
+          "type": ["array"]
         },
         "required": true,
         "deprecated": false
@@ -706,12 +612,8 @@
           "description": "fraud.ProofType",
           "summary": "",
           "schema": {
-            "examples": [
-              "badencodingv0.1"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["badencodingv0.1"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -723,9 +625,7 @@
         "summary": "",
         "schema": {
           "title": "typeUnsupportedByJSONSchema",
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -747,12 +647,8 @@
           "description": "libhead.Hash",
           "summary": "",
           "schema": {
-            "examples": [
-              "07"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["07"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -1096,9 +992,7 @@
               "type": "object"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -1120,12 +1014,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -1469,9 +1359,7 @@
               "type": "object"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -1826,9 +1714,7 @@
                 "type": "object"
               }
             },
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -1838,12 +1724,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -2191,14 +2073,10 @@
                   "type": "object"
                 }
               },
-              "type": [
-                "object"
-              ]
+              "type": ["object"]
             }
           ],
-          "type": [
-            "array"
-          ]
+          "type": ["array"]
         },
         "required": true,
         "deprecated": false
@@ -2553,9 +2431,7 @@
               "type": "object"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -2910,9 +2786,7 @@
               "type": "object"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -2935,9 +2809,7 @@
         "summary": "",
         "schema": {
           "title": "typeUnsupportedByJSONSchema",
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -3010,9 +2882,7 @@
               "type": "integer"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -3033,9 +2903,7 @@
         "name": "Null",
         "description": "Null",
         "schema": {
-          "type": [
-            "null"
-          ]
+          "type": ["null"]
         },
         "required": true,
         "deprecated": false
@@ -3057,12 +2925,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -3406,9 +3270,7 @@
               "type": "object"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -3430,21 +3292,13 @@
           "description": "[]auth.Permission",
           "summary": "",
           "schema": {
-            "examples": [
-              [
-                "admin"
-              ]
-            ],
+            "examples": [["admin"]],
             "items": [
               {
-                "type": [
-                  "string"
-                ]
+                "type": ["string"]
               }
             ],
-            "type": [
-              "array"
-            ]
+            "type": ["array"]
           },
           "required": true,
           "deprecated": false
@@ -3455,12 +3309,8 @@
         "description": "string",
         "summary": "",
         "schema": {
-          "examples": [
-            "string value"
-          ],
-          "type": [
-            "string"
-          ]
+          "examples": ["string value"],
+          "type": ["string"]
         },
         "required": true,
         "deprecated": false
@@ -3482,12 +3332,8 @@
           "description": "string",
           "summary": "",
           "schema": {
-            "examples": [
-              "string value"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["string value"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -3498,21 +3344,13 @@
         "description": "[]auth.Permission",
         "summary": "",
         "schema": {
-          "examples": [
-            [
-              "admin"
-            ]
-          ],
+          "examples": [["admin"]],
           "items": [
             {
-              "type": [
-                "string"
-              ]
+              "type": ["string"]
             }
           ],
-          "type": [
-            "array"
-          ]
+          "type": ["array"]
         },
         "required": true,
         "deprecated": false
@@ -3549,9 +3387,7 @@
               "type": "integer"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -3573,12 +3409,8 @@
           "description": "string",
           "summary": "",
           "schema": {
-            "examples": [
-              "string value"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["string value"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -3588,12 +3420,8 @@
           "description": "string",
           "summary": "",
           "schema": {
-            "examples": [
-              "string value"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["string value"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -3603,9 +3431,7 @@
         "name": "Null",
         "description": "Null",
         "schema": {
-          "type": [
-            "null"
-          ]
+          "type": ["null"]
         },
         "required": true,
         "deprecated": false
@@ -3627,12 +3453,8 @@
         "description": "bool",
         "summary": "",
         "schema": {
-          "examples": [
-            true
-          ],
-          "type": [
-            "boolean"
-          ]
+          "examples": [true],
+          "type": ["boolean"]
         },
         "required": true,
         "deprecated": false
@@ -3657,9 +3479,7 @@
             "examples": [
               "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -3693,9 +3513,7 @@
               "type": "integer"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -3717,12 +3535,8 @@
           "description": "protocol.ID",
           "summary": "",
           "schema": {
-            "examples": [
-              "/celestia/mocha/ipfs/bitswap"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["/celestia/mocha/ipfs/bitswap"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -3756,9 +3570,7 @@
               "type": "integer"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -3803,9 +3615,7 @@
               "type": "integer"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -3830,9 +3640,7 @@
             "examples": [
               "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -3842,9 +3650,7 @@
         "name": "Null",
         "description": "Null",
         "schema": {
-          "type": [
-            "null"
-          ]
+          "type": ["null"]
         },
         "required": true,
         "deprecated": false
@@ -3869,9 +3675,7 @@
             "examples": [
               "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -3881,9 +3685,7 @@
         "name": "Null",
         "description": "Null",
         "schema": {
-          "type": [
-            "null"
-          ]
+          "type": ["null"]
         },
         "required": true,
         "deprecated": false
@@ -3908,9 +3710,7 @@
             "examples": [
               {
                 "ID": "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo",
-                "Addrs": [
-                  "/ip6/::1/udp/2121/quic-v1"
-                ]
+                "Addrs": ["/ip6/::1/udp/2121/quic-v1"]
               }
             ],
             "additionalProperties": false,
@@ -3925,9 +3725,7 @@
                 "type": "string"
               }
             },
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -3937,9 +3735,7 @@
         "name": "Null",
         "description": "Null",
         "schema": {
-          "type": [
-            "null"
-          ]
+          "type": ["null"]
         },
         "required": true,
         "deprecated": false
@@ -3964,9 +3760,7 @@
             "examples": [
               "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -3977,12 +3771,8 @@
         "description": "network.Connectedness",
         "summary": "",
         "schema": {
-          "examples": [
-            1
-          ],
-          "type": [
-            "integer"
-          ]
+          "examples": [1],
+          "type": ["integer"]
         },
         "required": true,
         "deprecated": false
@@ -4007,9 +3797,7 @@
           "examples": [
             {
               "ID": "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo",
-              "Addrs": [
-                "/ip6/::1/udp/2121/quic-v1"
-              ]
+              "Addrs": ["/ip6/::1/udp/2121/quic-v1"]
             }
           ],
           "additionalProperties": false,
@@ -4024,9 +3812,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -4051,9 +3837,7 @@
             "examples": [
               "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -4063,12 +3847,8 @@
           "description": "string",
           "summary": "",
           "schema": {
-            "examples": [
-              "string value"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["string value"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -4079,12 +3859,8 @@
         "description": "bool",
         "summary": "",
         "schema": {
-          "examples": [
-            true
-          ],
-          "type": [
-            "boolean"
-          ]
+          "examples": [true],
+          "type": ["boolean"]
         },
         "required": true,
         "deprecated": false
@@ -4113,14 +3889,10 @@
           ],
           "items": [
             {
-              "type": [
-                "string"
-              ]
+              "type": ["string"]
             }
           ],
-          "type": [
-            "array"
-          ]
+          "type": ["array"]
         },
         "required": true,
         "deprecated": false
@@ -4142,12 +3914,8 @@
         "description": "network.Reachability",
         "summary": "",
         "schema": {
-          "examples": [
-            2
-          ],
-          "type": [
-            "integer"
-          ]
+          "examples": [2],
+          "type": ["integer"]
         },
         "required": true,
         "deprecated": false
@@ -4172,9 +3940,7 @@
             "examples": [
               "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -4188,9 +3954,7 @@
           "examples": [
             {
               "ID": "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo",
-              "Addrs": [
-                "/ip6/::1/udp/2121/quic-v1"
-              ]
+              "Addrs": ["/ip6/::1/udp/2121/quic-v1"]
             }
           ],
           "additionalProperties": false,
@@ -4205,9 +3969,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -4236,14 +3998,10 @@
           ],
           "items": [
             {
-              "type": [
-                "string"
-              ]
+              "type": ["string"]
             }
           ],
-          "type": [
-            "array"
-          ]
+          "type": ["array"]
         },
         "required": true,
         "deprecated": false
@@ -4268,9 +4026,7 @@
             "examples": [
               "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -4280,12 +4036,8 @@
           "description": "string",
           "summary": "",
           "schema": {
-            "examples": [
-              "string value"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["string value"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -4295,9 +4047,7 @@
         "name": "Null",
         "description": "Null",
         "schema": {
-          "type": [
-            "null"
-          ]
+          "type": ["null"]
         },
         "required": true,
         "deprecated": false
@@ -4319,12 +4069,8 @@
           "description": "string",
           "summary": "",
           "schema": {
-            "examples": [
-              "string value"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["string value"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -4342,14 +4088,10 @@
           ],
           "items": [
             {
-              "type": [
-                "string"
-              ]
+              "type": ["string"]
             }
           ],
-          "type": [
-            "array"
-          ]
+          "type": ["array"]
         },
         "required": true,
         "deprecated": false
@@ -4599,9 +4341,7 @@
               "type": "object"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -4626,9 +4366,7 @@
             "examples": [
               "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -4638,9 +4376,7 @@
         "name": "Null",
         "description": "Null",
         "schema": {
-          "type": [
-            "null"
-          ]
+          "type": ["null"]
         },
         "required": true,
         "deprecated": false
@@ -4665,9 +4401,7 @@
             "examples": [
               "CovLVG4fQcqUS6DmoMxAwVJGNW6PMzfwTG6BHW9NH9TLGHcbRfvPVc3JVhnufK3HTzStoTo"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -4677,12 +4411,8 @@
           "description": "string",
           "summary": "",
           "schema": {
-            "examples": [
-              "string value"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["string value"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -4693,12 +4423,8 @@
         "description": "bool",
         "summary": "",
         "schema": {
-          "examples": [
-            true
-          ],
-          "type": [
-            "boolean"
-          ]
+          "examples": [true],
+          "type": ["boolean"]
         },
         "required": true,
         "deprecated": false
@@ -5053,9 +4779,7 @@
                 "type": "object"
               }
             },
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -5078,9 +4802,7 @@
             }
           ],
           "additionalProperties": false,
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -5435,9 +5157,7 @@
                 "type": "object"
               }
             },
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -5447,12 +5167,8 @@
           "description": "int",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -5462,12 +5178,8 @@
           "description": "int",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -5478,12 +5190,8 @@
         "description": "share.Share",
         "summary": "",
         "schema": {
-          "examples": [
-            "Ynl0ZSBhcnJheQ=="
-          ],
-          "type": [
-            "string"
-          ]
+          "examples": ["Ynl0ZSBhcnJheQ=="],
+          "type": ["string"]
         },
         "required": true,
         "deprecated": false
@@ -5838,9 +5546,7 @@
                 "type": "object"
               }
             },
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -5850,12 +5556,8 @@
           "description": "share.Namespace",
           "summary": "",
           "schema": {
-            "examples": [
-              "AAAAAAAAAAAAAAAAAAAAAAAAAAECAwQFBgcICRA="
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["AAAAAAAAAAAAAAAAAAAAAAAAAAECAwQFBgcICRA="],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -5869,9 +5571,7 @@
           "examples": [
             [
               {
-                "shares": [
-                  "Ynl0ZSBhcnJheQ=="
-                ],
+                "shares": ["Ynl0ZSBhcnJheQ=="],
                 "proof": {}
               }
             ]
@@ -5894,14 +5594,10 @@
                   "type": "array"
                 }
               },
-              "type": [
-                "object"
-              ]
+              "type": ["object"]
             }
           ],
-          "type": [
-            "array"
-          ]
+          "type": ["array"]
         },
         "required": true,
         "deprecated": false
@@ -6256,9 +5952,7 @@
                 "type": "object"
               }
             },
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -6268,9 +5962,7 @@
         "name": "Null",
         "description": "Null",
         "schema": {
-          "type": [
-            "null"
-          ]
+          "type": ["null"]
         },
         "required": true,
         "deprecated": false
@@ -6292,13 +5984,9 @@
         "description": "state.Address",
         "summary": "",
         "schema": {
-          "examples": [
-            "celestia1377k5an3f94v6wyaceu0cf4nq6gk2jtpc46g7h"
-          ],
+          "examples": ["celestia1377k5an3f94v6wyaceu0cf4nq6gk2jtpc46g7h"],
           "additionalProperties": false,
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -6336,9 +6024,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -6360,13 +6046,9 @@
           "description": "state.Address",
           "summary": "",
           "schema": {
-            "examples": [
-              "celestia1377k5an3f94v6wyaceu0cf4nq6gk2jtpc46g7h"
-            ],
+            "examples": ["celestia1377k5an3f94v6wyaceu0cf4nq6gk2jtpc46g7h"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -6393,9 +6075,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -6420,9 +6100,7 @@
             "examples": [
               "celestiavaloper1q3v5cugc8cdpud87u4zwy0a74uxkk6u4q4gx4p"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -6435,9 +6113,7 @@
             "examples": [
               "celestiavaloper1q3v5cugc8cdpud87u4zwy0a74uxkk6u4q4gx4p"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -6447,13 +6123,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -6463,13 +6135,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -6479,12 +6147,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -6810,9 +6474,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -6837,9 +6499,7 @@
             "examples": [
               "celestiavaloper1q3v5cugc8cdpud87u4zwy0a74uxkk6u4q4gx4p"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -6849,13 +6509,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -6865,13 +6521,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -6881,13 +6533,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -6897,12 +6545,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -7228,9 +6872,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -7255,9 +6897,7 @@
             "examples": [
               "celestiavaloper1q3v5cugc8cdpud87u4zwy0a74uxkk6u4q4gx4p"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -7267,13 +6907,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -7283,13 +6919,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -7299,12 +6931,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -7630,9 +7258,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -7657,9 +7283,7 @@
             "examples": [
               "celestiavaloper1q3v5cugc8cdpud87u4zwy0a74uxkk6u4q4gx4p"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -7723,9 +7347,7 @@
               "type": "object"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -7750,9 +7372,7 @@
             "examples": [
               "celestiavaloper1q3v5cugc8cdpud87u4zwy0a74uxkk6u4q4gx4p"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -7765,9 +7385,7 @@
             "examples": [
               "celestiavaloper1q3v5cugc8cdpud87u4zwy0a74uxkk6u4q4gx4p"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -7914,9 +7532,7 @@
               "type": "array"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -7941,9 +7557,7 @@
             "examples": [
               "celestiavaloper1q3v5cugc8cdpud87u4zwy0a74uxkk6u4q4gx4p"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -8009,9 +7623,7 @@
               "type": "object"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -8033,13 +7645,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -8049,12 +7657,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -8099,14 +7703,10 @@
                     "type": "string"
                   }
                 },
-                "type": [
-                  "object"
-                ]
+                "type": ["object"]
               }
             ],
-            "type": [
-              "array"
-            ]
+            "type": ["array"]
           },
           "required": true,
           "deprecated": false
@@ -8432,9 +8032,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -8456,12 +8054,8 @@
           "description": "state.Tx",
           "summary": "",
           "schema": {
-            "examples": [
-              "Bw=="
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["Bw=="],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -8787,9 +8381,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -8811,12 +8403,8 @@
           "description": "state.AccAddress",
           "summary": "",
           "schema": {
-            "examples": [
-              "celestia1377k5an3f94v6wyaceu0cf4nq6gk2jtpc46g7h"
-            ],
-            "type": [
-              "string"
-            ]
+            "examples": ["celestia1377k5an3f94v6wyaceu0cf4nq6gk2jtpc46g7h"],
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -8826,13 +8414,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -8842,13 +8426,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -8858,12 +8438,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -9189,9 +8765,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
@@ -9216,9 +8790,7 @@
             "examples": [
               "celestiavaloper1q3v5cugc8cdpud87u4zwy0a74uxkk6u4q4gx4p"
             ],
-            "type": [
-              "string"
-            ]
+            "type": ["string"]
           },
           "required": true,
           "deprecated": false
@@ -9228,13 +8800,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -9244,13 +8812,9 @@
           "description": "state.Int",
           "summary": "",
           "schema": {
-            "examples": [
-              "42"
-            ],
+            "examples": ["42"],
             "additionalProperties": false,
-            "type": [
-              "object"
-            ]
+            "type": ["object"]
           },
           "required": true,
           "deprecated": false
@@ -9260,12 +8824,8 @@
           "description": "uint64",
           "summary": "",
           "schema": {
-            "examples": [
-              42
-            ],
-            "type": [
-              "integer"
-            ]
+            "examples": [42],
+            "type": ["integer"]
           },
           "required": true,
           "deprecated": false
@@ -9591,9 +9151,7 @@
               "type": "string"
             }
           },
-          "type": [
-            "object"
-          ]
+          "type": ["object"]
         },
         "required": true,
         "deprecated": false
