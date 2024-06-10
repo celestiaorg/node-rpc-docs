@@ -214,7 +214,7 @@ export default function Example() {
                 leaveFrom='translate-x-0'
                 leaveTo='-translate-x-full'
               >
-                <Dialog.Panel className='relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4'>
+                <Dialog.Panel className='relative flex w-full max-w-xs flex-1 flex-col bg-white pb-4 pt-5'>
                   <Transition.Child
                     as={Fragment}
                     enter='ease-in-out duration-300'
@@ -224,7 +224,7 @@ export default function Example() {
                     leaveFrom='opacity-100'
                     leaveTo='opacity-0'
                   >
-                    <div className='absolute top-0 right-0 -mr-12 pt-2'>
+                    <div className='absolute right-0 top-0 -mr-12 pt-2'>
                       <button
                         type='button'
                         className='ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'
@@ -256,7 +256,7 @@ export default function Example() {
                             <a
                               key={pkg}
                               href={`/?version=${selectedVersion}#${pkg}`}
-                              className='group mx-4 flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
+                              className='group mx-4 flex items-center rounded-md bg-gray-100 px-2 py-2 text-base font-light capitalize text-gray-900'
                               onMouseEnter={() => setShowHash(pkg)}
                               onMouseLeave={() => setShowHash('')}
                               onClick={() => setSidebarOpen(false)}
@@ -283,7 +283,7 @@ export default function Example() {
                           href={client.href}
                           target='_blank'
                           rel='noopener noreferrer'
-                          className='group mx-4 flex items-center rounded-md bg-gray-100 py-2 px-2 text-base font-light capitalize text-gray-900'
+                          className='group mx-4 flex items-center rounded-md bg-gray-100 px-2 py-2 text-base font-light capitalize text-gray-900'
                         >
                           {client.name}
                         </a>
@@ -317,7 +317,7 @@ export default function Example() {
                   placeholder='Search modules & methods...'
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className='mt-4 mb-4 w-full rounded border border-gray-300 py-1 text-sm shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500'
+                  className='mb-4 mt-4 w-full rounded border border-gray-300 py-1 text-sm shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500'
                 />
               </div>
             </div>
@@ -483,7 +483,7 @@ export default function Example() {
                       </div>
                     </div>
                   </div>
-                  <h2 className='mt-2 pt-4 pb-4 text-base font-normal text-gray-700'>
+                  <h2 className='mt-2 pb-4 pt-4 text-base font-normal text-gray-700'>
                     {spec && `${spec.info.description} `}
                     {spec && (
                       <a
@@ -595,8 +595,8 @@ export default function Example() {
                 leaveFrom='opacity-100 translate-y-0 sm:scale-100'
                 leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
               >
-                <Dialog.Panel className='relative transform rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6'>
-                  <div className='absolute top-0 right-0 hidden pt-4 pr-4 sm:block'>
+                <Dialog.Panel className='relative transform rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6'>
+                  <div className='absolute right-0 top-0 hidden pr-4 pt-4 sm:block'>
                     <button
                       type='button'
                       className='rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
@@ -607,7 +607,7 @@ export default function Example() {
                     </button>
                   </div>
                   <div className='overflow-x-auto sm:flex sm:items-start'>
-                    <div className='mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left'>
+                    <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
                       <Dialog.Title
                         as='h3'
                         className='text-lg font-medium leading-6 text-gray-900'
@@ -802,7 +802,7 @@ const RPCMethod = ({
                     method.result.description == 'Null' ||
                     !method.result.schema.examples
                       ? []
-                      : [method.result.schema.examples[0]],
+                      : method.result.schema.examples[0],
                 },
                 null,
                 2
