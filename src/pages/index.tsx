@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable unused-imports/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 import {
   Dialog,

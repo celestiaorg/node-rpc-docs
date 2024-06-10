@@ -156,7 +156,7 @@ const RPCMethod = ({
                     method.result.description == 'Null' ||
                     !method.result.schema.examples
                       ? []
-                      : [method.result.schema.examples[0]],
+                      : method.result.schema.examples[0],
                 },
                 null,
                 2

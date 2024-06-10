@@ -9,6 +9,11 @@ import { CommandLineIcon } from '@heroicons/react/24/solid';
 import { Editor } from '@monaco-editor/react';
 import axios from 'axios';
 import { AxiosError } from 'axios';
+import {
+  RequestManager,
+  Client,
+  WebSocketTransport,
+} from '@open-rpc/client-js';
 import { useState } from 'react';
 
 import { classNames } from '@/lib/helper';
@@ -25,6 +30,10 @@ const sendRequest = async (
   hostname: string,
   authtoken: string
 ): Promise<object> => {
+  const transport = new WebSocketTransport('ws://localhost:26658');
+  const requestManager = new RequestManager([transport]);
+  const client = new Client(requestManager);
+
   if (hostname == '') {
     hostname = 'http://localhost:26658';
   } else {
@@ -35,8 +44,10 @@ const sendRequest = async (
     axios.defaults.headers.common['Authorization'] = `Bearer ${authtoken}`;
   }
 
-  const { data } = await axios.post(hostname, JSON.parse(request));
-  return data;
+  // I know, this looks stupid, but it's the easiest way to display the response without writing a custom WS client
+  const { method, params } = JSON.parse(request);
+  const response = await client.request({ method, params });
+  return { id: 1, jsonrpc: '2.0', result: response };
 };
 
 const Playground = ({
