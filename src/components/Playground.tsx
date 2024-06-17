@@ -7,11 +7,10 @@ import {
 } from '@headlessui/react';
 import { CommandLineIcon } from '@heroicons/react/24/solid';
 import { Editor } from '@monaco-editor/react';
-import axios from 'axios';
-import { AxiosError } from 'axios';
 import {
-  RequestManager,
   Client,
+  JSONRPCError,
+  RequestManager,
   WebSocketTransport,
 } from '@open-rpc/client-js';
 import { useState } from 'react';
@@ -24,31 +23,6 @@ const tabs = [
   { name: 'Response', href: '#' },
   { name: 'Configuration', href: '#' },
 ];
-
-const sendRequest = async (
-  request: string,
-  hostname: string,
-  authtoken: string
-): Promise<object> => {
-  const transport = new WebSocketTransport('ws://localhost:26658');
-  const requestManager = new RequestManager([transport]);
-  const client = new Client(requestManager);
-
-  if (hostname == '') {
-    hostname = 'http://localhost:26658';
-  } else {
-    hostname = 'http://' + hostname;
-  }
-
-  if (authtoken != '') {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${authtoken}`;
-  }
-
-  // I know, this looks stupid, but it's the easiest way to display the response without writing a custom WS client
-  const { method, params } = JSON.parse(request);
-  const response = await client.request({ method, params });
-  return { id: 1, jsonrpc: '2.0', result: response };
-};
 
 const Playground = ({
   playgroundOpen,
@@ -64,10 +38,55 @@ const Playground = ({
   setNotification: (notification: INotification) => void;
 }) => {
   const [hostname, setHostname] = useState('');
-  const [authToken, setAuthToken] = useState('');
   // request: 0, response: 1, config: 2
   const [currentTab, setCurrentTab] = useState(0);
   const [currentResponse, setCurrentResponse] = useState<string>('');
+
+  const sendRequest = async (
+    request: string,
+    hostname: string
+  ): Promise<object> => {
+    if (hostname == '') {
+      hostname = 'ws://localhost:26658';
+    } else {
+      hostname = 'ws://' + hostname;
+    }
+
+    const transport = new WebSocketTransport(hostname);
+
+    transport.connection.onerror = () => {
+      setNotification({
+        active: true,
+        success: false,
+        message:
+          "Failed to connect to the node's WebSocket server at " + hostname,
+      });
+    };
+
+    const requestManager = new RequestManager([transport]);
+    const client = new Client(requestManager);
+
+    // if (authtoken != '') {
+    //   axios.defaults.headers.common['Authorization'] = `Bearer ${authtoken}`;
+    // }
+
+    // I know, this looks stupid, but it's the easiest way to display the response without writing a custom WS client
+    const { method, params } = JSON.parse(request);
+    try {
+      const response = await client.request({ method, params });
+      return { id: 1, jsonrpc: '2.0', result: response };
+    } catch (err: unknown) {
+      if (err instanceof JSONRPCError) {
+        return {
+          id: 1,
+          jsonrpc: '2.0',
+          error: { code: err.code, message: err.message },
+        };
+      } else {
+        throw err;
+      }
+    }
+  };
 
   return (
     <Transition show={playgroundOpen}>
@@ -94,9 +113,9 @@ const Playground = ({
               leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
             >
               <DialogPanel className='relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6'>
-                <div className='sm:flex-grow'>
+                <div className='flex-grow'>
                   <div className='flex'>
-                    <div className='mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-purple-100 sm:mx-0 sm:h-10 sm:w-10'>
+                    <div className='mx-0 flex h-10 h-12 w-10 w-12 flex-shrink-0 items-center justify-center rounded-full bg-purple-100'>
                       <CommandLineIcon
                         className='h-6 w-6 text-purple-600'
                         aria-hidden='true'
@@ -111,6 +130,11 @@ const Playground = ({
                   </div>
                   <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
                     <div className='mt-2 flex-grow flex-row'>
+                      <p className='my-5 text-sm text-gray-500'>
+                        This playground allows you to send JSON-RPC requests to
+                        a local running node. Note: you must start your node
+                        with `--rpc.skip-auth` to make this work.
+                      </p>
                       {/* TABS */}
                       <div className='sm:hidden'>
                         <label htmlFor='tabs' className='sr-only'>
@@ -197,26 +221,26 @@ const Playground = ({
                                 className='mt-3 min-h-52'
                                 value={currentRequest}
                                 onChange={(value) =>
-                                  value && setCurrentRequest(value)
+                                  value &&
+                                  value != currentResponse &&
+                                  setCurrentRequest(value)
                                 }
                               />
                             </div>
                           ),
                           1: (
                             <div>
-                              {currentTab == 1 && (
-                                <Editor
-                                  language='json'
-                                  options={{
-                                    scrollBeyondLastLine: false,
-                                    minimap: { enabled: false },
-                                    useShadows: false,
-                                    readOnly: true,
-                                  }}
-                                  className='mt-3 min-h-52'
-                                  value={currentResponse}
-                                />
-                              )}
+                              <Editor
+                                language='json'
+                                options={{
+                                  scrollBeyondLastLine: false,
+                                  minimap: { enabled: false },
+                                  useShadows: false,
+                                  readOnly: true,
+                                }}
+                                className='mt-3 min-h-52'
+                                value={currentResponse}
+                              />
                             </div>
                           ),
                           2: (
@@ -229,7 +253,7 @@ const Playground = ({
                               </label>
                               <div className='mt-2 flex rounded-md shadow-sm'>
                                 <span className='inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm'>
-                                  http://
+                                  ws://
                                 </span>
                                 <input
                                   type='text'
@@ -245,31 +269,7 @@ const Playground = ({
                                 className='mt-2 text-sm text-gray-500'
                                 id='protocol-description'
                               >
-                                ws:// or wss:// is not supported at this time
-                              </p>
-                              <label
-                                htmlFor='authtoken'
-                                className='mt-6 block text-sm font-medium leading-6 text-gray-900'
-                              >
-                                Auth Token
-                              </label>
-                              <div className='mt-2 flex rounded-md shadow-sm'>
-                                <input
-                                  type='text'
-                                  name='authtoken'
-                                  id='authtoken'
-                                  className='block w-full min-w-0 flex-1 rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                                  placeholder=''
-                                  value={authToken}
-                                  onChange={(e) => setAuthToken(e.target.value)}
-                                />
-                              </div>
-                              <p
-                                className='mt-2 text-sm text-gray-500'
-                                id='auth-description'
-                              >
-                                Only set this if you don't have the
-                                --rpc.skip-auth flag set.
+                                only ws:// is supported at this time
                               </p>
                             </div>
                           ),
@@ -286,8 +286,7 @@ const Playground = ({
                       try {
                         const data = await sendRequest(
                           currentRequest,
-                          hostname,
-                          authToken
+                          hostname
                         );
                         setCurrentResponse(JSON.stringify(data, null, 2));
                         setCurrentTab(1);
@@ -308,7 +307,7 @@ const Playground = ({
                         setNotification({
                           active: true,
                           success: false,
-                          message: (e as AxiosError).message,
+                          message: 'Unknown error: ' + e,
                         });
                         return;
                       }
