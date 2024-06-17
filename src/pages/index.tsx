@@ -50,6 +50,7 @@ function extractAuth(methodDescription: string): string {
   return methodDescription.split('Auth level: ')[1];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getMethodsByPackage(spec: any): MethodByPkg {
   const methodsByPackage: MethodByPkg = {};
   for (const method of spec.methods) {
@@ -107,6 +108,7 @@ export default function Example() {
     setSelectedVersion(event.target.value);
     window.history.pushState({}, '', `?version=${event.target.value}`);
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [spec, setSpec] = useState<any>();
   const [open, setOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -177,6 +179,7 @@ export default function Example() {
     }
   }, [spec]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const activateSidebar = (param: any) => {
     setOpen(true);
     setCurrentParam(param);
