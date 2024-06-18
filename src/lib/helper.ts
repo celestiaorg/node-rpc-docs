@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Method } from './types';
 
 type OpenGraphType = {
   siteName: string;
@@ -52,7 +53,7 @@ export const getExampleRequest = (pkg: string, method: Method): string => {
       id: 1,
       jsonrpc: '2.0',
       method: pkg + '.' + method.name,
-      params: method.params.map((param) =>
+      params: method.params.map((param: any) =>
         param.schema && param.schema.examples
           ? param.schema.examples[0]
           : undefined
