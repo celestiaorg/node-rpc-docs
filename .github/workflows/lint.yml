@@ -48,4 +48,3 @@ jobs:
 
       - name: 🔎 Type check
         run: yarn typecheck
-

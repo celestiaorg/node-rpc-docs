@@ -1,17 +1,26 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable unused-imports/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
-import { Dialog, Transition } from '@headlessui/react';
+import {
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  Transition,
+  TransitionChild,
+} from '@headlessui/react';
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
-import { useRef } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FiClipboard } from 'react-icons/fi';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
+import { classNames } from '@/lib/helper';
+import { INotification, MethodByPkg, Param } from '@/lib/types';
+
+import NotificationModal from '@/components/NotificationModal';
+import Playground from '@/components/Playground';
+import RPCMethod from '@/components/RPCMethod';
 import Seo from '@/components/Seo';
 
 const clients = [
@@ -37,30 +46,11 @@ const clients = [
   },
 ];
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ');
-}
-
-type Param = {
-  name: string;
-  description: string;
-  schema: any;
-};
-
-type Method = {
-  name: string;
-  description: string;
-  auth: string;
-  params: Param[];
-  result: Param;
-};
-
-type MethodByPkg = { [key: string]: Method[] };
-
 function extractAuth(methodDescription: string): string {
   return methodDescription.split('Auth level: ')[1];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getMethodsByPackage(spec: any): MethodByPkg {
   const methodsByPackage: MethodByPkg = {};
   for (const method of spec.methods) {
@@ -118,6 +108,7 @@ export default function Example() {
     setSelectedVersion(event.target.value);
     window.history.pushState({}, '', `?version=${event.target.value}`);
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [spec, setSpec] = useState<any>();
   const [open, setOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -126,6 +117,15 @@ export default function Example() {
     description: '',
     schema: {},
   });
+
+  const [currentRequest, setCurrentRequest] = useState<string>('');
+  const [playgroundOpen, setPlaygroundOpen] = useState(false);
+  const [notification, setNotification] = useState<INotification>({
+    message: '',
+    success: true,
+    active: false,
+  });
+
   const [selectedVersion, setSelectedVersion] = useState(versions[0]);
   const [showHash, setShowHash] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -179,6 +179,7 @@ export default function Example() {
     }
   }, [spec]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const activateSidebar = (param: any) => {
     setOpen(true);
     setCurrentParam(param);
@@ -188,13 +189,14 @@ export default function Example() {
     <>
       <Seo />
       <div>
-        <Transition.Root show={sidebarOpen} as={Fragment}>
+        {/* SIDEBAR MOBILE */}
+        <Transition show={sidebarOpen} as={Fragment}>
           <Dialog
             as='div'
             className='relative z-40 md:hidden'
             onClose={setSidebarOpen}
           >
-            <Transition.Child
+            <TransitionChild
               as={Fragment}
               enter='transition-opacity ease-linear duration-300'
               enterFrom='opacity-0'
@@ -204,10 +206,10 @@ export default function Example() {
               leaveTo='opacity-0'
             >
               <div className='fixed inset-0 bg-gray-600 bg-opacity-75' />
-            </Transition.Child>
+            </TransitionChild>
 
             <div className='fixed inset-0 z-40 flex'>
-              <Transition.Child
+              <TransitionChild
                 as={Fragment}
                 enter='transition ease-in-out duration-300 transform'
                 enterFrom='-translate-x-full'
@@ -216,8 +218,8 @@ export default function Example() {
                 leaveFrom='translate-x-0'
                 leaveTo='-translate-x-full'
               >
-                <Dialog.Panel className='relative flex w-full max-w-xs flex-1 flex-col bg-white pb-4 pt-5'>
-                  <Transition.Child
+                <DialogPanel className='relative flex w-full max-w-xs flex-1 flex-col bg-white pb-4 pt-5'>
+                  <TransitionChild
                     as={Fragment}
                     enter='ease-in-out duration-300'
                     enterFrom='opacity-0'
@@ -239,7 +241,7 @@ export default function Example() {
                         />
                       </button>
                     </div>
-                  </Transition.Child>
+                  </TransitionChild>
                   <div className='logo-container border-b border-gray-200 pb-4 md:border-none md:pb-0'>
                     <div className='flex flex-shrink-0 items-center px-4'>
                       <img
@@ -292,16 +294,16 @@ export default function Example() {
                       ))}
                     </nav>
                   </div>
-                </Dialog.Panel>
-              </Transition.Child>
+                </DialogPanel>
+              </TransitionChild>
               <div className='w-14 flex-shrink-0'>
                 {/* Dummy element to force sidebar to shrink to fit close icon */}
               </div>
             </div>
           </Dialog>
-        </Transition.Root>
+        </Transition>
 
-        {/* Static sidebar for desktop */}
+        {/* SIDEBAR DESKTOP */}
         <div className='relative hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col'>
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className='flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5'>
@@ -319,7 +321,7 @@ export default function Example() {
                   placeholder='Search modules & methods...'
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className='mb-4 mt-4 w-full rounded border border-gray-300 py-1 text-sm shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500'
+                  className='mb-4 mt-4 w-full rounded border border-gray-300 py-1 text-sm shadow-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-500'
                 />
               </div>
             </div>
@@ -412,10 +414,11 @@ export default function Example() {
 
         <div className='md:pl-64'>
           <div className='mx-auto flex max-w-4xl flex-col md:px-8 xl:px-0'>
+            {/* TOP NAVBAR */}
             <div className='sticky top-0 z-10 flex h-16 flex-shrink-0 border-b border-gray-200 bg-white md:hidden'>
               <button
                 type='button'
-                className='border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden'
+                className='border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 md:hidden'
                 onClick={() => setSidebarOpen(true)}
               >
                 <span className='sr-only'>Open sidebar</span>
@@ -474,7 +477,7 @@ export default function Example() {
                         <select
                           value={selectedVersion}
                           onChange={handleVersionChange}
-                          className='ml-2 h-8 rounded-md border border-gray-300 bg-white py-0 pl-3 pr-7 text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+                          className='ml-2 h-8 rounded-md border border-gray-300 bg-white py-0 pl-3 pr-7 text-gray-700 focus:border-purple-500 focus:outline-none focus:ring-purple-500 sm:text-sm'
                         >
                           {versions.map((version) => (
                             <option key={version} value={version}>
@@ -559,6 +562,8 @@ export default function Example() {
                                     method={method}
                                     activateSidebar={activateSidebar}
                                     selectedVersion={selectedVersion}
+                                    setCurrentRequest={setCurrentRequest}
+                                    setPlaygroundOpen={setPlaygroundOpen}
                                   />
                                 </div>
                               ))}
@@ -572,247 +577,116 @@ export default function Example() {
           </div>
         </div>
       </div>
-      <Transition.Root show={open} as={Fragment}>
-        <Dialog as='div' className='relative z-10' onClose={setOpen}>
-          <Transition.Child
-            as={Fragment}
-            enter='ease-out duration-300'
-            enterFrom='opacity-0'
-            enterTo='opacity-100'
-            leave='ease-in duration-200'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
-          >
-            <div className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' />
-          </Transition.Child>
 
-          <div className='fixed inset-0 z-10 overflow-y-auto'>
-            <div className='flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0'>
-              <Transition.Child
-                as={Fragment}
-                enter='ease-out duration-300'
-                enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-                enterTo='opacity-100 translate-y-0 sm:scale-100'
-                leave='ease-in duration-200'
-                leaveFrom='opacity-100 translate-y-0 sm:scale-100'
-                leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-              >
-                <Dialog.Panel className='relative transform rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6'>
-                  <div className='absolute right-0 top-0 hidden pr-4 pt-4 sm:block'>
-                    <button
-                      type='button'
-                      className='rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
-                      onClick={() => setOpen(false)}
-                    >
-                      <span className='sr-only'>Close</span>
-                      <XMarkIcon className='h-6 w-6' aria-hidden='true' />
-                    </button>
-                  </div>
-                  <div className='overflow-x-auto sm:flex sm:items-start'>
-                    <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
-                      <Dialog.Title
-                        as='h3'
-                        className='text-lg font-medium leading-6 text-gray-900'
-                      >
-                        {currentParam.description}
-                      </Dialog.Title>
-                      <div className='mt-2'>
-                        {currentParam.schema?.examples &&
-                          currentParam.schema.examples.length > 0 && (
-                            <p className='text-sm text-gray-500'>
-                              Example Value:
-                              <SyntaxHighlighter
-                                language='javascript'
-                                customStyle={{
-                                  backgroundColor: 'transparent',
-                                }}
-                              >
-                                {JSON.stringify(
-                                  currentParam.schema.examples[0],
-                                  null,
-                                  '\t'
-                                )}
-                              </SyntaxHighlighter>
-                            </p>
-                          )}
-                      </div>
-                    </div>
-                  </div>
-                  <div className='mt-5 sm:mt-4 sm:flex sm:flex-row-reverse'>
-                    <button
-                      type='button'
-                      className='mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm'
-                      onClick={() => setOpen(false)}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition.Root>
+      <ExampleTypeModal
+        open={open}
+        setOpen={setOpen}
+        currentParam={currentParam}
+      />
+      <Playground
+        playgroundOpen={playgroundOpen}
+        setPlaygroundOpen={setPlaygroundOpen}
+        currentRequest={currentRequest}
+        setCurrentRequest={setCurrentRequest}
+        setNotification={setNotification}
+      />
+      <NotificationModal
+        notification={notification}
+        setNotification={setNotification}
+      />
     </>
   );
 }
 
-const RPCMethod = ({
-  pkg,
-  method,
-  activateSidebar,
-  selectedVersion,
+const ExampleTypeModal = ({
+  open,
+  setOpen,
+  currentParam,
 }: {
-  pkg: string;
-  method: Method;
-  activateSidebar: (param: Param) => void;
-  selectedVersion: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  currentParam: Param;
 }) => {
-  const [showRequest, setShowRequest] = useState(false);
-  const [showResponse, setShowResponse] = useState(false);
-  const methodRef = useRef<HTMLDivElement>(null); // create a ref
-
-  // const handleCopyClick = () => {
-  //   methodRef.current?.scrollIntoView({
-  //     behavior: 'auto',
-  //     block: 'start',
-  //     inline: 'nearest',
-  //   });
-  //   const newUrl = `${window.location.origin}/?version=${selectedVersion}#${pkg}.${method.name}`;
-  //   window.history.pushState({}, '', newUrl);
-  //   const offset = window.innerWidth >= 768 ? -5 : -70;
-  //   window.scrollBy(0, offset);
-  // };
-
-  const handleCopyClick = () => {
-    const hash = window.location.hash.substring(1);
-    const element = document.getElementById(hash);
-    element?.scrollIntoView();
-  };
-
   return (
-    <div
-      key={`${pkg}.${method.name}`}
-      id={`${pkg}.${method.name}`}
-      className='py-2'
-      ref={methodRef}
-    >
-      <div className='flex items-center justify-between'>
-        <p className='text-md'>
-          {method.name}(
-          {method.params.map((param, i, { length }) => (
-            <span key={param.name} className='text-sm text-gray-700'>
-              <span>{param.name}</span>{' '}
-              <span
-                className='text-blue-500 hover:cursor-pointer hover:font-bold'
-                onClick={() => activateSidebar(param)}
-              >
-                {param.description}
-                {length - 1 != i && ', '}
-              </span>
-            </span>
-          ))}
-          )
-          {method.result.description != 'Null' && (
-            <span
-              className='ml-2 text-sm text-blue-500 hover:cursor-pointer hover:font-bold'
-              onClick={() => activateSidebar(method.result)}
-            >
-              {method.result.description}
-            </span>
-          )}
-          <span className='ml-2 inline-flex items-center rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800'>
-            perms: {method.auth}
-          </span>
-        </p>
-        <CopyToClipboard
-          text={`${window.location.origin}/?version=${selectedVersion}#${pkg}.${method.name}`}
-          onCopy={handleCopyClick}
+    <Transition show={open}>
+      <Dialog as='div' className='relative z-10' onClose={setOpen}>
+        <TransitionChild
+          as={Fragment}
+          enter='ease-out duration-300'
+          enterFrom='opacity-0'
+          enterTo='opacity-100'
+          leave='ease-in duration-200'
+          leaveFrom='opacity-100'
+          leaveTo='opacity-0'
         >
-          <span
-            className='cursor-pointer text-gray-500 hover:text-blue-500'
-            onClick={() => {
-              window.location.hash = `${pkg}.${method.name}`;
-            }}
-          >
-            #
-          </span>
-        </CopyToClipboard>
-      </div>
-      <p className='text-sm font-light text-gray-700'>{method.description}</p>
-      <div className='mt-6 overflow-hidden rounded-lg bg-white text-sm shadow'>
-        <div
-          className='flex px-4 py-5 hover:cursor-pointer hover:bg-gray-50 sm:px-6'
-          onClick={() => setShowRequest(!showRequest)}
-        >
-          {showRequest ? (
-            <ChevronDownIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-          ) : (
-            <ChevronRightIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-          )}
-          Request
-        </div>
-        {showRequest && (
-          <div className='bg-gray-50 px-4 py-5 text-sm sm:p-6'>
-            <SyntaxHighlighter
-              language='javascript'
-              customStyle={{
-                backgroundColor: 'transparent',
-              }}
+          <div className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' />
+        </TransitionChild>
+
+        <div className='fixed inset-0 z-10 overflow-y-auto'>
+          <div className='flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0'>
+            <TransitionChild
+              enter='ease-out duration-300'
+              enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+              enterTo='opacity-100 translate-y-0 sm:scale-100'
+              leave='ease-in duration-200'
+              leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+              leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
             >
-              {JSON.stringify(
-                {
-                  id: 1,
-                  jsonrpc: '2.0',
-                  method: pkg + '.' + method.name,
-                  params: method.params.map((param) =>
-                    param.schema && param.schema.examples
-                      ? param.schema.examples[0]
-                      : undefined
-                  ),
-                },
-                null,
-                2
-              )}
-            </SyntaxHighlighter>
+              <DialogPanel className='relative transform rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6'>
+                <div className='absolute right-0 top-0 hidden pr-4 pt-4 sm:block'>
+                  <button
+                    type='button'
+                    className='rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2'
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className='sr-only'>Close</span>
+                    <XMarkIcon className='h-6 w-6' aria-hidden='true' />
+                  </button>
+                </div>
+                <div className='overflow-x-auto sm:flex sm:items-start'>
+                  <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
+                    <DialogTitle
+                      as='h3'
+                      className='text-lg font-medium leading-6 text-gray-900'
+                    >
+                      {currentParam.description}
+                    </DialogTitle>
+                    <div className='mt-2'>
+                      {currentParam.schema?.examples &&
+                        currentParam.schema.examples.length > 0 && (
+                          <p className='text-sm text-gray-500'>
+                            Example Value:
+                            <SyntaxHighlighter
+                              language='javascript'
+                              customStyle={{
+                                backgroundColor: 'transparent',
+                              }}
+                            >
+                              {JSON.stringify(
+                                currentParam.schema.examples[0],
+                                null,
+                                '\t'
+                              )}
+                            </SyntaxHighlighter>
+                          </p>
+                        )}
+                    </div>
+                  </div>
+                </div>
+                <div className='mt-5 sm:mt-4 sm:flex sm:flex-row-reverse'>
+                  <button
+                    type='button'
+                    className='mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm'
+                    onClick={() => setOpen(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </DialogPanel>
+            </TransitionChild>
           </div>
-        )}
-        <div
-          className='flex px-4 py-5 hover:cursor-pointer hover:bg-gray-50 sm:px-6'
-          onClick={() => setShowResponse(!showResponse)}
-        >
-          {showResponse ? (
-            <ChevronDownIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-          ) : (
-            <ChevronRightIcon className='mr-2 h-5 w-5' aria-hidden='true' />
-          )}{' '}
-          Response
         </div>
-        {showResponse && (
-          <div className='bg-gray-50 px-4 py-5 text-sm sm:p-6'>
-            <SyntaxHighlighter
-              language='javascript'
-              customStyle={{
-                backgroundColor: 'transparent',
-              }}
-            >
-              {JSON.stringify(
-                {
-                  id: 1,
-                  jsonrpc: '2.0',
-                  result:
-                    method.result.description == 'Null' ||
-                    !method.result.schema.examples
-                      ? []
-                      : method.result.schema.examples[0],
-                },
-                null,
-                2
-              )}
-            </SyntaxHighlighter>
-          </div>
-        )}
-      </div>
-    </div>
+      </Dialog>
+    </Transition>
   );
 };
