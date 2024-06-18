@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Dialog,
   DialogPanel,
@@ -220,7 +221,7 @@ const Playground = ({
                                 }}
                                 className='mt-3 min-h-52'
                                 value={currentRequest}
-                                onChange={(value) =>
+                                onChange={(value: any) =>
                                   value &&
                                   value != currentResponse &&
                                   setCurrentRequest(value)
@@ -291,10 +292,11 @@ const Playground = ({
                         setCurrentResponse(JSON.stringify(data, null, 2));
                         setCurrentTab(1);
                         if ('error' in data) {
+                          const nodeError = data as any;
                           setNotification({
                             active: true,
                             success: false,
-                            message: (data.error as NodeError).message,
+                            message: (nodeError.error as NodeError).message,
                           });
                         } else {
                           setNotification({
