@@ -30,8 +30,18 @@ const clients = [
     current: false,
   },
   {
+    name: 'Golang tutorial',
+    href: 'https://docs.celestia.org/developers/golang-client-tutorial',
+    current: false,
+  },
+  {
     name: 'Rust (Community)',
     href: 'https://github.com/eigerco/celestia-node-rs',
+    current: false,
+  },
+  {
+    name: 'Rust tutorial',
+    href: 'https://docs.celestia.org/developers/rust-client-tutorial',
     current: false,
   },
   {
