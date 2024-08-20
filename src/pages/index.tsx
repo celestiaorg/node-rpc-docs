@@ -113,6 +113,7 @@ const versions = [
   `v0.13.7`,
   `v0.14.0`,
   `v0.14.1`,
+  `v0.15.0`,
 ].reverse();
 
 export default function Example() {
@@ -535,10 +536,10 @@ export default function Example() {
                             .includes(searchTerm.toLowerCase())
                             ? methods
                             : methods.filter((method) =>
-                                method.name
-                                  .toLowerCase()
-                                  .includes(searchTerm.toLowerCase())
-                              );
+                              method.name
+                                .toLowerCase()
+                                .includes(searchTerm.toLowerCase())
+                            );
 
                           return (
                             <div key={pkg} className='pb-6' id={pkg}>
