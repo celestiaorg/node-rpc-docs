@@ -7,6 +7,8 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { getExampleRequest } from '@/lib/helper';
 import { Method, Param } from '@/lib/types';
 
+import CopyIcon from '@/components/buttons/CopyIcon';
+
 const RPCMethod = ({
   pkg,
   method,
@@ -71,14 +73,14 @@ const RPCMethod = ({
           text={`${window.location.origin}/?version=${selectedVersion}#${pkg}.${method.name}`}
           onCopy={handleCopyClick}
         >
-          <span
-            className='cursor-pointer text-gray-500 hover:text-blue-500'
+          <div
+            className='cursor-pointer'
             onClick={() => {
               window.location.hash = `${pkg}.${method.name}`;
             }}
           >
-            #
-          </span>
+            <CopyIcon />
+          </div>
         </CopyToClipboard>
       </div>
       <p className='text-sm font-light text-gray-700'>{method.description}</p>
