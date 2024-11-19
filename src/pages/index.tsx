@@ -515,7 +515,7 @@ export default function Example() {
                         rel='noopener noreferrer'
                         className='text-blue-500 hover:text-blue-700 hover:underline'
                       >
-                        Learn more about setting them up
+                        Learn more about setting them up here
                       </a>
                     )}
                     {spec && `. `}
