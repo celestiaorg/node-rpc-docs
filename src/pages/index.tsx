@@ -293,7 +293,7 @@ export default function Example() {
                                 </CopyToClipboard>
                               )}
                             </a>
-                          ),
+                          )
                         )}
                       <div className='pt-4'>
                         <a className='text-md mx-2'>Clients</a>
@@ -355,8 +355,8 @@ export default function Example() {
                         methods.some((method) =>
                           method.name
                             .toLowerCase()
-                            .includes(searchTerm.toLowerCase()),
-                        ),
+                            .includes(searchTerm.toLowerCase())
+                        )
                     )
                     .map(([pkg, methods]) => (
                       <a
@@ -375,8 +375,8 @@ export default function Example() {
                       methods.some((method) =>
                         method.name
                           .toLowerCase()
-                          .includes(searchTerm.toLowerCase()),
-                      ),
+                          .includes(searchTerm.toLowerCase())
+                      )
                   ).length === 0 && (
                     <p className='ml-4 text-sm text-gray-600'>
                       👀 no modules or methods found
@@ -395,7 +395,7 @@ export default function Example() {
                       client.current
                         ? 'bg-gray-100 text-gray-900'
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                      'group ml-4 flex items-center rounded-md px-2 text-sm font-medium',
+                      'group ml-4 flex items-center rounded-md px-2 text-sm font-medium'
                     )}
                   >
                     {client.name}
@@ -506,7 +506,19 @@ export default function Example() {
                     </div>
                   </div>
                   <h2 className='mt-2 pb-4 pt-4 text-base font-normal text-gray-700'>
-                    {spec && `${spec.info.description} `}
+                    {spec &&
+                      `${spec.info.description} Node API uses auth tokens to control access to this API. `}
+                    {spec && (
+                      <a
+                        href='https://docs.celestia.org/how-to-guides/quick-start#get-your-auth-token'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='text-blue-500 hover:text-blue-700 hover:underline'
+                      >
+                        Learn more about setting them up here
+                      </a>
+                    )}
+                    {spec && `. `}
                     {spec && (
                       <a
                         href={`https://github.com/celestiaorg/celestia-node/releases/${spec.info.version}`}
@@ -531,8 +543,8 @@ export default function Example() {
                             methods.some((method) =>
                               method.name
                                 .toLowerCase()
-                                .includes(searchTerm.toLowerCase()),
-                            ),
+                                .includes(searchTerm.toLowerCase())
+                            )
                         )
                         .map(([pkg, methods]) => {
                           const filteredMethods = pkg
@@ -542,7 +554,7 @@ export default function Example() {
                             : methods.filter((method) =>
                                 method.name
                                   .toLowerCase()
-                                  .includes(searchTerm.toLowerCase()),
+                                  .includes(searchTerm.toLowerCase())
                               );
 
                           return (
@@ -682,7 +694,7 @@ const ExampleTypeModal = ({
                               {JSON.stringify(
                                 currentParam.schema.examples[0],
                                 null,
-                                '\t',
+                                '\t'
                               )}
                             </SyntaxHighlighter>
                           </p>
