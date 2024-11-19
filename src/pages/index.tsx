@@ -507,7 +507,7 @@ export default function Example() {
                   </div>
                   <h2 className='mt-2 pb-4 pt-4 text-base font-normal text-gray-700'>
                     {spec &&
-                      `${spec.info.description} Node API uses auth tokens. `}
+                      `${spec.info.description} Node API uses auth tokens to control access to this API. `}
                     {spec && (
                       <a
                         href='https://docs.celestia.org/how-to-guides/quick-start#get-your-auth-token'
