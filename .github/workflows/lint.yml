@@ -12,18 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
+        uses: styfle/cancel-workflow-action@0.12.0
 
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
+        uses: bahmutov/npm-install@v1.8.0
 
       - name: 🔬 Lint
         run: yarn lint:strict
@@ -33,18 +33,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
+        uses: styfle/cancel-workflow-action@0.12.0
 
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
+        uses: bahmutov/npm-install@v1.8.0
 
       - name: 🔎 Type check
         run: yarn typecheck
