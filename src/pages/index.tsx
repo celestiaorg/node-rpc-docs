@@ -127,6 +127,7 @@ const versions = [
   `v0.23.5`,
   `v0.25.3`,
   `v0.26.4`,
+  `v0.28.2`,
 ].reverse();
 
 export default function Example() {
@@ -302,7 +303,7 @@ export default function Example() {
                                 </CopyToClipboard>
                               )}
                             </a>
-                          )
+                          ),
                         )}
                       <div className='pt-4'>
                         <a className='text-md mx-2'>Clients</a>
@@ -364,8 +365,8 @@ export default function Example() {
                         methods.some((method) =>
                           method.name
                             .toLowerCase()
-                            .includes(searchTerm.toLowerCase())
-                        )
+                            .includes(searchTerm.toLowerCase()),
+                        ),
                     )
                     .map(([pkg, methods]) => (
                       <a
@@ -384,8 +385,8 @@ export default function Example() {
                       methods.some((method) =>
                         method.name
                           .toLowerCase()
-                          .includes(searchTerm.toLowerCase())
-                      )
+                          .includes(searchTerm.toLowerCase()),
+                      ),
                   ).length === 0 && (
                     <p className='ml-4 text-sm text-gray-600'>
                       👀 no modules or methods found
@@ -404,7 +405,7 @@ export default function Example() {
                       client.current
                         ? 'bg-gray-100 text-gray-900'
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                      'group ml-4 flex items-center rounded-md px-2 text-sm font-medium'
+                      'group ml-4 flex items-center rounded-md px-2 text-sm font-medium',
                     )}
                   >
                     {client.name}
@@ -552,8 +553,8 @@ export default function Example() {
                             methods.some((method) =>
                               method.name
                                 .toLowerCase()
-                                .includes(searchTerm.toLowerCase())
-                            )
+                                .includes(searchTerm.toLowerCase()),
+                            ),
                         )
                         .map(([pkg, methods]) => {
                           const filteredMethods = pkg
@@ -563,7 +564,7 @@ export default function Example() {
                             : methods.filter((method) =>
                                 method.name
                                   .toLowerCase()
-                                  .includes(searchTerm.toLowerCase())
+                                  .includes(searchTerm.toLowerCase()),
                               );
 
                           return (
@@ -703,7 +704,7 @@ const ExampleTypeModal = ({
                               {JSON.stringify(
                                 currentParam.schema.examples[0],
                                 null,
-                                '\t'
+                                '\t',
                               )}
                             </SyntaxHighlighter>
                           </p>
